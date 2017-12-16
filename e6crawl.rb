@@ -13,7 +13,7 @@ module E621Crawler
 
 	class Post
 		def Post.index(options = {})
-			tags = options[:tags].nil? ? [] : options[:tags]
+			tags = options[:tags].nil? ? [] : (options[:tags].class == String ? [options[:tags]] : options[:tags])
 			metatags = options[:metatags].nil? ? {} : options[:metatags]
 
 			# Defaults in options
