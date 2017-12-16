@@ -1,6 +1,7 @@
 #!/usr/bin/env ruby
 
 require "net/http"
+require "tempfile"
 
 require "curb"
 require "json"
@@ -109,15 +110,15 @@ module E621Crawler
 		end
 		def QtGUI.debug_thumb(post)
 			url = post.raw_hash["sample_url"]
-			file = "dl.#{post.raw_hash["file_ext"]}"
 			domain = "static1.e#{url.include?("e926.net/") ? "926" : "621"}.net"
+			local_file = Tempfile.new(["e6l-", ".#{post.raw_hash["file_ext"]}"])
 			Net::HTTP.start(domain) do |http|
-				open(file, "wb") do |file|
+				open(local_file.path, "wb") do |file|
 					file.write http.get(url.split(domain)[1]).body
 				end
 			end
 			qt_app = Qt::Application.new(ARGV)
-			thumb_window = ImageDisplayWindow.new(Qt::Image.new(file), "e6##{post.raw_hash["id"]}", post.raw_hash["sample_width"], post.raw_hash["sample_height"])
+			thumb_window = ImageDisplayWindow.new(Qt::Image.new(local_file.path), "e6##{post.raw_hash["id"]}", post.raw_hash["sample_width"], post.raw_hash["sample_height"])
 			thumb_window.show
 			qt_app.exec
 		end
