@@ -17,6 +17,7 @@ module E621Crawler
 
 		def initialize(h)
 			@raw_hash = h
+			@tags = h["tags"]
 		end
 		def PostData.mass_init(a)
 			r = []
@@ -30,7 +31,7 @@ module E621Crawler
 		end
 
 		def debug_tags
-			puts JSON.generate(@raw_hash["tags"], PRETTY_JSON)
+			puts JSON.generate(@tags, PRETTY_JSON)
 		end
 	end
 
