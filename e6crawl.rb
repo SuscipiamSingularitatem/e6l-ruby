@@ -38,7 +38,13 @@ module E621Crawler
 	class Post
 		def Post.index(options = {})
 			tags = options[:tags].nil? ? [] : (options[:tags].class == String ? [options[:tags]] : options[:tags])
-			metatags = options[:metatags].nil? ? {} : options[:metatags]
+
+			if options[:metatags].nil?
+				metatags = {}
+			else
+				metatags = options[:metatags]
+				options.delete :metatags
+			end
 
 			# Defaults in options
 			options[:limit] = 100 if options[:limit].nil?
@@ -55,14 +61,16 @@ module E621Crawler
 
 			# Put tags into options
 			domain = "e621.net"
-			if metatags["rating"] == "s"
+			if metatags[:rating] == "s"
 				domain = "e926.net"
-				metatags["rating"] = nil
+				metatags.delete :rating
 			end
 			metatags.each do |k, v|
 				case k
-				when "rating"
+				when :rating
 					tags << "rating:#{v}"
+				when :order
+					tags << "order:#{v}"
 				end
 			end
 			options[:tags] = tags*" "
