@@ -24,6 +24,11 @@ module E621Crawler
 			return r
 		end
 
+		def is_sfw?
+			@sfw = @raw_hash["rating"] == "s" if @sfw.nil?
+			return @sfw
+		end
+
 		def debug_tags
 			puts JSON.generate(@raw_hash["tags"], PRETTY_JSON)
 		end
