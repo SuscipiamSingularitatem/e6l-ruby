@@ -2,10 +2,14 @@
 
 require "curb"
 require "json"
+require "os"
 
 module E621Crawler
 	PRETTY_JSON = {space: " ", object_nl: "\n", array_nl: "\n", indent: "\t"}
 	SETTINGS = JSON[File.read("settings.json")]
+	USER_AGENT = "e6l-ruby/0.1 (by @YoshiRulz on e621; @SuscipiamSingularitatem on GitHub) Curb/#{Curl::CURB_VERSION} (" +
+		(OS.posix? ? (OS.mac? ? "macOS; " : "Linux; ") : (OS.doze? ? "Windows; " : "")) +
+		"Ruby/#{RUBY_VERSION})"
 
 	class PostData
 		def initialize(h)
@@ -56,7 +60,7 @@ module E621Crawler
 			end
 
 			http = Curl.get("https://#{domain}/post/index.json", query) do |http|
-				http.headers["User-Agent"] = "e6l-ruby/0.1 (by @YoshiRulz on e621)"
+				http.headers["User-Agent"] = USER_AGENT
 			end
 			return JSON[http.body_str]
 		end
