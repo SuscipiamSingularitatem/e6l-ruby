@@ -16,6 +16,11 @@ module E621Crawler
 		def initialize(h)
 			@raw = h
 		end
+		def PostData.mass_init(a)
+			r = []
+			a.each do |h| r << PostData.new(h) end
+			return r
+		end
 
 		def debug_tags
 			puts JSON.generate(@raw["tags"], PRETTY_JSON)
@@ -63,7 +68,7 @@ module E621Crawler
 			http = Curl.get("https://#{domain}/post/index.json", query) do |http|
 				http.headers["User-Agent"] = USER_AGENT
 			end
-			return JSON[http.body_str]
+			return PostData.mass_init JSON[http.body_str]
 		end
 	end
 end
