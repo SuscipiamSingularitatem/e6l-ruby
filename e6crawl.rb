@@ -13,8 +13,10 @@ module E621Crawler
 		"Ruby/#{RUBY_VERSION})"
 
 	class PostData
+		attr_reader :raw_hash
+
 		def initialize(h)
-			@raw = h
+			@raw_hash = h
 		end
 		def PostData.mass_init(a)
 			r = []
@@ -23,7 +25,7 @@ module E621Crawler
 		end
 
 		def debug_tags
-			puts JSON.generate(@raw["tags"], PRETTY_JSON)
+			puts JSON.generate(@raw_hash["tags"], PRETTY_JSON)
 		end
 	end
 
