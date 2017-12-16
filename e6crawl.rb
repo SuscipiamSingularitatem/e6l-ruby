@@ -3,10 +3,11 @@
 require "curb"
 require "json"
 require "os"
+require "toml"
 
 module E621Crawler
 	PRETTY_JSON = {space: " ", object_nl: "\n", array_nl: "\n", indent: "\t"}
-	SETTINGS = JSON[File.read("settings.json")]
+	SETTINGS = File.exist?("settings.toml") ? TOML.load_file("settings.toml") : JSON[File.read("settings.json")]
 	USER_AGENT = "e6l-ruby/0.1 (by @YoshiRulz on e621; @SuscipiamSingularitatem on GitHub) Curb/#{Curl::CURB_VERSION} (" +
 		(OS.posix? ? (OS.mac? ? "macOS; " : "Linux; ") : (OS.doze? ? "Windows; " : "")) +
 		"Ruby/#{RUBY_VERSION})"
