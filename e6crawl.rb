@@ -1,13 +1,19 @@
 #!/usr/bin/env ruby
 
 require "curb"
+require "json"
 
 module E621Crawler
+	PRETTY_JSON = {space: " ", object_nl: "\n", array_nl: "\n", indent: "\t"}
 	SETTINGS = JSON[File.read("settings.json")]
 
 	class PostData
-		def PostData.fromHash(h)
-			return h #TODO
+		def initialize(h)
+			@raw = h
+		end
+
+		def debug_tags
+			puts JSON.generate(@raw["tags"], PRETTY_JSON)
 		end
 	end
 
