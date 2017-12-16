@@ -1,6 +1,6 @@
 #!/usr/bin/env ruby
 
-require "./e6crawl.rb"
+require_relative "e6crawl.rb"
 
-output = E621Crawler::Post.index(tags: ["yoshi"], limit: 1)
-puts output[0].raw_hash
+output = E621Crawler::Post.index(tags: "rainbow_dash_(mlp) -animated", metatags: {rating: "s", order: "favcount"}, limit: 1)
+E621Crawler::QtGUI.debug_thumb(output[0])

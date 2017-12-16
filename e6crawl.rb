@@ -1,9 +1,13 @@
 #!/usr/bin/env ruby
 
+require "net/http"
+
 require "curb"
 require "json"
 require "os"
 require "toml"
+
+require "Qt"
 
 module E621Crawler
 	PRETTY_JSON = {space: " ", object_nl: "\n", array_nl: "\n", indent: "\t"}
@@ -85,6 +89,37 @@ module E621Crawler
 				http.headers["User-Agent"] = USER_AGENT
 			end
 			return PostData.mass_init JSON[http.body_str]
+		end
+	end
+
+	class QtGUI
+		class ImageDisplayWindow < Qt::MainWindow
+			def initialize(image, title, width, height)
+				super(nil)
+				image_label = Qt::Label.new
+				image_label.backgroundRole = Qt::Palette::Base
+				image_label.setSizePolicy(Qt::SizePolicy::Ignored, Qt::SizePolicy::Ignored)
+				image_label.scaledContents = true
+				setCentralWidget image_label
+				setWindowTitle title
+				image_label.pixmap = Qt::Pixmap.fromImage image
+				image_label.adjustSize
+				resize(width, height)
+			end
+		end
+		def QtGUI.debug_thumb(post)
+			url = post.raw_hash["sample_url"]
+			file = "dl.#{post.raw_hash["file_ext"]}"
+			domain = "static1.e#{url.include?("e926.net/") ? "926" : "621"}.net"
+			Net::HTTP.start(domain) do |http|
+				open(file, "wb") do |file|
+					file.write http.get(url.split(domain)[1]).body
+				end
+			end
+			qt_app = Qt::Application.new(ARGV)
+			thumb_window = ImageDisplayWindow.new(Qt::Image.new(file), "e6##{post.raw_hash["id"]}", post.raw_hash["sample_width"], post.raw_hash["sample_height"])
+			thumb_window.show
+			qt_app.exec
 		end
 	end
 end
