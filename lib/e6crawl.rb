@@ -38,7 +38,7 @@ module E621Crawler
 			return r
 		end
 
-		# @return [Boolean] @sfw (true for "rating:s")
+		# @return [Boolean] true if "rating:s"
 		def is_sfw?
 			@sfw = @raw_hash["rating"] == "s" if @sfw.nil?
 			return @sfw

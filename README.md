@@ -9,10 +9,10 @@ While it doesn't do much right now, you can use the development version easily:
 $> gem install curb os qtbindings toml   # May take a while if not already installed
 $> git clone https://github.com/CyberYiff/e6l-ruby.git && cd e6l-ruby
 $> mv settings.json.new settings.json   # Or manually change settings
-$> ./test.rb
+$> ./test.sh
 ```
 If you want to generate docs as well:
 ```
 $> gem install yard
-$> yard doc e6crawl.rb test.rb   # Temporary until modules are moved to lib/
+$> yard doc
 ```
