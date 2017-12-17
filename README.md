@@ -11,3 +11,8 @@ $> git clone https://github.com/CyberYiff/e6l-ruby.git && cd e6l-ruby
 $> mv settings.json.new settings.json   # Or manually change settings
 $> ./test.rb
 ```
+If you want to generate docs as well:
+```
+$> gem install yard
+$> yard doc e6crawl.rb test.rb   # Temporary until modules are moved to lib/
+```

@@ -31,6 +31,7 @@ module E621Crawler
 			return r
 		end
 
+		# @return [Boolean] @sfw (true for "rating:s")
 		def is_sfw?
 			@sfw = @raw_hash["rating"] == "s" if @sfw.nil?
 			return @sfw
@@ -55,6 +56,8 @@ module E621Crawler
 	end
 
 	class Post
+		# Interfaces with {https://e621.net/post/index.json}.
+		# @return [Array<PostData>] one or more posts
 		def Post.index(options = {})
 			tags = options[:tags].nil? ? [] : (options[:tags].class == String ? [options[:tags]] : options[:tags])
 
