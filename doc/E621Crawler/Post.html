@@ -138,6 +138,172 @@
 </li>
 
       
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#intern_show_tags-class_method" title="intern_show_tags (class method)">.<strong>intern_show_tags</strong>(is_show, use_id, id, md5, safe)  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#show-class_method" title="show (class method)">.<strong>show</strong>(id, safe = false)  &#x21d2; PostData </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Interfaces with <a href="https://e621.net/post/show.json" target="_parent" title="https://e621.net/post/show.json">https://e621.net/post/show.json</a>.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#show_id-class_method" title="show_id (class method)">.<strong>show_id</strong>(id, safe = false)  &#x21d2; PostData </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Interfaces with <a href="https://e621.net/post/show.json" target="_parent" title="https://e621.net/post/show.json">https://e621.net/post/show.json</a>.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#show_md5-class_method" title="show_md5 (class method)">.<strong>show_md5</strong>(md5, safe = false)  &#x21d2; PostData </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Interfaces with <a href="https://e621.net/post/show.json" target="_parent" title="https://e621.net/post/show.json">https://e621.net/post/show.json</a>.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#tags-class_method" title="tags (class method)">.<strong>tags</strong>(id, safe = false)  &#x21d2; Array&lt;String&gt; </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Interfaces with <a href="https://e621.net/post/tags.json" target="_parent" title="https://e621.net/post/tags.json">https://e621.net/post/tags.json</a>.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#tags_id-class_method" title="tags_id (class method)">.<strong>tags_id</strong>(id, safe = false)  &#x21d2; Array&lt;String&gt; </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Interfaces with <a href="https://e621.net/post/tags.json" target="_parent" title="https://e621.net/post/tags.json">https://e621.net/post/tags.json</a>.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#tags_md5-class_method" title="tags_md5 (class method)">.<strong>tags_md5</strong>(md5, safe = false)  &#x21d2; Array&lt;String&gt; </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Interfaces with <a href="https://e621.net/post/tags.json" target="_parent" title="https://e621.net/post/tags.json">https://e621.net/post/tags.json</a>.</p>
+</div></span>
+  
+</li>
+
+      
     </ul>
   
 
@@ -290,12 +456,388 @@
 </table>
 </div>
     
+      <div class="method_details ">
+  <h3 class="signature " id="intern_show_tags-class_method">
+  
+    .<strong>intern_show_tags</strong>(is_show, use_id, id, md5, safe)  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/e6crawler/post.rb', line 51</span>
+
+<span class='kw'>def</span> <span class='const'><span class='object_link'><a href="" title="E621Crawler::Post (class)">Post</a></span></span><span class='period'>.</span><span class='id identifier rubyid_intern_show_tags'>intern_show_tags</span><span class='lparen'>(</span><span class='id identifier rubyid_is_show'>is_show</span><span class='comma'>,</span> <span class='id identifier rubyid_use_id'>use_id</span><span class='comma'>,</span> <span class='id identifier rubyid_id'>id</span><span class='comma'>,</span> <span class='id identifier rubyid_md5'>md5</span><span class='comma'>,</span> <span class='id identifier rubyid_safe'>safe</span><span class='rparen'>)</span>
+	<span class='id identifier rubyid_query'>query</span> <span class='op'>=</span> <span class='id identifier rubyid_use_id'>use_id</span> <span class='op'>?</span> <span class='lbrace'>{</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>id</span><span class='tstring_end'>&quot;</span></span> <span class='op'>=&gt;</span> <span class='id identifier rubyid_id'>id</span><span class='rbrace'>}</span> <span class='op'>:</span> <span class='lbrace'>{</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>md5</span><span class='tstring_end'>&quot;</span></span> <span class='op'>=&gt;</span> <span class='id identifier rubyid_md5'>md5</span><span class='rbrace'>}</span>
+
+	<span class='comment'># Optionally authenticate
+</span>	<span class='kw'>if</span> <span class='const'><span class='object_link'><a href="../E6lSettings.html" title="E6lSettings (module)">E6lSettings</a></span></span><span class='period'>.</span><span class='id identifier rubyid_get'><span class='object_link'><a href="../E6lSettings.html#get-class_method" title="E6lSettings.get (method)">get</a></span></span><span class='period'>.</span><span class='id identifier rubyid_login_given'>login_given</span>
+		<span class='id identifier rubyid_query'>query</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>login</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../E6lSettings.html" title="E6lSettings (module)">E6lSettings</a></span></span><span class='period'>.</span><span class='id identifier rubyid_get'><span class='object_link'><a href="../E6lSettings.html#get-class_method" title="E6lSettings.get (method)">get</a></span></span><span class='period'>.</span><span class='id identifier rubyid_username'>username</span>
+		<span class='id identifier rubyid_query'>query</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>password_hash</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../E6lSettings.html" title="E6lSettings (module)">E6lSettings</a></span></span><span class='period'>.</span><span class='id identifier rubyid_get'><span class='object_link'><a href="../E6lSettings.html#get-class_method" title="E6lSettings.get (method)">get</a></span></span><span class='period'>.</span><span class='id identifier rubyid_apikey'>apikey</span>
+	<span class='kw'>end</span>
+
+	<span class='kw'>return</span> <span class='const'><span class='object_link'><a href="../E621Crawler.html" title="E621Crawler (module)">E621Crawler</a></span></span><span class='period'>.</span><span class='id identifier rubyid_http_get_json'><span class='object_link'><a href="../E621Crawler.html#http_get_json-class_method" title="E621Crawler.http_get_json (method)">http_get_json</a></span></span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>https://e</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_safe'>safe</span> <span class='op'>?</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>926</span><span class='tstring_end'>&quot;</span></span> <span class='op'>:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>621</span><span class='tstring_end'>&quot;</span></span><span class='embexpr_end'>}</span><span class='tstring_content'>.net/post/</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_is_show'>is_show</span> <span class='op'>?</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>show</span><span class='tstring_end'>&quot;</span></span> <span class='op'>:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>tags</span><span class='tstring_end'>&quot;</span></span><span class='embexpr_end'>}</span><span class='tstring_content'>.json</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_query'>query</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="show-class_method">
+  
+    .<strong>show</strong>(id, safe = false)  &#x21d2; <tt><span class='object_link'><a href="PostData.html" title="E621Crawler::PostData (class)">PostData</a></span></tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Interfaces with <a href="https://e621.net/post/show.json" target="_parent" title="https://e621.net/post/show.json">https://e621.net/post/show.json</a>.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="PostData.html" title="E621Crawler::PostData (class)">PostData</a></span></tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>the post</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+73</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/e6crawler/post.rb', line 73</span>
+
+<span class='kw'>def</span> <span class='const'><span class='object_link'><a href="" title="E621Crawler::Post (class)">Post</a></span></span><span class='period'>.</span><span class='id identifier rubyid_show'>show</span><span class='lparen'>(</span><span class='id identifier rubyid_id'>id</span><span class='comma'>,</span> <span class='id identifier rubyid_safe'>safe</span> <span class='op'>=</span> <span class='kw'>false</span><span class='rparen'>)</span> <span class='kw'>return</span> <span class='const'><span class='object_link'><a href="" title="E621Crawler::Post (class)">Post</a></span></span><span class='period'>.</span><span class='id identifier rubyid_show_id'><span class='object_link'><a href="#show_id-class_method" title="E621Crawler::Post.show_id (method)">show_id</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_id'>id</span><span class='comma'>,</span> <span class='id identifier rubyid_safe'>safe</span><span class='rparen'>)</span> <span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="show_id-class_method">
+  
+    .<strong>show_id</strong>(id, safe = false)  &#x21d2; <tt><span class='object_link'><a href="PostData.html" title="E621Crawler::PostData (class)">PostData</a></span></tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Interfaces with <a href="https://e621.net/post/show.json" target="_parent" title="https://e621.net/post/show.json">https://e621.net/post/show.json</a>.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="PostData.html" title="E621Crawler::PostData (class)">PostData</a></span></tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>the post</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+69</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/e6crawler/post.rb', line 69</span>
+
+<span class='kw'>def</span> <span class='const'><span class='object_link'><a href="" title="E621Crawler::Post (class)">Post</a></span></span><span class='period'>.</span><span class='id identifier rubyid_show_id'>show_id</span><span class='lparen'>(</span><span class='id identifier rubyid_id'>id</span><span class='comma'>,</span> <span class='id identifier rubyid_safe'>safe</span> <span class='op'>=</span> <span class='kw'>false</span><span class='rparen'>)</span> <span class='kw'>return</span> <span class='const'><span class='object_link'><a href="PostData.html" title="E621Crawler::PostData (class)">PostData</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="PostData.html#initialize-instance_method" title="E621Crawler::PostData#initialize (method)">new</a></span></span> <span class='const'><span class='object_link'><a href="" title="E621Crawler::Post (class)">Post</a></span></span><span class='period'>.</span><span class='id identifier rubyid_intern_show_tags'><span class='object_link'><a href="#intern_show_tags-class_method" title="E621Crawler::Post.intern_show_tags (method)">intern_show_tags</a></span></span><span class='lparen'>(</span><span class='kw'>true</span><span class='comma'>,</span> <span class='kw'>true</span><span class='comma'>,</span> <span class='id identifier rubyid_id'>id</span><span class='comma'>,</span> <span class='kw'>nil</span><span class='comma'>,</span> <span class='id identifier rubyid_safe'>safe</span><span class='rparen'>)</span> <span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="show_md5-class_method">
+  
+    .<strong>show_md5</strong>(md5, safe = false)  &#x21d2; <tt><span class='object_link'><a href="PostData.html" title="E621Crawler::PostData (class)">PostData</a></span></tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Interfaces with <a href="https://e621.net/post/show.json" target="_parent" title="https://e621.net/post/show.json">https://e621.net/post/show.json</a>.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="PostData.html" title="E621Crawler::PostData (class)">PostData</a></span></tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>the post</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+65</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/e6crawler/post.rb', line 65</span>
+
+<span class='kw'>def</span> <span class='const'><span class='object_link'><a href="" title="E621Crawler::Post (class)">Post</a></span></span><span class='period'>.</span><span class='id identifier rubyid_show_md5'>show_md5</span><span class='lparen'>(</span><span class='id identifier rubyid_md5'>md5</span><span class='comma'>,</span> <span class='id identifier rubyid_safe'>safe</span> <span class='op'>=</span> <span class='kw'>false</span><span class='rparen'>)</span> <span class='kw'>return</span> <span class='const'><span class='object_link'><a href="PostData.html" title="E621Crawler::PostData (class)">PostData</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="PostData.html#initialize-instance_method" title="E621Crawler::PostData#initialize (method)">new</a></span></span> <span class='const'><span class='object_link'><a href="" title="E621Crawler::Post (class)">Post</a></span></span><span class='period'>.</span><span class='id identifier rubyid_intern_show_tags'><span class='object_link'><a href="#intern_show_tags-class_method" title="E621Crawler::Post.intern_show_tags (method)">intern_show_tags</a></span></span><span class='lparen'>(</span><span class='kw'>true</span><span class='comma'>,</span> <span class='kw'>false</span><span class='comma'>,</span> <span class='kw'>nil</span><span class='comma'>,</span> <span class='id identifier rubyid_md5'>md5</span><span class='comma'>,</span> <span class='id identifier rubyid_safe'>safe</span><span class='rparen'>)</span> <span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="tags-class_method">
+  
+    .<strong>tags</strong>(id, safe = false)  &#x21d2; <tt>Array&lt;String&gt;</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Interfaces with <a href="https://e621.net/post/tags.json" target="_parent" title="https://e621.net/post/tags.json">https://e621.net/post/tags.json</a>.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Array&lt;String&gt;</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>the post&#39;s tags</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+85</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/e6crawler/post.rb', line 85</span>
+
+<span class='kw'>def</span> <span class='const'><span class='object_link'><a href="" title="E621Crawler::Post (class)">Post</a></span></span><span class='period'>.</span><span class='id identifier rubyid_tags'>tags</span><span class='lparen'>(</span><span class='id identifier rubyid_id'>id</span><span class='comma'>,</span> <span class='id identifier rubyid_safe'>safe</span> <span class='op'>=</span> <span class='kw'>false</span><span class='rparen'>)</span> <span class='kw'>return</span> <span class='const'><span class='object_link'><a href="" title="E621Crawler::Post (class)">Post</a></span></span><span class='period'>.</span><span class='id identifier rubyid_tags_id'><span class='object_link'><a href="#tags_id-class_method" title="E621Crawler::Post.tags_id (method)">tags_id</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_id'>id</span><span class='comma'>,</span> <span class='id identifier rubyid_safe'>safe</span><span class='rparen'>)</span> <span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="tags_id-class_method">
+  
+    .<strong>tags_id</strong>(id, safe = false)  &#x21d2; <tt>Array&lt;String&gt;</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Interfaces with <a href="https://e621.net/post/tags.json" target="_parent" title="https://e621.net/post/tags.json">https://e621.net/post/tags.json</a>.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Array&lt;String&gt;</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>the post&#39;s tags</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+81</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/e6crawler/post.rb', line 81</span>
+
+<span class='kw'>def</span> <span class='const'><span class='object_link'><a href="" title="E621Crawler::Post (class)">Post</a></span></span><span class='period'>.</span><span class='id identifier rubyid_tags_id'>tags_id</span><span class='lparen'>(</span><span class='id identifier rubyid_id'>id</span><span class='comma'>,</span> <span class='id identifier rubyid_safe'>safe</span> <span class='op'>=</span> <span class='kw'>false</span><span class='rparen'>)</span> <span class='kw'>return</span> <span class='const'><span class='object_link'><a href="" title="E621Crawler::Post (class)">Post</a></span></span><span class='period'>.</span><span class='id identifier rubyid_intern_show_tags'><span class='object_link'><a href="#intern_show_tags-class_method" title="E621Crawler::Post.intern_show_tags (method)">intern_show_tags</a></span></span><span class='lparen'>(</span><span class='kw'>false</span><span class='comma'>,</span> <span class='kw'>true</span><span class='comma'>,</span> <span class='id identifier rubyid_id'>id</span><span class='comma'>,</span> <span class='kw'>nil</span><span class='comma'>,</span> <span class='id identifier rubyid_safe'>safe</span><span class='rparen'>)</span> <span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="tags_md5-class_method">
+  
+    .<strong>tags_md5</strong>(md5, safe = false)  &#x21d2; <tt>Array&lt;String&gt;</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Interfaces with <a href="https://e621.net/post/tags.json" target="_parent" title="https://e621.net/post/tags.json">https://e621.net/post/tags.json</a>.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Array&lt;String&gt;</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>the post&#39;s tags</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+77</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/e6crawler/post.rb', line 77</span>
+
+<span class='kw'>def</span> <span class='const'><span class='object_link'><a href="" title="E621Crawler::Post (class)">Post</a></span></span><span class='period'>.</span><span class='id identifier rubyid_tags_md5'>tags_md5</span><span class='lparen'>(</span><span class='id identifier rubyid_md5'>md5</span><span class='comma'>,</span> <span class='id identifier rubyid_safe'>safe</span> <span class='op'>=</span> <span class='kw'>false</span><span class='rparen'>)</span> <span class='kw'>return</span> <span class='const'><span class='object_link'><a href="" title="E621Crawler::Post (class)">Post</a></span></span><span class='period'>.</span><span class='id identifier rubyid_intern_show_tags'><span class='object_link'><a href="#intern_show_tags-class_method" title="E621Crawler::Post.intern_show_tags (method)">intern_show_tags</a></span></span><span class='lparen'>(</span><span class='kw'>false</span><span class='comma'>,</span> <span class='kw'>false</span><span class='comma'>,</span> <span class='kw'>nil</span><span class='comma'>,</span> <span class='id identifier rubyid_md5'>md5</span><span class='comma'>,</span> <span class='id identifier rubyid_safe'>safe</span><span class='rparen'>)</span> <span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
   </div>
 
 </div>
 
       <div id="footer">
-  Generated on Sun Dec 17 18:42:15 2017 by
+  Generated on Sun Dec 17 19:45:06 2017 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.12 (ruby-2.4.2).
 </div>
