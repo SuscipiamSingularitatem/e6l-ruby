@@ -18,11 +18,12 @@ module E621Crawler
 		"Ruby/#{RUBY_VERSION})"
 
 	class PostData
-		attr_reader :raw_hash, :sample_tempfile
+		attr_reader :ext, :raw_hash, :sample_tempfile
 
 		def initialize(h)
 			@raw_hash = h
 			@tags = h["tags"]
+			@ext = h["file_ext"]
 		end
 		def PostData.mass_init(a)
 			r = []
@@ -122,19 +123,19 @@ module E621Crawler
 			end
 		end
 		def QtGUI.debug_thumb(post)
-			case post.raw_hash["file_ext"]
+			case post.ext
 			when "gif", "jpg", "png"
 				post.dl_sample
 				path = post.sample_tempfile.path
 				width = post.raw_hash["sample_width"]
 				height = post.raw_hash["sample_height"]
 			when "swf", "webm"
-				path = "#{post.raw_hash["file_ext"] == "swf" ? "download" : "webm"}-preview.png"
+				path = "#{post.ext == "swf" ? "download" : "webm"}-preview.png"
 				width = 150
 				height = 150
 			end
 			qt_app = Qt::Application.new(ARGV)
-			thumb_window = ImageDisplayWindow.new(path, "e6##{post.raw_hash["id"]}", width, height)
+			thumb_window = ImageDisplayWindow.new(path, "e6##{post.raw_hash["id"]} (.#{post.ext})", width, height)
 			thumb_window.show
 			qt_app.exec
 		end
