@@ -1,6 +1,8 @@
 # e6l-ruby
 Take e621 with you, Ruby+MongoDB style.
 
+[![BCH compliance](https://bettercodehub.com/edge/badge/CyberYiff/e6l-ruby?branch=master)](https://bettercodehub.com/)
+
 ## Quick start
 While it doesn't do much right now, you can use the development version easily:
 ```
