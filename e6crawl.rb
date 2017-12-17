@@ -16,6 +16,13 @@ module E621Crawler
 		(OS.posix? ? (OS.mac? ? "macOS; " : "Linux; ") : (OS.doze? ? "Windows; " : "")) +
 		"Ruby/#{RUBY_VERSION})"
 
+	def E621Crawler.http_get_json(uri, query)
+		http = Curl.get(uri, query) do |http|
+			http.headers["User-Agent"] = USER_AGENT
+		end
+		return JSON[http.body_str]
+	end
+
 	class PostData
 		attr_reader :ext, :raw_hash, :sample_tempfile
 
@@ -58,8 +65,12 @@ module E621Crawler
 		# Interfaces with {https://e621.net/post/index.json}.
 		# @return [Array<PostData>] one or more posts
 		def Post.index(options = {})
-			tags = options[:tags].nil? ? [] : (options[:tags].class == String ? [options[:tags]] : options[:tags])
-
+			if options[:tags].nil?
+				tags = []
+			else
+				tags = options[:tags]
+				tags = [tags.to_s] if tags.class != Array
+			end
 			if options[:metatags].nil?
 				metatags = {}
 			else
@@ -83,32 +94,20 @@ module E621Crawler
 				metatags[:rating] = "s"
 			end
 
-			# Put tags into options
+			# Metatags -> tags
 			domain = "e621.net"
 			if metatags[:rating] == "s"
 				domain = "e926.net"
 				metatags.delete :rating
 			end
-			metatags.each do |k, v|
-				case k
-				when :rating
-					tags << "rating:#{v}"
-				when :order
-					tags << "order:#{v}"
-				end
-			end
-			options[:tags] = tags*" "
+			metatags.each do |k, v| tags << "#{k.to_s}:#{v}" end
 
 			# Generate querystring
+			options[:tags] = tags*" "
 			query = {}
-			options.each do |k, v|
-				query[k.to_s] = v
-			end
+			options.each do |k, v| query[k.to_s] = v end
 
-			http = Curl.get("https://#{domain}/post/index.json", query) do |http|
-				http.headers["User-Agent"] = USER_AGENT
-			end
-			return PostData.mass_init JSON[http.body_str]
+			return PostData.mass_init E621Crawler.http_get_json("https://#{domain}/post/index.json", query)
 		end
 	end
 
