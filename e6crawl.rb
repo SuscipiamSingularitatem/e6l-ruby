@@ -1,5 +1,3 @@
-#!/usr/bin/env ruby
-
 require "net/http"
 require "tempfile"
 
@@ -10,9 +8,10 @@ require "toml"
 
 require "Qt"
 
+require_relative "settings.rb"
+
 module E621Crawler
 	PRETTY_JSON = {space: " ", object_nl: "\n", array_nl: "\n", indent: "\t"}
-	SETTINGS = File.exist?("settings.toml") ? TOML.load_file("settings.toml") : JSON[File.read("settings.json")]
 	USER_AGENT = "e6l-ruby/0.1 (by @YoshiRulz on e621; @SuscipiamSingularitatem on GitHub) Curb/#{Curl::CURB_VERSION} (" +
 		(OS.posix? ? (OS.mac? ? "macOS; " : "Linux; ") : (OS.doze? ? "Windows; " : "")) +
 		"Ruby/#{RUBY_VERSION})"
@@ -73,14 +72,14 @@ module E621Crawler
 			metatags[:rating] = "s" if options[:tags].nil? && options[:metatags].nil? # no tags ==> grab latest SFW (from e926)
 
 			# Overwrite options w/ user settings
-			if !SETTINGS["username"].nil? && !SETTINGS["apikey"].nil?
-				options[:login] = SETTINGS["username"]
-				options[:password_hash] = SETTINGS["apikey"]
+			if E6lSettings.get.login_given
+				options[:login] = E6lSettings.get.username
+				options[:password_hash] = E6lSettings.get.apikey
 			end
-			if SETTINGS["ignore_tag_cat"].nil? || !SETTINGS["ignore_tag_cat"]
+			unless E6lSettings.get.ignore_tag_cat
 				options[:typed_tags] = true
 			end
-			if metatags[:rating].nil? && !SETTINGS["safe_only"].nil?
+			if metatags[:rating].nil? && E6lSettings.get.safe_only
 				metatags[:rating] = "s"
 			end
 
