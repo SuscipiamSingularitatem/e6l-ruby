@@ -18,7 +18,7 @@ module E621Crawler
 		"Ruby/#{RUBY_VERSION})"
 
 	class PostData
-		attr_reader :raw_hash
+		attr_reader :raw_hash, :sample_tempfile
 
 		def initialize(h)
 			@raw_hash = h
@@ -33,6 +33,19 @@ module E621Crawler
 		def is_sfw?
 			@sfw = @raw_hash["rating"] == "s" if @sfw.nil?
 			return @sfw
+		end
+
+		def dl_sample
+			if @sample_tempfile.nil?
+				url = @raw_hash["sample_url"]
+				domain = "static1.e#{url.include?("e926.net/") ? "926" : "621"}.net"
+				@sample_tempfile = Tempfile.new(["e6l-", "." + @raw_hash["file_ext"]])
+				Net::HTTP.start(domain) do |http|
+					open(@sample_tempfile.path, "wb") do |file|
+						file.write http.get(url.split(domain)[1]).body
+					end
+				end
+			end
 		end
 
 		def debug_tags
@@ -95,15 +108,15 @@ module E621Crawler
 
 	class QtGUI
 		class ImageDisplayWindow < Qt::MainWindow
-			def initialize(image, title, width, height)
+			def initialize(image_path, window_title, width, height)
 				super(nil)
 				image_label = Qt::Label.new
 				image_label.backgroundRole = Qt::Palette::Base
 				image_label.setSizePolicy(Qt::SizePolicy::Ignored, Qt::SizePolicy::Ignored)
 				image_label.scaledContents = true
 				setCentralWidget image_label
-				setWindowTitle title
-				image_label.pixmap = Qt::Pixmap.fromImage image
+				setWindowTitle window_title
+				image_label.pixmap = Qt::Pixmap.fromImage Qt::Image.new(image_path)
 				image_label.adjustSize
 				resize(width, height)
 			end
@@ -111,23 +124,17 @@ module E621Crawler
 		def QtGUI.debug_thumb(post)
 			case post.raw_hash["file_ext"]
 			when "gif", "jpg", "png"
-				url = post.raw_hash["sample_url"]
-				domain = "static1.e#{url.include?("e926.net/") ? "926" : "621"}.net"
-				local_file = Tempfile.new(["e6l-", ".#{post.raw_hash["file_ext"]}"])
-				Net::HTTP.start(domain) do |http|
-					open(local_file.path, "wb") do |file|
-						file.write http.get(url.split(domain)[1]).body
-					end
-				end
+				post.dl_sample
+				path = post.sample_tempfile.path
 				width = post.raw_hash["sample_width"]
 				height = post.raw_hash["sample_height"]
 			when "swf", "webm"
-				local_file = File.new(post.raw_hash["file_ext"] == "swf" ? "download-preview.png" : "webm-preview.png")
+				path = "#{post.raw_hash["file_ext"] == "swf" ? "download" : "webm"}-preview.png"
 				width = 150
 				height = 150
 			end
 			qt_app = Qt::Application.new(ARGV)
-			thumb_window = ImageDisplayWindow.new(Qt::Image.new(local_file.path), "e6##{post.raw_hash["id"]}", width, height)
+			thumb_window = ImageDisplayWindow.new(path, "e6##{post.raw_hash["id"]}", width, height)
 			thumb_window.show
 			qt_app.exec
 		end
