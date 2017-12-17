@@ -47,5 +47,37 @@ module E621Crawler
 
 			return PostData.mass_init E621Crawler.http_get_json("https://#{domain}/post/index.json", query)
 		end
+
+		# Interfaces with {https://e621.net/post/show.json}.
+		# @return [PostData] the post
+		def Post.show_md5(md5, safe = false)
+			query = {"md5" => md5}
+
+			# Optionally authenticate
+			if E6lSettings.get.login_given
+				query["login"] = E6lSettings.get.username
+				query["password_hash"] = E6lSettings.get.apikey
+			end
+
+			return PostData.new E621Crawler.http_get_json("https://e#{safe ? "926" : "621"}.net/post/show.json", query)
+		end
+
+		# Interfaces with {https://e621.net/post/show.json}.
+		# @return [PostData] the post
+		def Post.show_id(id, safe = false)
+			query = {"id" => id}
+
+			# Optionally authenticate
+			if E6lSettings.get.login_given
+				query["login"] = E6lSettings.get.username
+				query["password_hash"] = E6lSettings.get.apikey
+			end
+
+			return PostData.new E621Crawler.http_get_json("https://e#{safe ? "926" : "621"}.net/post/show.json", query)
+		end
+
+		# Interfaces with {https://e621.net/post/show.json}.
+		# @return [PostData] the post
+		def Post.show(id, safe = false); return Post.show_id(id, safe) end
 	end
 end
