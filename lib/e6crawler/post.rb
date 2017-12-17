@@ -48,10 +48,8 @@ module E621Crawler
 			return PostData.mass_init E621Crawler.http_get_json("https://#{domain}/post/index.json", query)
 		end
 
-		# Interfaces with {https://e621.net/post/show.json}.
-		# @return [PostData] the post
-		def Post.show_md5(md5, safe = false)
-			query = {"md5" => md5}
+		def Post.intern_show_tags(is_show, use_id, id, md5, safe)
+			query = use_id ? {"id" => id} : {"md5" => md5}
 
 			# Optionally authenticate
 			if E6lSettings.get.login_given
@@ -59,22 +57,16 @@ module E621Crawler
 				query["password_hash"] = E6lSettings.get.apikey
 			end
 
-			return PostData.new E621Crawler.http_get_json("https://e#{safe ? "926" : "621"}.net/post/show.json", query)
+			return E621Crawler.http_get_json("https://e#{safe ? "926" : "621"}.net/post/#{is_show ? "show" : "tags"}.json", query)
 		end
 
 		# Interfaces with {https://e621.net/post/show.json}.
 		# @return [PostData] the post
-		def Post.show_id(id, safe = false)
-			query = {"id" => id}
+		def Post.show_md5(md5, safe = false) return PostData.new Post.intern_show_tags(true, false, nil, md5, safe) end
 
-			# Optionally authenticate
-			if E6lSettings.get.login_given
-				query["login"] = E6lSettings.get.username
-				query["password_hash"] = E6lSettings.get.apikey
-			end
-
-			return PostData.new E621Crawler.http_get_json("https://e#{safe ? "926" : "621"}.net/post/show.json", query)
-		end
+		# Interfaces with {https://e621.net/post/show.json}.
+		# @return [PostData] the post
+		def Post.show_id(id, safe = false) return PostData.new Post.intern_show_tags(true, true, id, nil, safe) end
 
 		# Interfaces with {https://e621.net/post/show.json}.
 		# @return [PostData] the post
@@ -82,31 +74,11 @@ module E621Crawler
 
 		# Interfaces with {https://e621.net/post/tags.json}.
 		# @return [Array<String>] the post's tags
-		def Post.tags_md5(md5, safe = false)
-			query = {"md5" => md5}
-
-			# Optionally authenticate
-			if E6lSettings.get.login_given
-				query["login"] = E6lSettings.get.username
-				query["password_hash"] = E6lSettings.get.apikey
-			end
-
-			return E621Crawler.http_get_json("https://e#{safe ? "926" : "621"}.net/post/tags.json", query)
-		end
+		def Post.tags_md5(md5, safe = false) return Post.intern_show_tags(false, false, nil, md5, safe) end
 
 		# Interfaces with {https://e621.net/post/tags.json}.
 		# @return [Array<String>] the post's tags
-		def Post.tags_id(id, safe = false)
-			query = {"id" => id}
-
-			# Optionally authenticate
-			if E6lSettings.get.login_given
-				query["login"] = E6lSettings.get.username
-				query["password_hash"] = E6lSettings.get.apikey
-			end
-
-			return E621Crawler.http_get_json("https://e#{safe ? "926" : "621"}.net/post/tags.json", query)
-		end
+		def Post.tags_id(id, safe = false) return Post.intern_show_tags(false, true, id, nil, safe) end
 
 		# Interfaces with {https://e621.net/post/tags.json}.
 		# @return [Array<String>] the post's tags
