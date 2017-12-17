@@ -109,16 +109,25 @@ module E621Crawler
 			end
 		end
 		def QtGUI.debug_thumb(post)
-			url = post.raw_hash["sample_url"]
-			domain = "static1.e#{url.include?("e926.net/") ? "926" : "621"}.net"
-			local_file = Tempfile.new(["e6l-", ".#{post.raw_hash["file_ext"]}"])
-			Net::HTTP.start(domain) do |http|
-				open(local_file.path, "wb") do |file|
-					file.write http.get(url.split(domain)[1]).body
+			case post.raw_hash["file_ext"]
+			when "gif", "jpg", "png"
+				url = post.raw_hash["sample_url"]
+				domain = "static1.e#{url.include?("e926.net/") ? "926" : "621"}.net"
+				local_file = Tempfile.new(["e6l-", ".#{post.raw_hash["file_ext"]}"])
+				Net::HTTP.start(domain) do |http|
+					open(local_file.path, "wb") do |file|
+						file.write http.get(url.split(domain)[1]).body
+					end
 				end
+				width = post.raw_hash["sample_width"]
+				height = post.raw_hash["sample_height"]
+			when "swf", "webm"
+				local_file = File.new(post.raw_hash["file_ext"] == "swf" ? "download-preview.png" : "webm-preview.png")
+				width = 150
+				height = 150
 			end
 			qt_app = Qt::Application.new(ARGV)
-			thumb_window = ImageDisplayWindow.new(Qt::Image.new(local_file.path), "e6##{post.raw_hash["id"]}", post.raw_hash["sample_width"], post.raw_hash["sample_height"])
+			thumb_window = ImageDisplayWindow.new(Qt::Image.new(local_file.path), "e6##{post.raw_hash["id"]}", width, height)
 			thumb_window.show
 			qt_app.exec
 		end
