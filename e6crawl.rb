@@ -67,15 +67,18 @@ module E621Crawler
 
 			# Defaults in options
 			options[:limit] = 100 if options[:limit].nil?
-			metatags["rating"] = "s" if options[:tags].nil? # no tags ==> grab latest SFW (from e926)
+			metatags[:rating] = "s" if options[:tags].nil? && options[:metatags].nil? # no tags ==> grab latest SFW (from e926)
 
 			# Overwrite options w/ user settings
-			unless SETTINGS["username"].nil? || SETTINGS["apikey"].nil?
+			if !SETTINGS["username"].nil? && !SETTINGS["apikey"].nil?
 				options[:login] = SETTINGS["username"]
 				options[:password_hash] = SETTINGS["apikey"]
 			end
-			unless !SETTINGS["ignore_tag_cat"].nil? && SETTINGS["ignore_tag_cat"]
+			if SETTINGS["ignore_tag_cat"].nil? || !SETTINGS["ignore_tag_cat"]
 				options[:typed_tags] = true
+			end
+			if metatags[:rating].nil? && !SETTINGS["safe_only"].nil?
+				metatags[:rating] = "s"
 			end
 
 			# Put tags into options
