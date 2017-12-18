@@ -48,27 +48,25 @@ module E621Crawler
 		end
 
 		# Interfaces with {https://e621.net/post/show.json}.
-		# @return [PostData] the post
+		# @return (see Post.show_id)
 		def Post.show_md5(md5, safe = false) return PostData.new Post.intern_show_tags(true, false, nil, md5, safe) end
 
 		# Interfaces with {https://e621.net/post/show.json}.
 		# @return [PostData] the post
 		def Post.show_id(id, safe = false) return PostData.new Post.intern_show_tags(true, true, id, nil, safe) end
 
-		# Interfaces with {https://e621.net/post/show.json}.
-		# @return [PostData] the post
+		# (see Post.show_id)
 		def Post.show(id, safe = false) return Post.show_id(id, safe) end
 
 		# Interfaces with {https://e621.net/post/tags.json}.
-		# @return [Array<String>] the post's tags
+		# @return (see Post.tags_id)
 		def Post.tags_md5(md5, safe = false) return Post.intern_show_tags(false, false, nil, md5, safe) end
 
 		# Interfaces with {https://e621.net/post/tags.json}.
 		# @return [Array<String>] the post's tags
 		def Post.tags_id(id, safe = false) return Post.intern_show_tags(false, true, id, nil, safe) end
 
-		# Interfaces with {https://e621.net/post/tags.json}.
-		# @return [Array<String>] the post's tags
+		# (see Post.tags_id)
 		def Post.tags(id, safe = false) return Post.tags_id(id, safe) end
 	end
 end
