@@ -7,8 +7,7 @@ module E621Crawler
 				E6lSettings.add_auth({"id" => id}))
 		end
 
-		# Interfaces with {https://e621.net/tag/show.json}.
-		# @return Hash the tag's data
+		# (see Tags.show_id)
 		def Tags.show(id) Tags.show_id id end
 	end
 end
