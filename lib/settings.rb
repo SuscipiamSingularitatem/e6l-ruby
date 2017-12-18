@@ -1,3 +1,6 @@
+require "json"
+require "toml"
+
 module E6lSettings
 	class E6lSettingsHandler
 		attr_reader :apikey, :ignore_tag_cat, :login_given, :safe_only, :username
@@ -22,4 +25,12 @@ module E6lSettings
 	reload
 
 	def E6lSettings.get; return @@settings_handler end
+
+	def E6lSettings.add_auth(query)
+		if E6lSettings.get.login_given
+			query["login"] = E6lSettings.get.username
+			query["password_hash"] = E6lSettings.get.apikey
+		end
+		return query
+	end
 end

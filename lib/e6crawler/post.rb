@@ -21,16 +21,9 @@ module E621Crawler
 			metatags[:rating] = "s" if options[:tags].nil? && options[:metatags].nil? # no tags ==> grab latest SFW (from e926)
 
 			# Overwrite options w/ user settings
-			if E6lSettings.get.login_given
-				options[:login] = E6lSettings.get.username
-				options[:password_hash] = E6lSettings.get.apikey
-			end
-			unless E6lSettings.get.ignore_tag_cat
-				options[:typed_tags] = true
-			end
-			if metatags[:rating].nil? && E6lSettings.get.safe_only
-				metatags[:rating] = "s"
-			end
+			query = E6lSettings.add_auth({})
+			options[:typed_tags] = true unless E6lSettings.get.ignore_tag_cat
+			metatags[:rating] = "s" if metatags[:rating].nil? && E6lSettings.get.safe_only
 
 			# Metatags -> tags
 			domain = "e621.net"
@@ -42,22 +35,16 @@ module E621Crawler
 
 			# Generate querystring
 			options[:tags] = tags*" "
-			query = {}
 			options.each do |k, v| query[k.to_s] = v end
 
 			return PostData.mass_init E621Crawler.http_get_json("https://#{domain}/post/index.json", query)
 		end
 
 		def Post.intern_show_tags(is_show, use_id, id, md5, safe)
-			query = use_id ? {"id" => id} : {"md5" => md5}
-
-			# Optionally authenticate
-			if E6lSettings.get.login_given
-				query["login"] = E6lSettings.get.username
-				query["password_hash"] = E6lSettings.get.apikey
-			end
-
-			return E621Crawler.http_get_json("https://e#{safe ? "926" : "621"}.net/post/#{is_show ? "show" : "tags"}.json", query)
+			return E621Crawler.http_get_json(
+					"https://e#{safe ? "926" : "621"}.net/post/#{is_show ? "show" : "tags"}.json",
+					E6lSettings.add_auth(use_id ? {"id" => id} : {"md5" => md5})
+				)
 		end
 
 		# Interfaces with {https://e621.net/post/show.json}.

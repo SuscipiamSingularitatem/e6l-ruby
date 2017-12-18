@@ -2,9 +2,7 @@ require "net/http"
 require "tempfile"
 
 require "curb"
-require "json"
 require "os"
-require "toml"
 
 require "Qt"
 
@@ -64,17 +62,13 @@ module E621Crawler
 
 	class QtGUI
 		class ImageDisplayWindow < Qt::MainWindow
-			def initialize(image_path, window_title, width, height)
+			def initialize(image_path, window_title, window_dims)
 				super(nil)
 				image_label = Qt::Label.new
-				image_label.backgroundRole = Qt::Palette::Base
-				image_label.setSizePolicy(Qt::SizePolicy::Ignored, Qt::SizePolicy::Ignored)
-				image_label.scaledContents = true
+				image_label.pixmap = Qt::Pixmap.fromImage Qt::Image.new(image_path)
 				setCentralWidget image_label
 				setWindowTitle window_title
-				image_label.pixmap = Qt::Pixmap.fromImage Qt::Image.new(image_path)
-				image_label.adjustSize
-				resize(width, height)
+				resize(window_dims[0], window_dims[1])
 			end
 		end
 		def QtGUI.debug_thumb(post)
@@ -82,16 +76,13 @@ module E621Crawler
 			when "gif", "jpg", "png"
 				post.dl_sample
 				path = post.sample_tempfile.path
-				width = post.raw_hash["sample_width"]
-				height = post.raw_hash["sample_height"]
+				window_dims = [post.raw_hash["sample_width"], post.raw_hash["sample_height"]]
 			when "swf", "webm"
 				path = "#{post.ext == "swf" ? "download" : "webm"}-preview.png"
-				width = 150
-				height = 150
+				window_dims = [150, 150]
 			end
 			qt_app = Qt::Application.new(ARGV)
-			thumb_window = ImageDisplayWindow.new(path, "e6##{post.raw_hash["id"]} (.#{post.ext})", width, height)
-			thumb_window.show
+			ImageDisplayWindow.new(path, "e6##{post.raw_hash["id"]} (.#{post.ext})", window_dims).show
 			qt_app.exec
 		end
 	end
