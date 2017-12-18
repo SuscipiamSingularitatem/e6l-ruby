@@ -78,8 +78,8 @@
   
   <dl>
     <dt>Defined in:</dt>
-    <dd>lib/e6crawl.rb<span class="defines">,<br />
-  lib/e6crawler/post.rb</span>
+    <dd>lib/e6crawler.rb<span class="defines">,<br />
+  lib/e6crawler/post.rb,<br /> lib/e6crawler/tags.rb</span>
 </dd>
   </dl>
   
@@ -91,7 +91,7 @@
     
   
     
-      <strong class="classes">Classes:</strong> <span class='object_link'><a href="E621Crawler/Post.html" title="E621Crawler::Post (class)">Post</a></span>, <span class='object_link'><a href="E621Crawler/PostData.html" title="E621Crawler::PostData (class)">PostData</a></span>, <span class='object_link'><a href="E621Crawler/QtGUI.html" title="E621Crawler::QtGUI (class)">QtGUI</a></span>
+      <strong class="classes">Classes:</strong> <span class='object_link'><a href="E621Crawler/Post.html" title="E621Crawler::Post (class)">Post</a></span>, <span class='object_link'><a href="E621Crawler/PostData.html" title="E621Crawler::PostData (class)">PostData</a></span>, <span class='object_link'><a href="E621Crawler/Tags.html" title="E621Crawler::Tags (class)">Tags</a></span>
     
   
 </p>
@@ -173,15 +173,15 @@
       <pre class="lines">
 
 
+17
+18
+19
 20
 21
-22
-23
-24
-25</pre>
+22</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/e6crawl.rb', line 20</span>
+      <pre class="code"><span class="info file"># File 'lib/e6crawler.rb', line 17</span>
 
 <span class='kw'>def</span> <span class='const'><span class='object_link'><a href="" title="E621Crawler (module)">E621Crawler</a></span></span><span class='period'>.</span><span class='id identifier rubyid_http_get_json'>http_get_json</span><span class='lparen'>(</span><span class='id identifier rubyid_uri'>uri</span><span class='comma'>,</span> <span class='id identifier rubyid_query'>query</span><span class='rparen'>)</span>
 	<span class='id identifier rubyid_http'>http</span> <span class='op'>=</span> <span class='const'>Curl</span><span class='period'>.</span><span class='id identifier rubyid_get'>get</span><span class='lparen'>(</span><span class='id identifier rubyid_uri'>uri</span><span class='comma'>,</span> <span class='id identifier rubyid_query'>query</span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_http'>http</span><span class='op'>|</span>
@@ -199,7 +199,7 @@
 </div>
 
       <div id="footer">
-  Generated on Sun Dec 17 19:45:05 2017 by
+  Generated on Mon Dec 18 18:54:21 2017 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.12 (ruby-2.4.2).
 </div>
