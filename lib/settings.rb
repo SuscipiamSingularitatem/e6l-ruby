@@ -19,12 +19,10 @@ module E6lSettings
 	end
 
 	@@settings_handler = nil
-	def E6lSettings.reload
-		@@settings_handler = E6lSettingsHandler.new(File.exist?("settings.toml") ? TOML.load_file("settings.toml") : JSON[File.read("settings.json")])
-	end
+	def E6lSettings.reload; @@settings_handler = E6lSettingsHandler.new(File.exist?("settings.toml") ? TOML.load_file("settings.toml") : JSON[File.read("settings.json")]) end
 	reload
 
-	def E6lSettings.get; return @@settings_handler end
+	def E6lSettings.get; @@settings_handler end
 
 	def E6lSettings.add_auth(query)
 		if E6lSettings.get.login_given

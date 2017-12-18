@@ -1,3 +1,5 @@
+require "Qt"
+
 module E6lQtGUI
 	class ImageDisplayWindow < Qt::MainWindow
 		def initialize(image_path, window_title, window_dims)

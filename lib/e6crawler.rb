@@ -4,8 +4,6 @@ require "tempfile"
 require "curb"
 require "os"
 
-require "Qt"
-
 ["post", "tags"].each do |f| require_relative "e6crawler/#{f}.rb" end
 
 module E621Crawler
@@ -54,8 +52,6 @@ module E621Crawler
 			end
 		end
 
-		def debug_tags
-			puts JSON.generate(@tags, PRETTY_JSON)
-		end
+		def debug_tags; puts JSON.generate(@tags, PRETTY_JSON) end
 	end
 end
