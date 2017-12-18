@@ -6,7 +6,6 @@ require "os"
 
 require "Qt"
 
-require_relative "settings.rb"
 ["post", "tags"].each do |f| require_relative "e6crawler/#{f}.rb" end
 
 module E621Crawler
@@ -57,33 +56,6 @@ module E621Crawler
 
 		def debug_tags
 			puts JSON.generate(@tags, PRETTY_JSON)
-		end
-	end
-
-	class QtGUI
-		class ImageDisplayWindow < Qt::MainWindow
-			def initialize(image_path, window_title, window_dims)
-				super(nil)
-				image_label = Qt::Label.new
-				image_label.pixmap = Qt::Pixmap.fromImage Qt::Image.new(image_path)
-				setCentralWidget image_label
-				setWindowTitle window_title
-				resize(window_dims[0], window_dims[1])
-			end
-		end
-		def QtGUI.debug_thumb(post)
-			case post.ext
-			when "gif", "jpg", "png"
-				post.dl_sample
-				path = post.sample_tempfile.path
-				window_dims = [post.raw_hash["sample_width"], post.raw_hash["sample_height"]]
-			when "swf", "webm"
-				path = "#{post.ext == "swf" ? "download" : "webm"}-preview.png"
-				window_dims = [150, 150]
-			end
-			qt_app = Qt::Application.new(ARGV)
-			ImageDisplayWindow.new(path, "e6##{post.raw_hash["id"]} (.#{post.ext})", window_dims).show
-			qt_app.exec
 		end
 	end
 end
