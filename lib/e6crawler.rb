@@ -20,7 +20,8 @@ module E621Crawler
 	end
 
 	class PostData
-		attr_reader :ext, :raw_hash, :sample_tempfile
+		attr_reader :raw_hash
+		attr_reader :ext, :preview_tempfile, :sample_tempfile
 
 		def initialize(h)
 			@raw_hash = h
@@ -39,6 +40,18 @@ module E621Crawler
 			return @sfw
 		end
 
+		def dl_preview
+			if @preview_tempfile.nil?
+				url = @raw_hash["preview_url"]
+				domain = "static1.e#{url.include?("e926.net/") ? "926" : "621"}.net"
+				@preview_tempfile = Tempfile.new(["e6l-", "." + @raw_hash["file_ext"]])
+				Net::HTTP.start(domain) do |http|
+					open(@preview_tempfile.path, "wb") do |file|
+						file.write http.get(url.split(domain)[1]).body
+					end
+				end
+			end
+		end
 		def dl_sample
 			if @sample_tempfile.nil?
 				url = @raw_hash["sample_url"]
