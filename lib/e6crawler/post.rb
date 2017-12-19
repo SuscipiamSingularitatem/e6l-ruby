@@ -1,4 +1,5 @@
 module E621Crawler
+	# Contains the functionality of e621.net/post/*.
 	class Post
 		# Interfaces with {https://e621.net/post/index.json}.
 		# @return [Array<PostData>] one or more posts
@@ -40,6 +41,7 @@ module E621Crawler
 			return PostData.mass_init E621Crawler.http_get_json("https://#{domain}/post/index.json", query)
 		end
 
+		# Overloaded by Post.show*() and Post.tags*().
 		def Post.intern_show_tags(is_show, use_id, id, md5, safe)
 			E621Crawler.http_get_json("https://e#{safe ? "926" : "621"}.net/post/#{is_show ? "show" : "tags"}.json",
 				E6lSettings.add_auth(use_id ? {"id" => id} : {"md5" => md5}))

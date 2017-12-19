@@ -1,6 +1,7 @@
 require "Qt"
 
 module E6lQtGUI
+	# Instantiate, then call the show method to set the current Qt App's content to a simple image display.
 	class ImageDisplayWindow < Qt::MainWindow
 		def initialize(image_path, window_title, window_dims)
 			super(nil)
@@ -12,7 +13,8 @@ module E6lQtGUI
 		end
 	end
 
-	def E6lQtGUI.debug_thumb(post)
+	# Creates and runs a Qt App which displays a post's "sample" (scaled-down, med-res version).
+	def E6lQtGUI.single_sample(post)
 		case post.ext
 		when "gif", "jpg", "png"
 			post.dl_sample

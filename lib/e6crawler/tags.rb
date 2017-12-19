@@ -1,4 +1,5 @@
 module E621Crawler
+	# Contains the functionality of e621.net/tags/*.
 	class Tags
 		# Interfaces with {https://e621.net/tag/show.json}.
 		# @return Hash the tag's data
