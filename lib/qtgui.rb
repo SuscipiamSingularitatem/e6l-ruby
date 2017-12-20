@@ -22,7 +22,7 @@ module E6lQtGUI
 			post.dl_preview
 			path = post.preview_tempfile.path
 		when "swf", "webm"
-			path = "#{post.ext == "swf" ? "download" : "webm"}-preview.png"
+			path = "img/#{post.ext == "swf" ? "download" : "webm"}-preview.png"
 		end
 		qt_app = Qt::Application.new(ARGV)
 		ImageDisplayWindow.new(path, "e6##{post.raw_hash["id"]} (.#{post.ext})", THUMB_SIZE).show
@@ -37,7 +37,7 @@ module E6lQtGUI
 			path = post.sample_tempfile.path
 			window_dims = [post.raw_hash["sample_width"], post.raw_hash["sample_height"]]
 		when "swf", "webm"
-			path = "#{post.ext == "swf" ? "download" : "webm"}-preview.png"
+			path = "img/#{post.ext == "swf" ? "download" : "webm"}-preview.png"
 			window_dims = THUMB_SIZE
 		end
 		qt_app = Qt::Application.new(ARGV)
