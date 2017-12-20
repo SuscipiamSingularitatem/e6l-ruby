@@ -1,2 +1,2 @@
 #!/bin/sh
-ruby lib/test.rb
+ruby "$(dirname "$(realpath "$0")")/lib/test.rb"
