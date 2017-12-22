@@ -12,3 +12,9 @@ $> mv settings.toml.new settings.toml   # Or manually change settings (JSON is a
 $> ./test.sh
 ```
 Docs are hosted on [CyberYiff.github.io](https://cyberyiff.github.io/e6l-ruby) (Jekyll reads from `docs/` on the `master` branch). To rebuild the docs, run `yard doc` in the repo dir.
+
+## Examples
+Download and display the "sample" version (size-limited) of a particular post:
+```ruby
+E6lQtGUI.single_sample Posts.show_id 546281
+```
