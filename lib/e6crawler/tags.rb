@@ -6,7 +6,7 @@ module E621Crawler
 		# @return Hash the tag's data
 		def Tags.show_id(id)
 			E621Crawler.http_get_json("https://e#{E6lSettings.get.safe_only ? "926" : "621"}.net/tag/show.json",
-				E6lSettings.add_auth({"id" => id}))
+				E6lSettings.auth_query({"id" => id}))
 		end
 
 		# (see Tags.show_id)

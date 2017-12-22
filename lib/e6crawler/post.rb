@@ -22,7 +22,7 @@ module E621Crawler
 			metatags[:rating] = "s" if options[:tags].nil? && options[:metatags].nil? # no tags ==> grab latest SFW (from e926)
 
 			# Overwrite options w/ user settings
-			query = E6lSettings.add_auth({})
+			query = E6lSettings.auth_query({})
 			options[:typed_tags] = true unless E6lSettings.get.ignore_tag_cat
 			metatags[:rating] = "s" if metatags[:rating].nil? && E6lSettings.get.safe_only
 
@@ -44,7 +44,7 @@ module E621Crawler
 		# Overloaded by Post.show*() and Post.tags*().
 		def Posts.intern_show_tags(is_show, use_id, id, md5, safe)
 			E621Crawler.http_get_json("https://e#{safe ? "926" : "621"}.net/post/#{is_show ? "show" : "tags"}.json",
-				E6lSettings.add_auth(use_id ? {"id" => id} : {"md5" => md5}))
+				E6lSettings.auth_query(use_id ? {"id" => id} : {"md5" => md5}))
 		end
 
 		# Interfaces with {https://e621.net/post/show.json}.
