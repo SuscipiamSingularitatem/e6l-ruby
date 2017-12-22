@@ -4,7 +4,7 @@ require "tempfile"
 require "curb"
 require "os"
 
-["post", "tags"].each do |f| require_relative "e6crawler/#{f}.rb" end
+["post", "tags"].each do |f| require_relative "e6crawler#{File::SEPARATOR}#{f}.rb" end
 
 module E621Crawler
 	PRETTY_JSON = {space: " ", object_nl: "\n", array_nl: "\n", indent: "\t"}
