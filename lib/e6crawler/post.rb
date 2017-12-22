@@ -1,9 +1,9 @@
 module E621Crawler
 	# Contains the functionality of e621.net/post/*.
-	class Post
+	class Posts
 		# Interfaces with {https://e621.net/post/index.json}.
 		# @return [Array<PostData>] one or more posts
-		def Post.index(options = {})
+		def Posts.index(options = {})
 			if options[:tags].nil?
 				tags = []
 			else
@@ -42,31 +42,31 @@ module E621Crawler
 		end
 
 		# Overloaded by Post.show*() and Post.tags*().
-		def Post.intern_show_tags(is_show, use_id, id, md5, safe)
+		def Posts.intern_show_tags(is_show, use_id, id, md5, safe)
 			E621Crawler.http_get_json("https://e#{safe ? "926" : "621"}.net/post/#{is_show ? "show" : "tags"}.json",
 				E6lSettings.add_auth(use_id ? {"id" => id} : {"md5" => md5}))
 		end
 
 		# Interfaces with {https://e621.net/post/show.json}.
 		# @return (see Post.show_id)
-		def Post.show_md5(md5, safe = false) PostData.new Post.intern_show_tags(true, false, nil, md5, safe) end
+		def Posts.show_md5(md5, safe = false) PostData.new Posts.intern_show_tags(true, false, nil, md5, safe) end
 
 		# Interfaces with {https://e621.net/post/show.json}.
 		# @return [PostData] the post
-		def Post.show_id(id, safe = false) PostData.new Post.intern_show_tags(true, true, id, nil, safe) end
+		def Posts.show_id(id, safe = false) PostData.new Posts.intern_show_tags(true, true, id, nil, safe) end
 
 		# (see Post.show_id)
-		def Post.show(id, safe = false) Post.show_id(id, safe) end
+		def Posts.show(id, safe = false) Posts.show_id(id, safe) end
 
 		# Interfaces with {https://e621.net/post/tags.json}.
 		# @return (see Post.tags_id)
-		def Post.tags_md5(md5, safe = false) Post.intern_show_tags(false, false, nil, md5, safe) end
+		def Posts.tags_md5(md5, safe = false) Posts.intern_show_tags(false, false, nil, md5, safe) end
 
 		# Interfaces with {https://e621.net/post/tags.json}.
 		# @return [Array<String>] the post's tags
-		def Post.tags_id(id, safe = false) Post.intern_show_tags(false, true, id, nil, safe) end
+		def Posts.tags_id(id, safe = false) Posts.intern_show_tags(false, true, id, nil, safe) end
 
 		# (see Post.tags_id)
-		def Post.tags(id, safe = false) Post.tags_id(id, safe) end
+		def Posts.tags(id, safe = false) Posts.tags_id(id, safe) end
 	end
 end
