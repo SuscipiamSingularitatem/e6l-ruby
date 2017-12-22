@@ -3,7 +3,7 @@ require "toml"
 
 module E6lSettings
 	class E6lSettingsHandler
-		attr_reader :apikey, :ignore_tag_cat, :login_given, :safe_only, :username
+		attr_reader :apikey, :dry_run, :ignore_tag_cat, :login_given, :safe_only, :username
 
 		def initialize(h)
 			@apikey = h["apikey"]
@@ -15,6 +15,9 @@ module E6lSettings
 
 			@safe_only = h["safe_only"]
 			@safe_only = false if @safe_only.nil?
+
+			@dry_run = h["dry_run"]
+			@dry_run = false if @dry_run.nil?
 		end
 	end
 

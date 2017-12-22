@@ -1,4 +1,5 @@
 apikey = "32charhexadecimalnumber000000000"
+dry_run = false
 ignore_tag_cat = false
 safe_only = false
 username = "e6User"
