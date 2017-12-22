@@ -6,13 +6,9 @@ Take e621 with you, Ruby+MongoDB style.
 ## Quick start
 While it doesn't do much right now, you can use the development version easily:
 ```
-$> gem install curb os qtbindings toml   # May take a while if not already installed
 $> git clone https://github.com/CyberYiff/e6l-ruby.git && cd e6l-ruby
+$> bundle install   # May take a while if not already installed, requires Bundler (gem install bundler)
 $> mv settings.toml.new settings.toml   # Or manually change settings (JSON is also supported)
 $> ./test.sh
 ```
-If you want to generate docs as well:
-```
-$> gem install yard
-$> yard doc
-```
+Docs are hosted on [CyberYiff.github.io](https://cyberyiff.github.io/e6l-ruby) (Jekyll reads from `docs/` on the `master` branch). To rebuild the docs, run `yard doc` in the repo dir.
