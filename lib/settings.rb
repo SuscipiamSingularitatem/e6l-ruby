@@ -6,18 +6,15 @@ module E6lSettings
 		attr_reader :apikey, :dry_run, :ignore_tag_cat, :login_given, :safe_only, :username
 
 		def initialize(h)
+			intern_init(h["dry_run"], h["ignore_tag_cat"], h["safe_only"])
 			@apikey = h["apikey"]
 			@username = h["username"]
 			@login_given = !(@username.nil? || @apikey.nil?) if @login_given.nil?
-
-			@ignore_tag_cat = h["ignore_tag_cat"]
-			@ignore_tag_cat = false if @ignore_tag_cat.nil?
-
-			@safe_only = h["safe_only"]
-			@safe_only = false if @safe_only.nil?
-
-			@dry_run = h["dry_run"]
-			@dry_run = false if @dry_run.nil?
+		end
+		def intern_init(dry_run = false, ignore_tag_cat = false, safe_only = false)
+			@dry_run = dry_run
+			@ignore_tag_cat = ignore_tag_cat
+			@safe_only = safe_only
 		end
 	end
 
