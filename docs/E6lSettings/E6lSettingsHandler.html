@@ -138,6 +138,35 @@
       <li class="public ">
   <span class="summary_signature">
     
+      <a href="#dry_run-instance_method" title="#dry_run (instance method)">#<strong>dry_run</strong>  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+    
+      <span class="note title readonly">readonly</span>
+    
+    
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Returns the value of attribute dry_run.</p>
+</div></span>
+  
+</li>
+
+    
+      <li class="public ">
+  <span class="summary_signature">
+    
       <a href="#ignore_tag_cat-instance_method" title="#ignore_tag_cat (instance method)">#<strong>ignore_tag_cat</strong>  &#x21d2; Object </a>
     
 
@@ -290,6 +319,28 @@
 </li>
 
       
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#intern_init-instance_method" title="#intern_init (instance method)">#<strong>intern_init</strong>(dry_run = false, ignore_tag_cat = false, safe_only = false)  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
     </ul>
   
 
@@ -327,26 +378,16 @@
 10
 11
 12
-13
-14
-15
-16
-17
-18</pre>
+13</pre>
     </td>
     <td>
       <pre class="code"><span class="info file"># File 'lib/settings.rb', line 8</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_initialize'>initialize</span><span class='lparen'>(</span><span class='id identifier rubyid_h'>h</span><span class='rparen'>)</span>
+	<span class='id identifier rubyid_intern_init'>intern_init</span><span class='lparen'>(</span><span class='id identifier rubyid_h'>h</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>dry_run</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='id identifier rubyid_h'>h</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>ignore_tag_cat</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='id identifier rubyid_h'>h</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>safe_only</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span><span class='rparen'>)</span>
 	<span class='ivar'>@apikey</span> <span class='op'>=</span> <span class='id identifier rubyid_h'>h</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>apikey</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span>
 	<span class='ivar'>@username</span> <span class='op'>=</span> <span class='id identifier rubyid_h'>h</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>username</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span>
 	<span class='ivar'>@login_given</span> <span class='op'>=</span> <span class='op'>!</span><span class='lparen'>(</span><span class='ivar'>@username</span><span class='period'>.</span><span class='id identifier rubyid_nil?'>nil?</span> <span class='op'>||</span> <span class='ivar'>@apikey</span><span class='period'>.</span><span class='id identifier rubyid_nil?'>nil?</span><span class='rparen'>)</span> <span class='kw'>if</span> <span class='ivar'>@login_given</span><span class='period'>.</span><span class='id identifier rubyid_nil?'>nil?</span>
-
-	<span class='ivar'>@ignore_tag_cat</span> <span class='op'>=</span> <span class='id identifier rubyid_h'>h</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>ignore_tag_cat</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span>
-	<span class='ivar'>@ignore_tag_cat</span> <span class='op'>=</span> <span class='kw'>false</span> <span class='kw'>if</span> <span class='ivar'>@ignore_tag_cat</span><span class='period'>.</span><span class='id identifier rubyid_nil?'>nil?</span>
-
-	<span class='ivar'>@safe_only</span> <span class='op'>=</span> <span class='id identifier rubyid_h'>h</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>safe_only</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span>
-	<span class='ivar'>@safe_only</span> <span class='op'>=</span> <span class='kw'>false</span> <span class='kw'>if</span> <span class='ivar'>@safe_only</span><span class='period'>.</span><span class='id identifier rubyid_nil?'>nil?</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -395,6 +436,49 @@
 
 <span class='kw'>def</span> <span class='id identifier rubyid_apikey'>apikey</span>
   <span class='ivar'>@apikey</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      
+      <span id=""></span>
+      <div class="method_details ">
+  <h3 class="signature " id="dry_run-instance_method">
+  
+    #<strong>dry_run</strong>  &#x21d2; <tt>Object</tt>  <span class="extras">(readonly)</span>
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Returns the value of attribute dry_run</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+6
+7
+8</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/settings.rb', line 6</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_dry_run'>dry_run</span>
+  <span class='ivar'>@dry_run</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -576,10 +660,50 @@
   </div>
 
 
+  <div id="instance_method_details" class="method_details_list">
+    <h2>Instance Method Details</h2>
+
+    
+      <div class="method_details first">
+  <h3 class="signature first" id="intern_init-instance_method">
+  
+    #<strong>intern_init</strong>(dry_run = false, ignore_tag_cat = false, safe_only = false)  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+14
+15
+16
+17
+18</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/settings.rb', line 14</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_intern_init'>intern_init</span><span class='lparen'>(</span><span class='id identifier rubyid_dry_run'>dry_run</span> <span class='op'>=</span> <span class='kw'>false</span><span class='comma'>,</span> <span class='id identifier rubyid_ignore_tag_cat'>ignore_tag_cat</span> <span class='op'>=</span> <span class='kw'>false</span><span class='comma'>,</span> <span class='id identifier rubyid_safe_only'>safe_only</span> <span class='op'>=</span> <span class='kw'>false</span><span class='rparen'>)</span>
+	<span class='ivar'>@dry_run</span> <span class='op'>=</span> <span class='id identifier rubyid_dry_run'>dry_run</span>
+	<span class='ivar'>@ignore_tag_cat</span> <span class='op'>=</span> <span class='id identifier rubyid_ignore_tag_cat'>ignore_tag_cat</span>
+	<span class='ivar'>@safe_only</span> <span class='op'>=</span> <span class='id identifier rubyid_safe_only'>safe_only</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+  </div>
+
 </div>
 
       <div id="footer">
-  Generated on Fri Dec 22 15:56:33 2017 by
+  Generated on Fri Dec 22 19:02:34 2017 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.12 (ruby-2.4.3).
 </div>

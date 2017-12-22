@@ -68,16 +68,23 @@ src="https://bettercodehub.com/edge/badge/CyberYiff/e6l-ruby?branch=master"></a>
 <h2 id="label-Quick+start">Quick start</h2>
 
 <p>While it doesn&#39;t do much right now, you can use the development version
-easily: <code> $&gt; gem install curb os qtbindings toml   # May take a
-while if not already installed $&gt; git clone
-https://github.com/CyberYiff/e6l-ruby.git &amp;&amp; cd e6l-ruby $&gt; mv
+easily: <code> $&gt; git clone https://github.com/CyberYiff/e6l-ruby.git
+&amp;&amp; cd e6l-ruby $&gt; bundle install   # May take a while if not
+already installed, requires Bundler (gem install bundler) $&gt; mv
 settings.toml.new settings.toml   # Or manually change settings (JSON is
-also supported) $&gt; ./test.sh </code> If you want to generate docs as
-well: <code> $&gt; gem install yard $&gt; yard doc </code></p>
+also supported) $&gt; ./test.sh </code> Docs are hosted on <a
+href="https://cyberyiff.github.io/e6l-ruby">CyberYiff.github.io</a> (Jekyll
+reads from <code>docs/</code> on the <code>master</code> branch). To
+rebuild the docs, run <code>yard doc</code> in the repo dir.</p>
+
+<h2 id="label-Examples">Examples</h2>
+
+<p>Download and display the “sample” version (size-limited) of a particular
+post: <code>ruby E6lQtGUI.single_sample Posts.show_id 546281 </code></p>
 </div></div>
 
       <div id="footer">
-  Generated on Fri Dec 22 15:56:32 2017 by
+  Generated on Fri Dec 22 19:02:34 2017 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.12 (ruby-2.4.3).
 </div>
