@@ -187,22 +187,24 @@ content to a simple image display.</p>
       <pre class="lines">
 
 
-6
 7
 8
 9
 10
 11
 12
-13</pre>
+13
+14
+15</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/qtgui.rb', line 6</span>
+      <pre class="code"><span class="info file"># File 'lib/qtgui.rb', line 7</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_initialize'>initialize</span><span class='lparen'>(</span><span class='id identifier rubyid_image_path'>image_path</span><span class='comma'>,</span> <span class='id identifier rubyid_window_title'>window_title</span><span class='comma'>,</span> <span class='id identifier rubyid_window_dims'>window_dims</span><span class='rparen'>)</span>
 	<span class='kw'>super</span><span class='lparen'>(</span><span class='kw'>nil</span><span class='rparen'>)</span>
 	<span class='id identifier rubyid_image_label'>image_label</span> <span class='op'>=</span> <span class='const'>Qt</span><span class='op'>::</span><span class='const'>Label</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span>
 	<span class='id identifier rubyid_image_label'>image_label</span><span class='period'>.</span><span class='id identifier rubyid_pixmap'>pixmap</span> <span class='op'>=</span> <span class='const'>Qt</span><span class='op'>::</span><span class='const'>Pixmap</span><span class='period'>.</span><span class='id identifier rubyid_fromImage'>fromImage</span> <span class='const'>Qt</span><span class='op'>::</span><span class='const'>Image</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='id identifier rubyid_image_path'>image_path</span><span class='rparen'>)</span>
+	<span class='id identifier rubyid_image_label'>image_label</span><span class='period'>.</span><span class='id identifier rubyid_setAlignment'>setAlignment</span><span class='lparen'>(</span><span class='const'>Qt</span><span class='op'>::</span><span class='const'>AlignHCenter</span><span class='period'>.</span><span class='id identifier rubyid_to_i'>to_i</span> <span class='op'>|</span> <span class='const'>Qt</span><span class='op'>::</span><span class='const'>AlignVCenter</span><span class='period'>.</span><span class='id identifier rubyid_to_i'>to_i</span><span class='rparen'>)</span>
 	<span class='id identifier rubyid_setCentralWidget'>setCentralWidget</span> <span class='id identifier rubyid_image_label'>image_label</span>
 	<span class='id identifier rubyid_setWindowTitle'>setWindowTitle</span> <span class='id identifier rubyid_window_title'>window_title</span>
 	<span class='id identifier rubyid_resize'>resize</span><span class='lparen'>(</span><span class='id identifier rubyid_window_dims'>window_dims</span><span class='lbracket'>[</span><span class='int'>0</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='id identifier rubyid_window_dims'>window_dims</span><span class='lbracket'>[</span><span class='int'>1</span><span class='rbracket'>]</span><span class='rparen'>)</span>
@@ -218,7 +220,7 @@ content to a simple image display.</p>
 </div>
 
       <div id="footer">
-  Generated on Tue Dec 19 18:52:32 2017 by
+  Generated on Fri Dec 22 14:13:31 2017 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.12 (ruby-2.4.3).
 </div>

@@ -94,6 +94,16 @@
   
 </p>
 
+  <h2>Constant Summary</h2>
+  <dl class="constants">
+    
+      <dt id="THUMB_SIZE-constant" class="">THUMB_SIZE =
+        
+      </dt>
+      <dd><pre class="code"><span class='lbracket'>[</span><span class='int'>150</span><span class='comma'>,</span> <span class='int'>150</span><span class='rbracket'>]</span></pre></dd>
+    
+  </dl>
+
 
 
 
@@ -107,6 +117,31 @@
     </h2>
 
     <ul class="summary">
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#single_preview-class_method" title="single_preview (class method)">.<strong>single_preview</strong>(post)  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Creates and runs a Qt App which displays a post&#39;s “preview”
+(thumbnail).</p>
+</div></span>
+  
+</li>
+
       
         <li class="public ">
   <span class="summary_signature">
@@ -143,7 +178,67 @@
 
     
       <div class="method_details first">
-  <h3 class="signature first" id="single_sample-class_method">
+  <h3 class="signature first" id="single_preview-class_method">
+  
+    .<strong>single_preview</strong>(post)  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Creates and runs a Qt App which displays a post&#39;s “preview”
+(thumbnail).</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/qtgui.rb', line 19</span>
+
+<span class='kw'>def</span> <span class='const'><span class='object_link'><a href="" title="E6lQtGUI (module)">E6lQtGUI</a></span></span><span class='period'>.</span><span class='id identifier rubyid_single_preview'>single_preview</span><span class='lparen'>(</span><span class='id identifier rubyid_post'>post</span><span class='rparen'>)</span>
+	<span class='kw'>case</span> <span class='id identifier rubyid_post'>post</span><span class='period'>.</span><span class='id identifier rubyid_ext'>ext</span>
+	<span class='kw'>when</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>gif</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>jpg</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>png</span><span class='tstring_end'>&quot;</span></span>
+		<span class='id identifier rubyid_post'>post</span><span class='period'>.</span><span class='id identifier rubyid_dl_preview'>dl_preview</span>
+		<span class='id identifier rubyid_path'>path</span> <span class='op'>=</span> <span class='id identifier rubyid_post'>post</span><span class='period'>.</span><span class='id identifier rubyid_preview_tempfile'>preview_tempfile</span><span class='period'>.</span><span class='id identifier rubyid_path'>path</span>
+	<span class='kw'>when</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>swf</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>webm</span><span class='tstring_end'>&quot;</span></span>
+		<span class='id identifier rubyid_path'>path</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>img/</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_post'>post</span><span class='period'>.</span><span class='id identifier rubyid_ext'>ext</span> <span class='op'>==</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>swf</span><span class='tstring_end'>&quot;</span></span> <span class='op'>?</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>download</span><span class='tstring_end'>&quot;</span></span> <span class='op'>:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>webm</span><span class='tstring_end'>&quot;</span></span><span class='embexpr_end'>}</span><span class='tstring_content'>-preview.png</span><span class='tstring_end'>&quot;</span></span>
+	<span class='kw'>end</span>
+	<span class='id identifier rubyid_qt_app'>qt_app</span> <span class='op'>=</span> <span class='const'>Qt</span><span class='op'>::</span><span class='const'>Application</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='const'>ARGV</span><span class='rparen'>)</span>
+	<span class='const'><span class='object_link'><a href="E6lQtGUI/ImageDisplayWindow.html" title="E6lQtGUI::ImageDisplayWindow (class)">ImageDisplayWindow</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="E6lQtGUI/ImageDisplayWindow.html#initialize-instance_method" title="E6lQtGUI::ImageDisplayWindow#initialize (method)">new</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_path'>path</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>e6#</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_post'>post</span><span class='period'>.</span><span class='id identifier rubyid_raw_hash'>raw_hash</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>id</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span><span class='embexpr_end'>}</span><span class='tstring_content'> (.</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_post'>post</span><span class='period'>.</span><span class='id identifier rubyid_ext'>ext</span><span class='embexpr_end'>}</span><span class='tstring_content'>)</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='const'><span class='object_link'><a href="#THUMB_SIZE-constant" title="E6lQtGUI::THUMB_SIZE (constant)">THUMB_SIZE</a></span></span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_show'>show</span>
+	<span class='id identifier rubyid_qt_app'>qt_app</span><span class='period'>.</span><span class='id identifier rubyid_exec'>exec</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="single_sample-class_method">
   
     .<strong>single_sample</strong>(post)  &#x21d2; <tt>Object</tt> 
   
@@ -169,23 +264,23 @@
       <pre class="lines">
 
 
-17
-18
-19
-20
-21
-22
-23
-24
-25
-26
-27
-28
-29
-30</pre>
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/qtgui.rb', line 17</span>
+      <pre class="code"><span class="info file"># File 'lib/qtgui.rb', line 33</span>
 
 <span class='kw'>def</span> <span class='const'><span class='object_link'><a href="" title="E6lQtGUI (module)">E6lQtGUI</a></span></span><span class='period'>.</span><span class='id identifier rubyid_single_sample'>single_sample</span><span class='lparen'>(</span><span class='id identifier rubyid_post'>post</span><span class='rparen'>)</span>
 	<span class='kw'>case</span> <span class='id identifier rubyid_post'>post</span><span class='period'>.</span><span class='id identifier rubyid_ext'>ext</span>
@@ -194,8 +289,8 @@
 		<span class='id identifier rubyid_path'>path</span> <span class='op'>=</span> <span class='id identifier rubyid_post'>post</span><span class='period'>.</span><span class='id identifier rubyid_sample_tempfile'>sample_tempfile</span><span class='period'>.</span><span class='id identifier rubyid_path'>path</span>
 		<span class='id identifier rubyid_window_dims'>window_dims</span> <span class='op'>=</span> <span class='lbracket'>[</span><span class='id identifier rubyid_post'>post</span><span class='period'>.</span><span class='id identifier rubyid_raw_hash'>raw_hash</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>sample_width</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='id identifier rubyid_post'>post</span><span class='period'>.</span><span class='id identifier rubyid_raw_hash'>raw_hash</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>sample_height</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span><span class='rbracket'>]</span>
 	<span class='kw'>when</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>swf</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>webm</span><span class='tstring_end'>&quot;</span></span>
-		<span class='id identifier rubyid_path'>path</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_post'>post</span><span class='period'>.</span><span class='id identifier rubyid_ext'>ext</span> <span class='op'>==</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>swf</span><span class='tstring_end'>&quot;</span></span> <span class='op'>?</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>download</span><span class='tstring_end'>&quot;</span></span> <span class='op'>:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>webm</span><span class='tstring_end'>&quot;</span></span><span class='embexpr_end'>}</span><span class='tstring_content'>-preview.png</span><span class='tstring_end'>&quot;</span></span>
-		<span class='id identifier rubyid_window_dims'>window_dims</span> <span class='op'>=</span> <span class='lbracket'>[</span><span class='int'>150</span><span class='comma'>,</span> <span class='int'>150</span><span class='rbracket'>]</span>
+		<span class='id identifier rubyid_path'>path</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>img/</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_post'>post</span><span class='period'>.</span><span class='id identifier rubyid_ext'>ext</span> <span class='op'>==</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>swf</span><span class='tstring_end'>&quot;</span></span> <span class='op'>?</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>download</span><span class='tstring_end'>&quot;</span></span> <span class='op'>:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>webm</span><span class='tstring_end'>&quot;</span></span><span class='embexpr_end'>}</span><span class='tstring_content'>-preview.png</span><span class='tstring_end'>&quot;</span></span>
+		<span class='id identifier rubyid_window_dims'>window_dims</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="#THUMB_SIZE-constant" title="E6lQtGUI::THUMB_SIZE (constant)">THUMB_SIZE</a></span></span>
 	<span class='kw'>end</span>
 	<span class='id identifier rubyid_qt_app'>qt_app</span> <span class='op'>=</span> <span class='const'>Qt</span><span class='op'>::</span><span class='const'>Application</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='const'>ARGV</span><span class='rparen'>)</span>
 	<span class='const'><span class='object_link'><a href="E6lQtGUI/ImageDisplayWindow.html" title="E6lQtGUI::ImageDisplayWindow (class)">ImageDisplayWindow</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="E6lQtGUI/ImageDisplayWindow.html#initialize-instance_method" title="E6lQtGUI::ImageDisplayWindow#initialize (method)">new</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_path'>path</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>e6#</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_post'>post</span><span class='period'>.</span><span class='id identifier rubyid_raw_hash'>raw_hash</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>id</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span><span class='embexpr_end'>}</span><span class='tstring_content'> (.</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_post'>post</span><span class='period'>.</span><span class='id identifier rubyid_ext'>ext</span><span class='embexpr_end'>}</span><span class='tstring_content'>)</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_window_dims'>window_dims</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_show'>show</span>
@@ -211,7 +306,7 @@
 </div>
 
       <div id="footer">
-  Generated on Tue Dec 19 18:52:31 2017 by
+  Generated on Fri Dec 22 14:13:31 2017 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.12 (ruby-2.4.3).
 </div>
