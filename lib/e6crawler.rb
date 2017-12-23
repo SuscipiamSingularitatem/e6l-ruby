@@ -28,7 +28,9 @@ module E621Crawler
 				when /e(621|926).net\/post\/tags.json/
 					["e6l:debug"]
 				when /e(621|926).net\/tags\/show.json/
-					{} #TODO
+					{"id" => 0}
+				when /e(621|926).net\/wiki\/show.json/
+					{"id" => 0}
 				else
 					{}
 				end
