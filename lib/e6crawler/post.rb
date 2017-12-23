@@ -27,9 +27,9 @@ module E621Crawler
 			metatags[:rating] = "s" if metatags[:rating].nil? && E6lSettings.get.safe_only
 
 			# Metatags -> tags
-			domain = "e621.net"
+			use_e926 = false
 			if metatags[:rating] == "s"
-				domain = "e926.net"
+				use_e926 = true
 				metatags.delete :rating
 			end
 			metatags.each do |k, v| tags << "#{k.to_s}:#{v}" end
@@ -38,12 +38,12 @@ module E621Crawler
 			options[:tags] = tags*" "
 			options.each do |k, v| query[k.to_s] = v end
 
-			return PostData.mass_init E621Crawler.http_get_json("https://#{domain}/post/index.json", query)
+			return PostData.mass_init E621Crawler.http_get_json(use_e926, "post/index.json", query)
 		end
 
 		# Overloaded by Post.show*() and Post.tags*().
 		def Posts.intern_show_tags(is_show, use_id, id, md5, safe)
-			E621Crawler.http_get_json("https://e#{safe ? "926" : "621"}.net/post/#{is_show ? "show" : "tags"}.json",
+			E621Crawler.http_get_json(safe, "post/#{is_show ? "show" : "tags"}.json",
 				E6lSettings.auth_query(use_id ? {"id" => id} : {"md5" => md5}))
 		end
 

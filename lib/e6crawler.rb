@@ -13,32 +13,34 @@ module E621Crawler
 		(OS.posix? ? (OS.mac? ? "macOS; " : "Linux; ") : (OS.doze? ? "Windows; " : "")) +
 		"Ruby/#{RUBY_VERSION})"
 
-	def E621Crawler.http_get_json(uri, query)
+	def E621Crawler.http_get_json(use_e926, api_loc, query)
+		uri = "e#{use_e926 ? 926 : 621}.net/#{api_loc}"
 		if E6lSettings.get.dry_run
 			temp = "GET #{uri}"
 			query.each do |k, v|
 				temp += "&#{k}=#{v}"
 			end
 			puts temp.sub("&", "?")
-			return case uri
-				when /e(621|926).net\/post\/index.json/
-					[{"file_ext" => "png", "tags" => ["e6l:debug"]}]
-				when /e(621|926).net\/post\/show.json/
-					{"file_ext" => "png", "tags" => ["e6l:debug"]}
-				when /e(621|926).net\/post\/tags.json/
-					["e6l:debug"]
-				when /e(621|926).net\/tags\/show.json/
-					{"id" => 0}
-				when /e(621|926).net\/wiki\/show.json/
-					{"id" => 0}
-				else
-					{}
-				end
+			return intern_dryrun_data api_loc
 		else
-			http = Curl.get(uri, query) do |http|
+			http = Curl.get("https://#{uri}", query) do |http|
 				http.headers["User-Agent"] = USER_AGENT
 			end
 			return JSON[http.body_str]
+		end
+	end
+	def intern_dryrun_data(api_loc)
+		return case api_loc
+		when /post\/index.json/
+			[intern_dryrun_data("post/show.json")]
+		when /post\/show.json/
+			{"file_ext" => "png", "tags" => [intern_dryrun_data("post/tags.json")]}
+		when /post\/tags.json/
+			["e6l:debug"]
+		when /(tags|wiki)\/show.json/
+			{"id" => 0}
+		else
+			{}
 		end
 	end
 
