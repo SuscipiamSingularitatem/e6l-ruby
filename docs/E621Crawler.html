@@ -79,7 +79,7 @@
   <dl>
     <dt>Defined in:</dt>
     <dd>lib/e6crawler.rb<span class="defines">,<br />
-  lib/e6crawler/post.rb,<br /> lib/e6crawler/tags.rb</span>
+  lib/e6crawler/post.rb,<br /> lib/e6crawler/tags.rb,<br /> lib/e6crawler/wiki.rb</span>
 </dd>
   </dl>
   
@@ -91,7 +91,7 @@
     
   
     
-      <strong class="classes">Classes:</strong> <span class='object_link'><a href="E621Crawler/PostData.html" title="E621Crawler::PostData (class)">PostData</a></span>, <span class='object_link'><a href="E621Crawler/Posts.html" title="E621Crawler::Posts (class)">Posts</a></span>, <span class='object_link'><a href="E621Crawler/Tags.html" title="E621Crawler::Tags (class)">Tags</a></span>
+      <strong class="classes">Classes:</strong> <span class='object_link'><a href="E621Crawler/PostData.html" title="E621Crawler::PostData (class)">PostData</a></span>, <span class='object_link'><a href="E621Crawler/Posts.html" title="E621Crawler::Posts (class)">Posts</a></span>, <span class='object_link'><a href="E621Crawler/Tags.html" title="E621Crawler::Tags (class)">Tags</a></span>, <span class='object_link'><a href="E621Crawler/Wiki.html" title="E621Crawler::Wiki (class)">Wiki</a></span>
     
   
 </p>
@@ -198,7 +198,9 @@
 38
 39
 40
-41</pre>
+41
+42
+43</pre>
     </td>
     <td>
       <pre class="code"><span class="info file"># File 'lib/e6crawler.rb', line 16</span>
@@ -218,8 +220,10 @@
 			<span class='kw'>when</span> <span class='tstring'><span class='regexp_beg'>/</span><span class='tstring_content'>e(621|926).net\/post\/tags.json</span><span class='regexp_end'>/</span></span>
 				<span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>e6l:debug</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span>
 			<span class='kw'>when</span> <span class='tstring'><span class='regexp_beg'>/</span><span class='tstring_content'>e(621|926).net\/tags\/show.json</span><span class='regexp_end'>/</span></span>
-				<span class='lbrace'>{</span><span class='rbrace'>}</span> <span class='comment'>#TODO
-</span>			<span class='kw'>else</span>
+				<span class='lbrace'>{</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>id</span><span class='tstring_end'>&quot;</span></span> <span class='op'>=&gt;</span> <span class='int'>0</span><span class='rbrace'>}</span>
+			<span class='kw'>when</span> <span class='tstring'><span class='regexp_beg'>/</span><span class='tstring_content'>e(621|926).net\/wiki\/show.json</span><span class='regexp_end'>/</span></span>
+				<span class='lbrace'>{</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>id</span><span class='tstring_end'>&quot;</span></span> <span class='op'>=&gt;</span> <span class='int'>0</span><span class='rbrace'>}</span>
+			<span class='kw'>else</span>
 				<span class='lbrace'>{</span><span class='rbrace'>}</span>
 			<span class='kw'>end</span>
 	<span class='kw'>else</span>
@@ -239,7 +243,7 @@
 </div>
 
       <div id="footer">
-  Generated on Fri Dec 22 19:02:34 2017 by
+  Generated on Sat Dec 23 17:40:30 2017 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.12 (ruby-2.4.3).
 </div>
