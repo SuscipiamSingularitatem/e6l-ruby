@@ -1,5 +1,5 @@
 module E621Crawler
-	# Contains the functionality of e621.net/tags/*.
+	# Contains the functionality of e621.net/tag/*.
 	class Tags
 		# Interfaces with {https://e621.net/tag/show.json}.
 		# @e926_nsfw May request NSFW material from e926.net, even with safe_only.
