@@ -39,6 +39,8 @@ module E621Crawler
 			["e6l:debug"]
 		when /(tags|wiki)\/show.json/
 			{"id" => 0}
+		when /wiki\/index.json/
+			[intern_dryrun_data("wiki/show.json")]
 		else
 			{}
 		end
