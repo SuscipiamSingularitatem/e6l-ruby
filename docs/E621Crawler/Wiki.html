@@ -128,7 +128,31 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#show-class_method" title="show (class method)">.<strong>show</strong>(title)  &#x21d2; Object </a>
+      <a href="#index-class_method" title="index (class method)">.<strong>index</strong>(todo)  &#x21d2; Array&lt;Hash&gt; </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Interfaces with <a href="https://e621.net/wiki/index.json" target="_parent" title="https://e621.net/wiki/index.json">https://e621.net/wiki/index.json</a>.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#show-class_method" title="show (class method)">.<strong>show</strong>(title)  &#x21d2; Hash </a>
     
 
     
@@ -159,9 +183,9 @@
 
     
       <div class="method_details first">
-  <h3 class="signature first" id="show-class_method">
+  <h3 class="signature first" id="index-class_method">
   
-    .<strong>show</strong>(title)  &#x21d2; <tt>Object</tt> 
+    .<strong>index</strong>(todo)  &#x21d2; <tt>Array&lt;Hash&gt;</tt> 
   
 
   
@@ -170,7 +194,7 @@
 </h3><div class="docstring">
   <div class="discussion">
     
-<p>Interfaces with <a href="https://e621.net/wiki/show.json" target="_parent" title="https://e621.net/wiki/show.json">https://e621.net/wiki/show.json</a>.</p>
+<p>Interfaces with <a href="https://e621.net/wiki/index.json" target="_parent" title="https://e621.net/wiki/index.json">https://e621.net/wiki/index.json</a>.</p>
 
 
   </div>
@@ -183,13 +207,13 @@
     <li>
       
       
-        <span class='type'></span>
+        <span class='type'>(<tt>Array&lt;Hash&gt;</tt>)</span>
       
       
       
-        
+        &mdash;
         <div class='inline'>
-<p>Hash the wiki page&#39;s data</p>
+<p>one or more wiki pages</p>
 </div>
       
     </li>
@@ -226,8 +250,85 @@
     <td>
       <pre class="code"><span class="info file"># File 'lib/e6crawler/wiki.rb', line 7</span>
 
+<span class='kw'>def</span> <span class='const'><span class='object_link'><a href="" title="E621Crawler::Wiki (class)">Wiki</a></span></span><span class='period'>.</span><span class='id identifier rubyid_index'>index</span><span class='lparen'>(</span><span class='id identifier rubyid_todo'>todo</span><span class='rparen'>)</span>
+	<span class='const'><span class='object_link'><a href="../E621Crawler.html" title="E621Crawler (module)">E621Crawler</a></span></span><span class='period'>.</span><span class='id identifier rubyid_http_get_json'><span class='object_link'><a href="../E621Crawler.html#http_get_json-class_method" title="E621Crawler.http_get_json (method)">http_get_json</a></span></span><span class='lparen'>(</span><span class='const'><span class='object_link'><a href="../E6lSettings.html" title="E6lSettings (module)">E6lSettings</a></span></span><span class='period'>.</span><span class='id identifier rubyid_get'><span class='object_link'><a href="../E6lSettings.html#get-class_method" title="E6lSettings.get (method)">get</a></span></span><span class='period'>.</span><span class='id identifier rubyid_safe_only'>safe_only</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>wiki/index.json</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+		<span class='const'><span class='object_link'><a href="../E6lSettings.html" title="E6lSettings (module)">E6lSettings</a></span></span><span class='period'>.</span><span class='id identifier rubyid_auth_query'><span class='object_link'><a href="../E6lSettings.html#auth_query-class_method" title="E6lSettings.auth_query (method)">auth_query</a></span></span><span class='lparen'>(</span><span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="show-class_method">
+  
+    .<strong>show</strong>(title)  &#x21d2; <tt>Hash</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Interfaces with <a href="https://e621.net/wiki/show.json" target="_parent" title="https://e621.net/wiki/show.json">https://e621.net/wiki/show.json</a>.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Hash</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>the wiki page&#39;s data</p>
+</div>
+      
+    </li>
+  
+</ul>
+<p class="tag_title">NSFW in Safe Warning:</p>
+<ul class="e926_nsfw">
+  
+    <li>
+      
+      
+      
+      
+        
+        <div class='inline'>
+<p>May request NSFW material from e926.net, even with safe_only.</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+15
+16
+17
+18</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/e6crawler/wiki.rb', line 15</span>
+
 <span class='kw'>def</span> <span class='const'><span class='object_link'><a href="" title="E621Crawler::Wiki (class)">Wiki</a></span></span><span class='period'>.</span><span class='id identifier rubyid_show'>show</span><span class='lparen'>(</span><span class='id identifier rubyid_title'>title</span><span class='rparen'>)</span>
-	<span class='const'><span class='object_link'><a href="../E621Crawler.html" title="E621Crawler (module)">E621Crawler</a></span></span><span class='period'>.</span><span class='id identifier rubyid_http_get_json'><span class='object_link'><a href="../E621Crawler.html#http_get_json-class_method" title="E621Crawler.http_get_json (method)">http_get_json</a></span></span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>https://e</span><span class='embexpr_beg'>#{</span><span class='const'><span class='object_link'><a href="../E6lSettings.html" title="E6lSettings (module)">E6lSettings</a></span></span><span class='period'>.</span><span class='id identifier rubyid_get'><span class='object_link'><a href="../E6lSettings.html#get-class_method" title="E6lSettings.get (method)">get</a></span></span><span class='period'>.</span><span class='id identifier rubyid_safe_only'>safe_only</span> <span class='op'>?</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>926</span><span class='tstring_end'>&quot;</span></span> <span class='op'>:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>621</span><span class='tstring_end'>&quot;</span></span><span class='embexpr_end'>}</span><span class='tstring_content'>.net/wiki/show.json</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+	<span class='const'><span class='object_link'><a href="../E621Crawler.html" title="E621Crawler (module)">E621Crawler</a></span></span><span class='period'>.</span><span class='id identifier rubyid_http_get_json'><span class='object_link'><a href="../E621Crawler.html#http_get_json-class_method" title="E621Crawler.http_get_json (method)">http_get_json</a></span></span><span class='lparen'>(</span><span class='const'><span class='object_link'><a href="../E6lSettings.html" title="E6lSettings (module)">E6lSettings</a></span></span><span class='period'>.</span><span class='id identifier rubyid_get'><span class='object_link'><a href="../E6lSettings.html#get-class_method" title="E6lSettings.get (method)">get</a></span></span><span class='period'>.</span><span class='id identifier rubyid_safe_only'>safe_only</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>wiki/show.json</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
 		<span class='const'><span class='object_link'><a href="../E6lSettings.html" title="E6lSettings (module)">E6lSettings</a></span></span><span class='period'>.</span><span class='id identifier rubyid_auth_query'><span class='object_link'><a href="../E6lSettings.html#auth_query-class_method" title="E6lSettings.auth_query (method)">auth_query</a></span></span><span class='lparen'>(</span><span class='lbrace'>{</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>title</span><span class='tstring_end'>&quot;</span></span> <span class='op'>=&gt;</span> <span class='id identifier rubyid_title'>title</span><span class='rbrace'>}</span><span class='rparen'>)</span><span class='rparen'>)</span>
 <span class='kw'>end</span></pre>
     </td>
@@ -240,7 +341,7 @@
 </div>
 
       <div id="footer">
-  Generated on Sat Dec 23 17:40:30 2017 by
+  Generated on Sat Dec 23 19:06:03 2017 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.12 (ruby-2.4.3).
 </div>
