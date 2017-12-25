@@ -69,16 +69,11 @@ module E621Crawler
 		# (see Posts.tags_id)
 		def Posts.tags(id, safe = false) Posts.tags_id(id, safe) end
 
-		# Overloaded by Posts.update_tags()
-		# @global_rw Really will change the post's tags on e6. Will not ask for confirmation.
 		def Posts.intern_update_tags(id, old_tags, tags, reason)
-			post_query = E6lSettings.auth_post({id: id, tags: tags, old_tags: old_tags})
-			post_query[:reason] = reason unless reason.nil?
-			E621Crawler.http_post_json([E6lSettings.get.safe_only, "post", "update"], post_query)
 		end
 
 		# Interfaces with {https://e621.net/post/update.json}.
-		# @global_rw (see Posts.intern_update_tags)
+		# @global_rw Really will change the post's tags on e6. Will not ask for confirmation.
 		def Posts.update_tags(options)
 			raise StandardError.new("OOPS") if options[:add].nil? && options[:remove].nil?
 			tags = options[:post].tags.dup
@@ -87,7 +82,9 @@ module E621Crawler
 			else
 				options[:add].each do |t| tags << t end
 			end
-			Posts.intern_update_tags(options[:post].raw_hash["id"], options[:post].tags*" ", tags*" ", options[:reason])
+			post_query = E6lSettings.auth_post({"id" => options[:post].raw_hash["id"], "tags" => tags*" ", "old_tags" => options[:post].tags*" "})
+			post_query[:reason] = options[:reason] unless options[:reason].nil?
+			E621Crawler.http_post_json([E6lSettings.get.safe_only, "post", "update"], post_query)
 		end
 	end
 end
