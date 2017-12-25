@@ -29,6 +29,22 @@ module E621Crawler
 			return JSON[http.body_str]
 		end
 	end
+	def E621Crawler.http_post_json(use_e926, api_loc, post_query)
+		uri = "e#{use_e926 ? 926 : 621}.net/#{api_loc}"
+		if E6lSettings.get.dry_run
+			temp = "POST #{uri}"
+			post_query.each do |k, v|
+				temp += "&#{k}=#{v}"
+			end
+			puts temp.sub("&", "?")
+			return intern_dryrun_data api_loc
+		else
+			http = Curl.post("https://#{uri}", post_query) do |http|
+				http.headers["User-Agent"] = USER_AGENT
+			end
+			return JSON[http.body_str]
+		end
+	end
 	def intern_dryrun_data(api_loc)
 		return case api_loc
 		when /post\/index.json/
@@ -37,6 +53,8 @@ module E621Crawler
 			{"file_ext" => "png", "tags" => [intern_dryrun_data("post/tags.json")]}
 		when /post\/tags.json/
 			["e6l:debug"]
+		when /post\/update.json/
+			{"post" => intern_dryrun_data("post/show.json"), "success" => true}
 		when /(tags|wiki)\/show.json/
 			{"id" => 0}
 		when /wiki\/index.json/

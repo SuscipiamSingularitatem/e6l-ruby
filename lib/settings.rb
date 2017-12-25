@@ -31,4 +31,11 @@ module E6lSettings
 		end
 		return query
 	end
+	def E6lSettings.auth_post(post_query)
+		if E6lSettings.get.login_given
+			post_query[:login] = E6lSettings.get.username
+			post_query[:password_hash] = E6lSettings.get.apikey
+		end
+		return post_query
+	end
 end

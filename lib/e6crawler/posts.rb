@@ -68,5 +68,24 @@ module E621Crawler
 
 		# (see Post.tags_id)
 		def Posts.tags(id, safe = false) Posts.tags_id(id, safe) end
+
+		# Overloaded by Posts.update_tags()
+		def Posts.intern_update_tags(id, old_tags, tags, reason)
+			post_query = E6lSettings.auth_post({id: id, tags: tags, old_tags: old_tags})
+			post_query[:reason] = reason unless reason.nil?
+			E621Crawler.http_post_json(E6lSettings.get.safe_only, "post/update.json", post_query)
+		end
+
+		# Interfaces with {https://e621.net/post/update.json}.
+		def Posts.update_tags(options)
+			raise StandardError.new("OOPS") if options[:add].nil? && options[:remove].nil?
+			tags = options[:post].tags.dup
+			if options[:add].nil?
+				tags.keep_if do |t| !options[:remove].include? t end
+			else
+				options[:add].each do |t| tags << t end
+			end
+			return Posts.intern_update_tags(options[:post].raw_hash["id"], options[:post].tags*" ", tags*" ", options[:reason])
+		end
 	end
 end
