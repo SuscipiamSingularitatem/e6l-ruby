@@ -46,7 +46,7 @@ module E621Crawler
 		end
 	end
 	def intern_dryrun_data(api_loc)
-		return case api_loc
+		case api_loc
 		when /post\/index.json/
 			[intern_dryrun_data("post/show.json")]
 		when /post\/show.json/

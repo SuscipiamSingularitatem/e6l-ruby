@@ -85,7 +85,7 @@ module E621Crawler
 			else
 				options[:add].each do |t| tags << t end
 			end
-			return Posts.intern_update_tags(options[:post].raw_hash["id"], options[:post].tags*" ", tags*" ", options[:reason])
+			Posts.intern_update_tags(options[:post].raw_hash["id"], options[:post].tags*" ", tags*" ", options[:reason])
 		end
 	end
 end
