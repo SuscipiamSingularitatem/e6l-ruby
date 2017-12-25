@@ -7,7 +7,7 @@ Take e621 with you, Ruby+MongoDB style.
 While it doesn't do much right now, you can use the development version easily:
 ```
 $> git clone https://github.com/CyberYiff/e6l-ruby.git && cd e6l-ruby
-$> bundle install   # May take a while if not already installed, requires Bundler (gem install bundler)
+$> bundle install   # May take a while if not already installed, requires Bundler (`gem install bundler`)
 $> mv settings.toml.new settings.toml   # Or manually change settings (JSON is also supported)
 $> ./test.sh
 ```
@@ -15,6 +15,6 @@ Docs are hosted on [CyberYiff.github.io](https://cyberyiff.github.io/e6l-ruby) (
 
 ## Examples
 Download and display the "sample" version (size-limited) of a particular post:
-```ruby
+```
 E6lQtGUI.single_sample Posts.show_id 546281
 ```
