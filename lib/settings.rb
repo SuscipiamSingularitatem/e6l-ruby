@@ -24,14 +24,14 @@ module E6lSettings
 
 	def E6lSettings.get; @@settings_handler end
 
-	def E6lSettings.auth_query(query)
+	def E6lSettings.auth_query(query = {})
 		if E6lSettings.get.login_given
 			query["login"] = E6lSettings.get.username
 			query["password_hash"] = E6lSettings.get.apikey
 		end
 		return query
 	end
-	def E6lSettings.auth_post(post_query)
+	def E6lSettings.auth_post(post_query = {})
 		if E6lSettings.get.login_given
 			post_query[:login] = E6lSettings.get.username
 			post_query[:password_hash] = E6lSettings.get.apikey

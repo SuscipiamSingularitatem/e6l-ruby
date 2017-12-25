@@ -22,7 +22,7 @@ module E621Crawler
 			metatags[:rating] = "s" if options[:tags].nil? && options[:metatags].nil? # no tags ==> grab latest SFW (from e926)
 
 			# Overwrite options w/ user settings
-			query = E6lSettings.auth_query({})
+			query = E6lSettings.auth_query
 			options[:typed_tags] = true unless E6lSettings.get.ignore_tag_cat
 			metatags[:rating] = "s" if metatags[:rating].nil? && E6lSettings.get.safe_only
 

@@ -6,7 +6,7 @@ module E621Crawler
 		# @return [Array<Hash>] one or more wiki pages
 		def Wiki.index(todo)
 			E621Crawler.http_get_json([E6lSettings.get.safe_only, "wiki", "index"],
-				E6lSettings.auth_query({}))
+				E6lSettings.auth_query)
 		end
 
 		# Interfaces with {https://e621.net/wiki/show.json}.
