@@ -39,16 +39,10 @@ module E621Crawler
 			return DRYRUN_DATA[loc[1]][loc[2]]
 		else
 			uri = "https://#{uri}"
-			if is_get
-				http = Curl.get(uri, query) do |http|
-					http.headers["User-Agent"] = USER_AGENT
-				end
-			else
-				http = Curl.post(uri, query) do |http|
-					http.headers["User-Agent"] = USER_AGENT
-				end
-			end
-			return JSON[http.body_str]
+			set_ua = proc {|http| http.headers["User-Agent"] = USER_AGENT}
+			return JSON[
+					(is_get ? Curl.get(uri, query, &set_ua) : Curl.post(uri, query, &set_ua))
+				.body_str]
 		end
 	end
 	def E621Crawler.http_get_json(loc, query) intern_http(true, loc, query) end
