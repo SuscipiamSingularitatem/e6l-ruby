@@ -70,6 +70,7 @@ module E621Crawler
 		def Posts.tags(id, safe = false) Posts.tags_id(id, safe) end
 
 		# Overloaded by Posts.update_tags()
+		# @global_rw Really will change the post's tags on e6. Will not ask for confirmation.
 		def Posts.intern_update_tags(id, old_tags, tags, reason)
 			post_query = E6lSettings.auth_post({id: id, tags: tags, old_tags: old_tags})
 			post_query[:reason] = reason unless reason.nil?
@@ -77,6 +78,7 @@ module E621Crawler
 		end
 
 		# Interfaces with {https://e621.net/post/update.json}.
+		# @global_rw (see Posts.intern_update_tags)
 		def Posts.update_tags(options)
 			raise StandardError.new("OOPS") if options[:add].nil? && options[:remove].nil?
 			tags = options[:post].tags.dup
