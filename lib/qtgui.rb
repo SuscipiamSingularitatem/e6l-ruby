@@ -2,6 +2,7 @@ require "Qt"
 
 module E6lQtGUI
 	THUMB_SIZE = [150, 150]
+
 	# Instantiate, then call the show method to set the current Qt App's content to a simple image display.
 	class ImageDisplayWindow < Qt::MainWindow
 		def initialize(image_path, window_title, window_dims)
@@ -17,12 +18,12 @@ module E6lQtGUI
 
 	# Creates and runs a Qt App which displays a post's "preview" (thumbnail).
 	def E6lQtGUI.single_preview(post)
-		case post.ext
+		path = case post.ext
 		when "gif", "jpg", "png"
 			post.dl_preview
-			path = post.preview_tempfile.path
+			post.preview_tempfile.path
 		when "swf", "webm"
-			path = "img#{File::SEPARATOR}#{post.ext == "swf" ? "download" : "webm"}-preview.png"
+			"img#{File::SEPARATOR}#{post.ext == "swf" ? "download" : "webm"}-preview.png"
 		end
 		qt_app = Qt::Application.new(ARGV)
 		ImageDisplayWindow.new(path, "e6##{post.raw_hash["id"]} (.#{post.ext})", THUMB_SIZE).show

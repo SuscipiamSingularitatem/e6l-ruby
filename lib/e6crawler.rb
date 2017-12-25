@@ -45,7 +45,7 @@ module E621Crawler
 			return JSON[http.body_str]
 		end
 	end
-	def intern_dryrun_data(d, f)
+	def E621Crawler.intern_dryrun_data(d, f)
 		case d
 		when "post"; case f
 			when "index"; [intern_dryrun_data("post", "show")]
