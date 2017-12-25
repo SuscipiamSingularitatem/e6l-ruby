@@ -13,15 +13,15 @@ module E621Crawler
 		(OS.posix? ? (OS.mac? ? "macOS; " : "Linux; ") : (OS.doze? ? "Windows; " : "")) +
 		"Ruby/#{RUBY_VERSION})"
 
-	def E621Crawler.http_get_json(use_e926, api_loc, query)
-		uri = "e#{use_e926 ? 926 : 621}.net/#{api_loc}"
+	def E621Crawler.http_get_json(loc, query)
+		uri = "e#{loc[0] ? 926 : 621}.net/#{loc[1]}/#{loc[2]}.json"
 		if E6lSettings.get.dry_run
 			temp = "GET #{uri}"
 			query.each do |k, v|
 				temp += "&#{k}=#{v}"
 			end
 			puts temp.sub("&", "?")
-			return intern_dryrun_data api_loc
+			return intern_dryrun_data(loc[1], loc[2])
 		else
 			http = Curl.get("https://#{uri}", query) do |http|
 				http.headers["User-Agent"] = USER_AGENT
@@ -29,15 +29,15 @@ module E621Crawler
 			return JSON[http.body_str]
 		end
 	end
-	def E621Crawler.http_post_json(use_e926, api_loc, post_query)
-		uri = "e#{use_e926 ? 926 : 621}.net/#{api_loc}"
+	def E621Crawler.http_post_json(loc, post_query)
+		uri = "e#{loc[0] ? 926 : 621}.net/#{loc[1]}/#{loc[2]}.json"
 		if E6lSettings.get.dry_run
 			temp = "POST #{uri}"
 			post_query.each do |k, v|
 				temp += "&#{k}=#{v}"
 			end
 			puts temp.sub("&", "?")
-			return intern_dryrun_data api_loc
+			return intern_dryrun_data(loc[1], loc[2])
 		else
 			http = Curl.post("https://#{uri}", post_query) do |http|
 				http.headers["User-Agent"] = USER_AGENT
@@ -45,22 +45,25 @@ module E621Crawler
 			return JSON[http.body_str]
 		end
 	end
-	def intern_dryrun_data(api_loc)
-		case api_loc
-		when /post\/index.json/
-			[intern_dryrun_data("post/show.json")]
-		when /post\/show.json/
-			{"file_ext" => "png", "tags" => [intern_dryrun_data("post/tags.json")]}
-		when /post\/tags.json/
-			["e6l:debug"]
-		when /post\/update.json/
-			{"post" => intern_dryrun_data("post/show.json"), "success" => true}
-		when /(tags|wiki)\/show.json/
-			{"id" => 0}
-		when /wiki\/index.json/
-			[intern_dryrun_data("wiki/show.json")]
-		else
-			{}
+	def intern_dryrun_data(d, f)
+		case d
+		when "post"; case f
+			when "index"; [intern_dryrun_data("post", "show")]
+			when "show"; {"file_ext" => "png", "tags" => [intern_dryrun_data("post", "tags")]}
+			when "tags"; ["e6l:debug"]
+			when "update"; {"post" => intern_dryrun_data("post", "show"), "success" => true}
+			else; {}
+			end
+		when "tags"; case f
+			when "show"; {"id" => 0}
+			else; {}
+			end
+		when "wiki"; case f
+			when "index"; [intern_dryrun_data("wiki", "show")]
+			when "show"; {"id" => 0}
+			else; {}
+			end
+		else; {}
 		end
 	end
 
@@ -70,7 +73,8 @@ module E621Crawler
 
 		def initialize(h)
 			@raw_hash = h
-			@tags = h["tags"].split " "
+			@tags = h["tags"]
+			@tags = @tags.split(" ") if @tags.class == String
 			@ext = h["file_ext"]
 		end
 		def PostData.mass_init(a)

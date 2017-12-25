@@ -38,12 +38,12 @@ module E621Crawler
 			options[:tags] = tags*" "
 			options.each do |k, v| query[k.to_s] = v end
 
-			return PostData.mass_init E621Crawler.http_get_json(use_e926, "post/index.json", query)
+			return PostData.mass_init E621Crawler.http_get_json([use_e926, "post", "index"], query)
 		end
 
 		# Overloaded by Posts.show*() and Posts.tags*().
 		def Posts.intern_show_tags(is_show, use_id, id, md5, safe)
-			E621Crawler.http_get_json(safe, "post/#{is_show ? "show" : "tags"}.json",
+			E621Crawler.http_get_json([safe, "post", "#{is_show ? "show" : "tags"}"],
 				E6lSettings.auth_query(use_id ? {"id" => id} : {"md5" => md5}))
 		end
 
@@ -73,7 +73,7 @@ module E621Crawler
 		def Posts.intern_update_tags(id, old_tags, tags, reason)
 			post_query = E6lSettings.auth_post({id: id, tags: tags, old_tags: old_tags})
 			post_query[:reason] = reason unless reason.nil?
-			E621Crawler.http_post_json(E6lSettings.get.safe_only, "post/update.json", post_query)
+			E621Crawler.http_post_json([E6lSettings.get.safe_only, "post", "update"], post_query)
 		end
 
 		# Interfaces with {https://e621.net/post/update.json}.
