@@ -29,38 +29,30 @@ module E621Crawler
 		(OS.posix? ? (OS.mac? ? "macOS; " : "Linux; ") : (OS.doze? ? "Windows; " : "")) +
 		"Ruby/#{RUBY_VERSION})"
 
-	def E621Crawler.http_get_json(loc, query)
+	# Overloaded by E621Crawler.http_*_json().
+	def E621Crawler.intern_http(is_get, loc, query)
 		uri = "e#{loc[0] ? 926 : 621}.net/#{loc[1]}/#{loc[2]}.json"
 		if E6lSettings.get.dry_run
-			temp = "GET #{uri}"
-			query.each do |k, v|
-				temp += "&#{k}=#{v}"
-			end
+			temp = "#{is_get ? "GET" : "POST"} #{uri}"
+			query.each do |k, v| temp += "&#{k}=#{v}" end
 			puts temp.sub("&", "?")
 			return DRYRUN_DATA[loc[1]][loc[2]]
 		else
-			http = Curl.get("https://#{uri}", query) do |http|
-				http.headers["User-Agent"] = USER_AGENT
+			uri = "https://#{uri}"
+			if is_get
+				http = Curl.get(uri, query) do |http|
+					http.headers["User-Agent"] = USER_AGENT
+				end
+			else
+				http = Curl.post(uri, query) do |http|
+					http.headers["User-Agent"] = USER_AGENT
+				end
 			end
 			return JSON[http.body_str]
 		end
 	end
-	def E621Crawler.http_post_json(loc, post_query)
-		uri = "e#{loc[0] ? 926 : 621}.net/#{loc[1]}/#{loc[2]}.json"
-		if E6lSettings.get.dry_run
-			temp = "POST #{uri}"
-			post_query.each do |k, v|
-				temp += "&#{k}=#{v}"
-			end
-			puts temp.sub("&", "?")
-			return DRYRUN_DATA[loc[1]][loc[2]]
-		else
-			http = Curl.post("https://#{uri}", post_query) do |http|
-				http.headers["User-Agent"] = USER_AGENT
-			end
-			return JSON[http.body_str]
-		end
-	end
+	def E621Crawler.http_get_json(loc, query) intern_http(true, loc, query) end
+	def E621Crawler.http_post_json(loc, post_query) intern_http(false, loc, post_query) end
 
 	class PostData
 		attr_reader :raw_hash, :tags
