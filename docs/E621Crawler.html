@@ -99,6 +99,21 @@
   <h2>Constant Summary</h2>
   <dl class="constants">
     
+      <dt id="DRYRUN_DATA-constant" class="">DRYRUN_DATA =
+        
+      </dt>
+      <dd><pre class="code"><span class='lbrace'>{</span>
+	<span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>post</span><span class='tstring_end'>&quot;</span></span> <span class='op'>=&gt;</span> <span class='lbrace'>{</span>
+		<span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>tags</span><span class='tstring_end'>&quot;</span></span> <span class='op'>=&gt;</span> <span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>e6l:debug</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span>
+	<span class='rbrace'>}</span><span class='comma'>,</span>
+	<span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>tags</span><span class='tstring_end'>&quot;</span></span> <span class='op'>=&gt;</span> <span class='lbrace'>{</span>
+		<span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>show</span><span class='tstring_end'>&quot;</span></span> <span class='op'>=&gt;</span> <span class='lbrace'>{</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>id</span><span class='tstring_end'>&quot;</span></span> <span class='op'>=&gt;</span> <span class='int'>0</span><span class='rbrace'>}</span>
+	<span class='rbrace'>}</span><span class='comma'>,</span>
+	<span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>wiki</span><span class='tstring_end'>&quot;</span></span> <span class='op'>=&gt;</span> <span class='lbrace'>{</span>
+		<span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>show</span><span class='tstring_end'>&quot;</span></span> <span class='op'>=&gt;</span> <span class='lbrace'>{</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>id</span><span class='tstring_end'>&quot;</span></span> <span class='op'>=&gt;</span> <span class='int'>0</span><span class='rbrace'>}</span>
+	<span class='rbrace'>}</span>
+<span class='rbrace'>}</span></pre></dd>
+    
       <dt id="PRETTY_JSON-constant" class="">PRETTY_JSON =
         
       </dt>
@@ -174,7 +189,7 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#intern_dryrun_data-class_method" title="intern_dryrun_data (class method)">.<strong>intern_dryrun_data</strong>(d, f)  &#x21d2; Object </a>
+      <a href="#intern_http-class_method" title="intern_http (class method)">.<strong>intern_http</strong>(is_get, loc, query)  &#x21d2; Object </a>
     
 
     
@@ -188,7 +203,9 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+<p>Overloaded by E621Crawler.http_*_json().</p>
+</div></span>
   
 </li>
 
@@ -217,42 +234,12 @@
       <pre class="lines">
 
 
-16
-17
-18
-19
-20
-21
-22
-23
-24
-25
-26
-27
-28
-29
-30
-31</pre>
+48</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/e6crawler.rb', line 16</span>
+      <pre class="code"><span class="info file"># File 'lib/e6crawler.rb', line 48</span>
 
-<span class='kw'>def</span> <span class='const'><span class='object_link'><a href="" title="E621Crawler (module)">E621Crawler</a></span></span><span class='period'>.</span><span class='id identifier rubyid_http_get_json'>http_get_json</span><span class='lparen'>(</span><span class='id identifier rubyid_loc'>loc</span><span class='comma'>,</span> <span class='id identifier rubyid_query'>query</span><span class='rparen'>)</span>
-	<span class='id identifier rubyid_uri'>uri</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>e</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_loc'>loc</span><span class='lbracket'>[</span><span class='int'>0</span><span class='rbracket'>]</span> <span class='op'>?</span> <span class='int'>926</span> <span class='op'>:</span> <span class='int'>621</span><span class='embexpr_end'>}</span><span class='tstring_content'>.net/</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_loc'>loc</span><span class='lbracket'>[</span><span class='int'>1</span><span class='rbracket'>]</span><span class='embexpr_end'>}</span><span class='tstring_content'>/</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_loc'>loc</span><span class='lbracket'>[</span><span class='int'>2</span><span class='rbracket'>]</span><span class='embexpr_end'>}</span><span class='tstring_content'>.json</span><span class='tstring_end'>&quot;</span></span>
-	<span class='kw'>if</span> <span class='const'><span class='object_link'><a href="E6lSettings.html" title="E6lSettings (module)">E6lSettings</a></span></span><span class='period'>.</span><span class='id identifier rubyid_get'><span class='object_link'><a href="E6lSettings.html#get-class_method" title="E6lSettings.get (method)">get</a></span></span><span class='period'>.</span><span class='id identifier rubyid_dry_run'>dry_run</span>
-		<span class='id identifier rubyid_temp'>temp</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>GET </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_uri'>uri</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span>
-		<span class='id identifier rubyid_query'>query</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_k'>k</span><span class='comma'>,</span> <span class='id identifier rubyid_v'>v</span><span class='op'>|</span>
-			<span class='id identifier rubyid_temp'>temp</span> <span class='op'>+=</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>&amp;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_k'>k</span><span class='embexpr_end'>}</span><span class='tstring_content'>=</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_v'>v</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span>
-		<span class='kw'>end</span>
-		<span class='id identifier rubyid_puts'>puts</span> <span class='id identifier rubyid_temp'>temp</span><span class='period'>.</span><span class='id identifier rubyid_sub'>sub</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>&amp;</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>?</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
-		<span class='kw'>return</span> <span class='id identifier rubyid_intern_dryrun_data'><span class='object_link'><a href="#intern_dryrun_data-class_method" title="E621Crawler.intern_dryrun_data (method)">intern_dryrun_data</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_loc'>loc</span><span class='lbracket'>[</span><span class='int'>1</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='id identifier rubyid_loc'>loc</span><span class='lbracket'>[</span><span class='int'>2</span><span class='rbracket'>]</span><span class='rparen'>)</span>
-	<span class='kw'>else</span>
-		<span class='id identifier rubyid_http'>http</span> <span class='op'>=</span> <span class='const'>Curl</span><span class='period'>.</span><span class='id identifier rubyid_get'>get</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>https://</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_uri'>uri</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_query'>query</span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_http'>http</span><span class='op'>|</span>
-			<span class='id identifier rubyid_http'>http</span><span class='period'>.</span><span class='id identifier rubyid_headers'>headers</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>User-Agent</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="#USER_AGENT-constant" title="E621Crawler::USER_AGENT (constant)">USER_AGENT</a></span></span>
-		<span class='kw'>end</span>
-		<span class='kw'>return</span> <span class='const'>JSON</span><span class='lbracket'>[</span><span class='id identifier rubyid_http'>http</span><span class='period'>.</span><span class='id identifier rubyid_body_str'>body_str</span><span class='rbracket'>]</span>
-	<span class='kw'>end</span>
-<span class='kw'>end</span></pre>
+<span class='kw'>def</span> <span class='const'><span class='object_link'><a href="" title="E621Crawler (module)">E621Crawler</a></span></span><span class='period'>.</span><span class='id identifier rubyid_http_get_json'>http_get_json</span><span class='lparen'>(</span><span class='id identifier rubyid_loc'>loc</span><span class='comma'>,</span> <span class='id identifier rubyid_query'>query</span><span class='rparen'>)</span> <span class='id identifier rubyid_intern_http'><span class='object_link'><a href="#intern_http-class_method" title="E621Crawler.intern_http (method)">intern_http</a></span></span><span class='lparen'>(</span><span class='kw'>true</span><span class='comma'>,</span> <span class='id identifier rubyid_loc'>loc</span><span class='comma'>,</span> <span class='id identifier rubyid_query'>query</span><span class='rparen'>)</span> <span class='kw'>end</span></pre>
     </td>
   </tr>
 </table>
@@ -273,7 +260,43 @@
       <pre class="lines">
 
 
-32
+49</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/e6crawler.rb', line 49</span>
+
+<span class='kw'>def</span> <span class='const'><span class='object_link'><a href="" title="E621Crawler (module)">E621Crawler</a></span></span><span class='period'>.</span><span class='id identifier rubyid_http_post_json'>http_post_json</span><span class='lparen'>(</span><span class='id identifier rubyid_loc'>loc</span><span class='comma'>,</span> <span class='id identifier rubyid_post_query'>post_query</span><span class='rparen'>)</span> <span class='id identifier rubyid_intern_http'><span class='object_link'><a href="#intern_http-class_method" title="E621Crawler.intern_http (method)">intern_http</a></span></span><span class='lparen'>(</span><span class='kw'>false</span><span class='comma'>,</span> <span class='id identifier rubyid_loc'>loc</span><span class='comma'>,</span> <span class='id identifier rubyid_post_query'>post_query</span><span class='rparen'>)</span> <span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="intern_http-class_method">
+  
+    .<strong>intern_http</strong>(is_get, loc, query)  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Overloaded by E621Crawler.http_*_json().</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
 33
 34
 35
@@ -291,88 +314,21 @@
 47</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/e6crawler.rb', line 32</span>
+      <pre class="code"><span class="info file"># File 'lib/e6crawler.rb', line 33</span>
 
-<span class='kw'>def</span> <span class='const'><span class='object_link'><a href="" title="E621Crawler (module)">E621Crawler</a></span></span><span class='period'>.</span><span class='id identifier rubyid_http_post_json'>http_post_json</span><span class='lparen'>(</span><span class='id identifier rubyid_loc'>loc</span><span class='comma'>,</span> <span class='id identifier rubyid_post_query'>post_query</span><span class='rparen'>)</span>
+<span class='kw'>def</span> <span class='const'><span class='object_link'><a href="" title="E621Crawler (module)">E621Crawler</a></span></span><span class='period'>.</span><span class='id identifier rubyid_intern_http'>intern_http</span><span class='lparen'>(</span><span class='id identifier rubyid_is_get'>is_get</span><span class='comma'>,</span> <span class='id identifier rubyid_loc'>loc</span><span class='comma'>,</span> <span class='id identifier rubyid_query'>query</span><span class='rparen'>)</span>
 	<span class='id identifier rubyid_uri'>uri</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>e</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_loc'>loc</span><span class='lbracket'>[</span><span class='int'>0</span><span class='rbracket'>]</span> <span class='op'>?</span> <span class='int'>926</span> <span class='op'>:</span> <span class='int'>621</span><span class='embexpr_end'>}</span><span class='tstring_content'>.net/</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_loc'>loc</span><span class='lbracket'>[</span><span class='int'>1</span><span class='rbracket'>]</span><span class='embexpr_end'>}</span><span class='tstring_content'>/</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_loc'>loc</span><span class='lbracket'>[</span><span class='int'>2</span><span class='rbracket'>]</span><span class='embexpr_end'>}</span><span class='tstring_content'>.json</span><span class='tstring_end'>&quot;</span></span>
 	<span class='kw'>if</span> <span class='const'><span class='object_link'><a href="E6lSettings.html" title="E6lSettings (module)">E6lSettings</a></span></span><span class='period'>.</span><span class='id identifier rubyid_get'><span class='object_link'><a href="E6lSettings.html#get-class_method" title="E6lSettings.get (method)">get</a></span></span><span class='period'>.</span><span class='id identifier rubyid_dry_run'>dry_run</span>
-		<span class='id identifier rubyid_temp'>temp</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>POST </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_uri'>uri</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span>
-		<span class='id identifier rubyid_post_query'>post_query</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_k'>k</span><span class='comma'>,</span> <span class='id identifier rubyid_v'>v</span><span class='op'>|</span>
-			<span class='id identifier rubyid_temp'>temp</span> <span class='op'>+=</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>&amp;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_k'>k</span><span class='embexpr_end'>}</span><span class='tstring_content'>=</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_v'>v</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span>
-		<span class='kw'>end</span>
+		<span class='id identifier rubyid_temp'>temp</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_is_get'>is_get</span> <span class='op'>?</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>GET</span><span class='tstring_end'>&quot;</span></span> <span class='op'>:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>POST</span><span class='tstring_end'>&quot;</span></span><span class='embexpr_end'>}</span><span class='tstring_content'> </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_uri'>uri</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span>
+		<span class='id identifier rubyid_query'>query</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_k'>k</span><span class='comma'>,</span> <span class='id identifier rubyid_v'>v</span><span class='op'>|</span> <span class='id identifier rubyid_temp'>temp</span> <span class='op'>+=</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>&amp;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_k'>k</span><span class='embexpr_end'>}</span><span class='tstring_content'>=</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_v'>v</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span> <span class='kw'>end</span>
 		<span class='id identifier rubyid_puts'>puts</span> <span class='id identifier rubyid_temp'>temp</span><span class='period'>.</span><span class='id identifier rubyid_sub'>sub</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>&amp;</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>?</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
-		<span class='kw'>return</span> <span class='id identifier rubyid_intern_dryrun_data'><span class='object_link'><a href="#intern_dryrun_data-class_method" title="E621Crawler.intern_dryrun_data (method)">intern_dryrun_data</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_loc'>loc</span><span class='lbracket'>[</span><span class='int'>1</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='id identifier rubyid_loc'>loc</span><span class='lbracket'>[</span><span class='int'>2</span><span class='rbracket'>]</span><span class='rparen'>)</span>
+		<span class='kw'>return</span> <span class='const'><span class='object_link'><a href="#DRYRUN_DATA-constant" title="E621Crawler::DRYRUN_DATA (constant)">DRYRUN_DATA</a></span></span><span class='lbracket'>[</span><span class='id identifier rubyid_loc'>loc</span><span class='lbracket'>[</span><span class='int'>1</span><span class='rbracket'>]</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='id identifier rubyid_loc'>loc</span><span class='lbracket'>[</span><span class='int'>2</span><span class='rbracket'>]</span><span class='rbracket'>]</span>
 	<span class='kw'>else</span>
-		<span class='id identifier rubyid_http'>http</span> <span class='op'>=</span> <span class='const'>Curl</span><span class='period'>.</span><span class='id identifier rubyid_post'>post</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>https://</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_uri'>uri</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_post_query'>post_query</span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_http'>http</span><span class='op'>|</span>
-			<span class='id identifier rubyid_http'>http</span><span class='period'>.</span><span class='id identifier rubyid_headers'>headers</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>User-Agent</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="#USER_AGENT-constant" title="E621Crawler::USER_AGENT (constant)">USER_AGENT</a></span></span>
-		<span class='kw'>end</span>
-		<span class='kw'>return</span> <span class='const'>JSON</span><span class='lbracket'>[</span><span class='id identifier rubyid_http'>http</span><span class='period'>.</span><span class='id identifier rubyid_body_str'>body_str</span><span class='rbracket'>]</span>
-	<span class='kw'>end</span>
-<span class='kw'>end</span></pre>
-    </td>
-  </tr>
-</table>
-</div>
-    
-      <div class="method_details ">
-  <h3 class="signature " id="intern_dryrun_data-class_method">
-  
-    .<strong>intern_dryrun_data</strong>(d, f)  &#x21d2; <tt>Object</tt> 
-  
-
-  
-
-  
-</h3><table class="source_code">
-  <tr>
-    <td>
-      <pre class="lines">
-
-
-48
-49
-50
-51
-52
-53
-54
-55
-56
-57
-58
-59
-60
-61
-62
-63
-64
-65
-66
-67
-68</pre>
-    </td>
-    <td>
-      <pre class="code"><span class="info file"># File 'lib/e6crawler.rb', line 48</span>
-
-<span class='kw'>def</span> <span class='const'><span class='object_link'><a href="" title="E621Crawler (module)">E621Crawler</a></span></span><span class='period'>.</span><span class='id identifier rubyid_intern_dryrun_data'>intern_dryrun_data</span><span class='lparen'>(</span><span class='id identifier rubyid_d'>d</span><span class='comma'>,</span> <span class='id identifier rubyid_f'>f</span><span class='rparen'>)</span>
-	<span class='kw'>case</span> <span class='id identifier rubyid_d'>d</span>
-	<span class='kw'>when</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>post</span><span class='tstring_end'>&quot;</span></span><span class='semicolon'>;</span> <span class='kw'>case</span> <span class='id identifier rubyid_f'>f</span>
-		<span class='kw'>when</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>index</span><span class='tstring_end'>&quot;</span></span><span class='semicolon'>;</span> <span class='lbracket'>[</span><span class='id identifier rubyid_intern_dryrun_data'>intern_dryrun_data</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>post</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>show</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span><span class='rbracket'>]</span>
-		<span class='kw'>when</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>show</span><span class='tstring_end'>&quot;</span></span><span class='semicolon'>;</span> <span class='lbrace'>{</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>file_ext</span><span class='tstring_end'>&quot;</span></span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>png</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>tags</span><span class='tstring_end'>&quot;</span></span> <span class='op'>=&gt;</span> <span class='lbracket'>[</span><span class='id identifier rubyid_intern_dryrun_data'>intern_dryrun_data</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>post</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>tags</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span><span class='rbracket'>]</span><span class='rbrace'>}</span>
-		<span class='kw'>when</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>tags</span><span class='tstring_end'>&quot;</span></span><span class='semicolon'>;</span> <span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>e6l:debug</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span>
-		<span class='kw'>when</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>update</span><span class='tstring_end'>&quot;</span></span><span class='semicolon'>;</span> <span class='lbrace'>{</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>post</span><span class='tstring_end'>&quot;</span></span> <span class='op'>=&gt;</span> <span class='id identifier rubyid_intern_dryrun_data'>intern_dryrun_data</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>post</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>show</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>success</span><span class='tstring_end'>&quot;</span></span> <span class='op'>=&gt;</span> <span class='kw'>true</span><span class='rbrace'>}</span>
-		<span class='kw'>else</span><span class='semicolon'>;</span> <span class='lbrace'>{</span><span class='rbrace'>}</span>
-		<span class='kw'>end</span>
-	<span class='kw'>when</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>tags</span><span class='tstring_end'>&quot;</span></span><span class='semicolon'>;</span> <span class='kw'>case</span> <span class='id identifier rubyid_f'>f</span>
-		<span class='kw'>when</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>show</span><span class='tstring_end'>&quot;</span></span><span class='semicolon'>;</span> <span class='lbrace'>{</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>id</span><span class='tstring_end'>&quot;</span></span> <span class='op'>=&gt;</span> <span class='int'>0</span><span class='rbrace'>}</span>
-		<span class='kw'>else</span><span class='semicolon'>;</span> <span class='lbrace'>{</span><span class='rbrace'>}</span>
-		<span class='kw'>end</span>
-	<span class='kw'>when</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>wiki</span><span class='tstring_end'>&quot;</span></span><span class='semicolon'>;</span> <span class='kw'>case</span> <span class='id identifier rubyid_f'>f</span>
-		<span class='kw'>when</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>index</span><span class='tstring_end'>&quot;</span></span><span class='semicolon'>;</span> <span class='lbracket'>[</span><span class='id identifier rubyid_intern_dryrun_data'>intern_dryrun_data</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>wiki</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>show</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span><span class='rbracket'>]</span>
-		<span class='kw'>when</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>show</span><span class='tstring_end'>&quot;</span></span><span class='semicolon'>;</span> <span class='lbrace'>{</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>id</span><span class='tstring_end'>&quot;</span></span> <span class='op'>=&gt;</span> <span class='int'>0</span><span class='rbrace'>}</span>
-		<span class='kw'>else</span><span class='semicolon'>;</span> <span class='lbrace'>{</span><span class='rbrace'>}</span>
-		<span class='kw'>end</span>
-	<span class='kw'>else</span><span class='semicolon'>;</span> <span class='lbrace'>{</span><span class='rbrace'>}</span>
+		<span class='id identifier rubyid_uri'>uri</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>https://</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_uri'>uri</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span>
+		<span class='id identifier rubyid_set_ua'>set_ua</span> <span class='op'>=</span> <span class='id identifier rubyid_proc'>proc</span> <span class='lbrace'>{</span><span class='op'>|</span><span class='id identifier rubyid_http'>http</span><span class='op'>|</span> <span class='id identifier rubyid_http'>http</span><span class='period'>.</span><span class='id identifier rubyid_headers'>headers</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>User-Agent</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="#USER_AGENT-constant" title="E621Crawler::USER_AGENT (constant)">USER_AGENT</a></span></span><span class='rbrace'>}</span>
+		<span class='kw'>return</span> <span class='const'>JSON</span><span class='lbracket'>[</span>
+				<span class='lparen'>(</span><span class='id identifier rubyid_is_get'>is_get</span> <span class='op'>?</span> <span class='const'>Curl</span><span class='period'>.</span><span class='id identifier rubyid_get'>get</span><span class='lparen'>(</span><span class='id identifier rubyid_uri'>uri</span><span class='comma'>,</span> <span class='id identifier rubyid_query'>query</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id identifier rubyid_set_ua'>set_ua</span><span class='rparen'>)</span> <span class='op'>:</span> <span class='const'>Curl</span><span class='period'>.</span><span class='id identifier rubyid_post'>post</span><span class='lparen'>(</span><span class='id identifier rubyid_uri'>uri</span><span class='comma'>,</span> <span class='id identifier rubyid_query'>query</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id identifier rubyid_set_ua'>set_ua</span><span class='rparen'>)</span><span class='rparen'>)</span>
+			<span class='period'>.</span><span class='id identifier rubyid_body_str'>body_str</span><span class='rbracket'>]</span>
 	<span class='kw'>end</span>
 <span class='kw'>end</span></pre>
     </td>
@@ -385,7 +341,7 @@
 </div>
 
       <div id="footer">
-  Generated on Mon Dec 25 22:16:17 2017 by
+  Generated on Mon Dec 25 23:38:33 2017 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.12 (ruby-2.4.3).
 </div>
