@@ -8,6 +8,22 @@ require "os"
 ["posts", "tags", "wiki"].each do |f| require_relative "e6crawler#{File::SEPARATOR}#{f}.rb" end
 
 module E621Crawler
+	DRYRUN_DATA = {
+		"post" => {
+			"tags" => ["e6l:debug"]
+		},
+		"tags" => {
+			"show" => {"id" => 0}
+		},
+		"wiki" => {
+			"show" => {"id" => 0}
+		}
+	}
+	DRYRUN_DATA["post"]["show"] = {"file_ext" => "png", "tags" => [DRYRUN_DATA["post"]["tags"]]}
+	DRYRUN_DATA["post"]["index"] = [DRYRUN_DATA["post"]["show"]]
+	DRYRUN_DATA["post"]["update"] = {"post" => DRYRUN_DATA["post"]["show"], "success" => true}
+	DRYRUN_DATA["wiki"]["index"] = [DRYRUN_DATA["wiki"]["show"]]
+
 	PRETTY_JSON = {space: " ", object_nl: "\n", array_nl: "\n", indent: "\t"}
 	USER_AGENT = "e6l-ruby/0.1 (by @YoshiRulz on e621; @SuscipiamSingularitatem on GitHub) Curb/#{Curl::CURB_VERSION} (" +
 		(OS.posix? ? (OS.mac? ? "macOS; " : "Linux; ") : (OS.doze? ? "Windows; " : "")) +
@@ -21,7 +37,7 @@ module E621Crawler
 				temp += "&#{k}=#{v}"
 			end
 			puts temp.sub("&", "?")
-			return intern_dryrun_data(loc[1], loc[2])
+			return DRYRUN_DATA[loc[1]][loc[2]]
 		else
 			http = Curl.get("https://#{uri}", query) do |http|
 				http.headers["User-Agent"] = USER_AGENT
@@ -37,33 +53,12 @@ module E621Crawler
 				temp += "&#{k}=#{v}"
 			end
 			puts temp.sub("&", "?")
-			return intern_dryrun_data(loc[1], loc[2])
+			return DRYRUN_DATA[loc[1]][loc[2]]
 		else
 			http = Curl.post("https://#{uri}", post_query) do |http|
 				http.headers["User-Agent"] = USER_AGENT
 			end
 			return JSON[http.body_str]
-		end
-	end
-	def E621Crawler.intern_dryrun_data(d, f)
-		case d
-		when "post"; case f
-			when "index"; [intern_dryrun_data("post", "show")]
-			when "show"; {"file_ext" => "png", "tags" => [intern_dryrun_data("post", "tags")]}
-			when "tags"; ["e6l:debug"]
-			when "update"; {"post" => intern_dryrun_data("post", "show"), "success" => true}
-			else; {}
-			end
-		when "tags"; case f
-			when "show"; {"id" => 0}
-			else; {}
-			end
-		when "wiki"; case f
-			when "index"; [intern_dryrun_data("wiki", "show")]
-			when "show"; {"id" => 0}
-			else; {}
-			end
-		else; {}
 		end
 	end
 
