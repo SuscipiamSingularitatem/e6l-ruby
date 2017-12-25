@@ -41,32 +41,32 @@ module E621Crawler
 			return PostData.mass_init E621Crawler.http_get_json(use_e926, "post/index.json", query)
 		end
 
-		# Overloaded by Post.show*() and Post.tags*().
+		# Overloaded by Posts.show*() and Posts.tags*().
 		def Posts.intern_show_tags(is_show, use_id, id, md5, safe)
 			E621Crawler.http_get_json(safe, "post/#{is_show ? "show" : "tags"}.json",
 				E6lSettings.auth_query(use_id ? {"id" => id} : {"md5" => md5}))
 		end
 
 		# Interfaces with {https://e621.net/post/show.json}.
-		# @return (see Post.show_id)
+		# @return (see Posts.show_id)
 		def Posts.show_md5(md5, safe = false) PostData.new Posts.intern_show_tags(true, false, nil, md5, safe) end
 
 		# Interfaces with {https://e621.net/post/show.json}.
 		# @return [PostData] the post
 		def Posts.show_id(id, safe = false) PostData.new Posts.intern_show_tags(true, true, id, nil, safe) end
 
-		# (see Post.show_id)
+		# (see Posts.show_id)
 		def Posts.show(id, safe = false) Posts.show_id(id, safe) end
 
 		# Interfaces with {https://e621.net/post/tags.json}.
-		# @return (see Post.tags_id)
+		# @return (see Posts.tags_id)
 		def Posts.tags_md5(md5, safe = false) Posts.intern_show_tags(false, false, nil, md5, safe) end
 
 		# Interfaces with {https://e621.net/post/tags.json}.
 		# @return [Array<String>] the post's tags
 		def Posts.tags_id(id, safe = false) Posts.intern_show_tags(false, true, id, nil, safe) end
 
-		# (see Post.tags_id)
+		# (see Posts.tags_id)
 		def Posts.tags(id, safe = false) Posts.tags_id(id, safe) end
 
 		# Overloaded by Posts.update_tags()
