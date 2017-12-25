@@ -6,6 +6,7 @@ require "curb"
 require "os"
 
 ["posts", "tags", "wiki"].each do |f| require_relative "e6crawler#{File::SEPARATOR}#{f}.rb" end
+require_relative "settings.rb"
 
 module E621Crawler
 	DRYRUN_DATA = {
@@ -25,6 +26,7 @@ module E621Crawler
 	DRYRUN_DATA["wiki"]["index"] = [DRYRUN_DATA["wiki"]["show"]]
 
 	PRETTY_JSON = {space: " ", object_nl: "\n", array_nl: "\n", indent: "\t"}
+	SFW_MODE = E6lSettings.get.safe_only
 	USER_AGENT = "e6l-ruby/0.1 (by @YoshiRulz on e621; @SuscipiamSingularitatem on GitHub) Curb/#{Curl::CURB_VERSION} (" +
 		(OS.posix? ? (OS.mac? ? "macOS; " : "Linux; ") : (OS.doze? ? "Windows; " : "")) +
 		"Ruby/#{RUBY_VERSION})"

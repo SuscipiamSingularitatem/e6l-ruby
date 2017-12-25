@@ -24,7 +24,7 @@ module E621Crawler
 			# Overwrite options w/ user settings
 			query = E6lSettings.auth_query
 			options[:typed_tags] = true unless E6lSettings.get.ignore_tag_cat
-			metatags[:rating] = "s" if metatags[:rating].nil? && E6lSettings.get.safe_only
+			metatags[:rating] = "s" if metatags[:rating].nil? && SFW_MODE
 
 			# Metatags -> tags
 			use_e926 = false
@@ -49,25 +49,25 @@ module E621Crawler
 
 		# Interfaces with {https://e621.net/post/show.json}.
 		# @return (see Posts.show_id)
-		def Posts.show_md5(md5, safe = E6lSettings.get.safe_only) PostData.new Posts.intern_show_tags(true, false, nil, md5, safe) end
+		def Posts.show_md5(md5, safe = SFW_MODE) PostData.new Posts.intern_show_tags(true, false, nil, md5, safe) end
 
 		# Interfaces with {https://e621.net/post/show.json}.
 		# @return [PostData] the post
-		def Posts.show_id(id, safe = E6lSettings.get.safe_only) PostData.new Posts.intern_show_tags(true, true, id, nil, safe) end
+		def Posts.show_id(id, safe = SFW_MODE) PostData.new Posts.intern_show_tags(true, true, id, nil, safe) end
 
 		# (see Posts.show_id)
-		def Posts.show(id, safe = E6lSettings.get.safe_only) Posts.show_id(id, safe) end
+		def Posts.show(id, safe = SFW_MODE) Posts.show_id(id, safe) end
 
 		# Interfaces with {https://e621.net/post/tags.json}.
 		# @return (see Posts.tags_id)
-		def Posts.tags_md5(md5, safe = E6lSettings.get.safe_only) Posts.intern_show_tags(false, false, nil, md5, safe) end
+		def Posts.tags_md5(md5, safe = SFW_MODE) Posts.intern_show_tags(false, false, nil, md5, safe) end
 
 		# Interfaces with {https://e621.net/post/tags.json}.
 		# @return [Array<String>] the post's tags
-		def Posts.tags_id(id, safe = E6lSettings.get.safe_only) Posts.intern_show_tags(false, true, id, nil, safe) end
+		def Posts.tags_id(id, safe = SFW_MODE) Posts.intern_show_tags(false, true, id, nil, safe) end
 
 		# (see Posts.tags_id)
-		def Posts.tags(id, safe = E6lSettings.get.safe_only) Posts.tags_id(id, safe) end
+		def Posts.tags(id, safe = SFW_MODE) Posts.tags_id(id, safe) end
 
 		def Posts.intern_update_tags(id, old_tags, tags, reason)
 		end
@@ -84,7 +84,7 @@ module E621Crawler
 			end
 			post_query = E6lSettings.auth_post({"id" => options[:post].raw_hash["id"], "tags" => tags*" ", "old_tags" => options[:post].tags*" "})
 			post_query[:reason] = options[:reason] unless options[:reason].nil?
-			E621Crawler.http_post_json([E6lSettings.get.safe_only, "post", "update"], post_query)
+			E621Crawler.http_post_json([SFW_MODE, "post", "update"], post_query)
 		end
 	end
 end
