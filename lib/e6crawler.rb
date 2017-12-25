@@ -47,12 +47,12 @@ module E621Crawler
 	end
 
 	class PostData
-		attr_reader :raw_hash
+		attr_reader :raw_hash, :tags
 		attr_reader :ext, :preview_tempfile, :sample_tempfile
 
 		def initialize(h)
 			@raw_hash = h
-			@tags = h["tags"]
+			@tags = h["tags"].split " "
 			@ext = h["file_ext"]
 		end
 		def PostData.mass_init(a)
