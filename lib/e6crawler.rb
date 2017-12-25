@@ -36,7 +36,9 @@ module E621Crawler
 			temp = "#{is_get ? "GET" : "POST"} #{uri}"
 			query.each do |k, v| temp += "&#{k}=#{v}" end
 			puts temp.sub("&", "?")
-			return DRYRUN_DATA[loc[1]][loc[2]]
+			temp = DRYRUN_DATA[loc[1]][loc[2]]
+			temp["id"] = query["id"] if loc[1] == "post" && loc[2] == "show" # Pass id for ".../*/show.json"?
+			return temp
 		else
 			uri = "https://#{uri}"
 			set_ua = proc {|http| http.headers["User-Agent"] = USER_AGENT}
