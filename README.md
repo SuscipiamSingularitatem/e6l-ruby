@@ -15,6 +15,18 @@ Docs are hosted on [CyberYiff.github.io](https://cyberyiff.github.io/e6l-ruby) (
 
 ## Examples
 Download and display the "sample" version (size-limited) of a particular post:
-```
+```ruby
 E6lQtGUI.single_sample Posts.show_id 546281
+```
+
+From one of Genjar's tag projects - download and display posts from a search of >6 tags (works without privileged!) and record which need to be edited:
+```ruby
+posts = Posts.index(tags: %w{feral -solo -masturbation -human -humanoid -anthro -feral_on_feral}, metatags: {rating: "e"})
+explicit = []
+posts.each do |post|
+	E6lQtGUI.single_sample post
+	puts "Was that post feral on feral [Y/N]?"
+	explicit << "#{post.raw_hash["id"]}: #{gets.chomp.upcase}"
+end
+puts explicit*", "
 ```
