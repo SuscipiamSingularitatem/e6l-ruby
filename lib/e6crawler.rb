@@ -112,6 +112,6 @@ module E621Crawler
 			end
 		end
 
-		def debug_tags; puts JSON.generate(@tags, PRETTY_JSON) end
+		def debug_tags; if @tags.class == Hash then ["artist", "character", "copyright", "species", "general"].each do |cat| puts "#{cat}\n\t#{@tags[cat]*" "}\n" end else puts @tags*" " end end
 	end
 end
