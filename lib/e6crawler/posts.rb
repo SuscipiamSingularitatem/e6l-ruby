@@ -19,6 +19,7 @@ module E621Crawler
 
 			# Defaults in options
 			options[:limit] = 100 if options[:limit].nil?
+			options[:filter_optim] = true if options[:filter_optim].nil?
 			metatags[:rating] = "s" if options[:tags].nil? && options[:metatags].nil? # no tags ==> grab latest SFW (from e926)
 
 			# Overwrite options w/ user settings
@@ -45,10 +46,12 @@ module E621Crawler
 				# put metatags into tags[], then gets the count of the regular tags
 				offline_tags.each do |t| if t.include? ":" then tags << t else temp[t] = Tags.index_exact(t[0] == "-" || t[0] == "~" ? t[1..t.length] : t)["id"] end end
 				# put just the names of the 6 tags w/ highest count into tags[]
-				temp.sort_by(&:last).take(6 - tags.length).each do |a| tags << a[0] end
+				temp.sort_by!(&:last) if options[:filter_optim]
+				temp.take(6 - tags.length).each do |a| tags << a[0] end
 				offline_tags -= tags
 			end
 			options[:tags] = tags*" "
+			options.delete :filter_optim
 			options.each do |k, v| query[k.to_s] = v end
 
 			return PostData.filter_by_tags(PostData.mass_init(E621Crawler.http_get_json([use_e926, "post", "index"], query)), offline_tags)
