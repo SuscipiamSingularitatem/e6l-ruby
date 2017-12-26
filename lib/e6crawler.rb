@@ -13,7 +13,7 @@ module E621Crawler
 		"post" => {
 			"tags" => ["e6l:debug"]
 		},
-		"tags" => {
+		"tag" => {
 			"show" => {"id" => 0}
 		},
 		"wiki" => {
@@ -21,9 +21,8 @@ module E621Crawler
 		}
 	}
 	DRYRUN_DATA["post"]["show"] = {"file_ext" => "png", "tags" => [DRYRUN_DATA["post"]["tags"]]}
-	DRYRUN_DATA["post"]["index"] = [DRYRUN_DATA["post"]["show"]]
 	DRYRUN_DATA["post"]["update"] = {"post" => DRYRUN_DATA["post"]["show"], "success" => true}
-	DRYRUN_DATA["wiki"]["index"] = [DRYRUN_DATA["wiki"]["show"]]
+	["post", "tag", "wiki"].each do |d| DRYRUN_DATA[d]["index"] = [DRYRUN_DATA[d]["show"]] end
 
 	PRETTY_JSON = {space: " ", object_nl: "\n", array_nl: "\n", indent: "\t"}
 	SFW_MODE = E6lSettings.get.safe_only
