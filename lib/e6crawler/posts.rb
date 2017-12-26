@@ -41,9 +41,11 @@ module E621Crawler
 			if tags.length > max_tags # e926 counts as using the "rating:s" tag
 				offline_tags = tags
 				temp = {} # {tag => count} pairs
-				tags.each do |t| temp[t] = Tags.index_exact(t[0] == "-" || t[0] == "~" ? t[1..t.length] : t)["id"] end
 				tags = []
-				temp.sort_by(&:last).take(6).each do |a| tags << a[0] end # just the names of the 6 tags w/ highest count
+				# put metatags into tags[], then gets the count of the regular tags
+				offline_tags.each do |t| if t.include? ":" then tags << t else temp[t] = Tags.index_exact(t[0] == "-" || t[0] == "~" ? t[1..t.length] : t)["id"] end end
+				# put just the names of the 6 tags w/ highest count into tags[]
+				temp.sort_by(&:last).take(6 - tags.length).each do |a| tags << a[0] end
 				offline_tags -= tags
 			end
 			options[:tags] = tags*" "
