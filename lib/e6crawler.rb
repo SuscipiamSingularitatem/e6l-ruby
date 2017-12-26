@@ -52,12 +52,18 @@ module E621Crawler
 	def E621Crawler.http_post_json(loc, post_query) intern_http(false, loc, post_query) end
 
 	class PostData
-		attr_reader :raw_hash, :tags
+		attr_reader :flat_tags, :raw_hash, :tags
 		attr_reader :ext, :preview_tempfile, :sample_tempfile
 
 		def initialize(h)
 			@raw_hash = h
 			@tags = h["tags"]
+			if @tags.class == Hash
+				@flat_tags = []
+				@tags.each_value do |v| @flat_tags.concat v end
+			else
+				@flat_tags = @tags
+			end
 			@tags = @tags.split(" ") if @tags.class == String
 			@ext = h["file_ext"]
 		end
