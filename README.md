@@ -30,3 +30,7 @@ posts.each do |post|
 end
 puts explicit*", "
 ```
+
+## Relevant xkcd
+[![xkcd#1629](https://imgs.xkcd.com/comics/tools.png)](https://xkcd.com/1629)
+[xkcd#1629: Tools](https://xkcd.com/1629)
