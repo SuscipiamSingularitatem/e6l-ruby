@@ -481,13 +481,7 @@
 55
 56
 57
-58
-59
-60
-61
-62
-63
-64</pre>
+58</pre>
     </td>
     <td>
       <pre class="code"><span class="info file"># File 'lib/e6crawler/posts.rb', line 6</span>
@@ -508,6 +502,7 @@
 
 	<span class='comment'># Defaults in options
 </span>	<span class='id identifier rubyid_options'>options</span><span class='lbracket'>[</span><span class='symbol'>:limit</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='int'>100</span> <span class='kw'>if</span> <span class='id identifier rubyid_options'>options</span><span class='lbracket'>[</span><span class='symbol'>:limit</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_nil?'>nil?</span>
+	<span class='id identifier rubyid_options'>options</span><span class='lbracket'>[</span><span class='symbol'>:filter_optim</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='kw'>true</span> <span class='kw'>if</span> <span class='id identifier rubyid_options'>options</span><span class='lbracket'>[</span><span class='symbol'>:filter_optim</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_nil?'>nil?</span>
 	<span class='id identifier rubyid_metatags'>metatags</span><span class='lbracket'>[</span><span class='symbol'>:rating</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>s</span><span class='tstring_end'>&quot;</span></span> <span class='kw'>if</span> <span class='id identifier rubyid_options'>options</span><span class='lbracket'>[</span><span class='symbol'>:tags</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_nil?'>nil?</span> <span class='op'>&amp;&amp;</span> <span class='id identifier rubyid_options'>options</span><span class='lbracket'>[</span><span class='symbol'>:metatags</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_nil?'>nil?</span> <span class='comment'># no tags ==&gt; grab latest SFW (from e926)
 </span>
 	<span class='comment'># Overwrite options w/ user settings
@@ -521,7 +516,7 @@
 		<span class='id identifier rubyid_use_e926'>use_e926</span> <span class='op'>=</span> <span class='kw'>true</span>
 		<span class='id identifier rubyid_metatags'>metatags</span><span class='period'>.</span><span class='id identifier rubyid_delete'>delete</span> <span class='symbol'>:rating</span>
 	<span class='kw'>end</span>
-	<span class='id identifier rubyid_metatags'>metatags</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_k'>k</span><span class='comma'>,</span> <span class='id identifier rubyid_v'>v</span><span class='op'>|</span> <span class='id identifier rubyid_tags'>tags</span> <span class='op'>&lt;&lt;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_k'>k</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span><span class='embexpr_end'>}</span><span class='tstring_content'>:</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_v'>v</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span> <span class='kw'>end</span>
+	<span class='id identifier rubyid_metatags'>metatags</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_k'>k</span><span class='comma'>,</span> <span class='id identifier rubyid_v'>v</span><span class='op'>|</span> <span class='id identifier rubyid_tags'>tags</span> <span class='op'>&lt;&lt;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_k'>k</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span><span class='embexpr_end'>}</span><span class='tstring_content'>:</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_v'>v</span><span class='period'>.</span><span class='id identifier rubyid_gsub'>gsub</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'> </span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span> <span class='kw'>end</span>
 
 	<span class='comment'># Generate querystring
 </span>	<span class='id identifier rubyid_offline_tags'>offline_tags</span> <span class='op'>=</span> <span class='kw'>nil</span>
@@ -534,22 +529,15 @@
 		<span class='comment'># put metatags into tags[], then gets the count of the regular tags
 </span>		<span class='id identifier rubyid_offline_tags'>offline_tags</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_t'>t</span><span class='op'>|</span> <span class='kw'>if</span> <span class='id identifier rubyid_t'>t</span><span class='period'>.</span><span class='id identifier rubyid_include?'>include?</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>:</span><span class='tstring_end'>&quot;</span></span> <span class='kw'>then</span> <span class='id identifier rubyid_tags'>tags</span> <span class='op'>&lt;&lt;</span> <span class='id identifier rubyid_t'>t</span> <span class='kw'>else</span> <span class='id identifier rubyid_temp'>temp</span><span class='lbracket'>[</span><span class='id identifier rubyid_t'>t</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="Tags.html" title="E621Crawler::Tags (class)">Tags</a></span></span><span class='period'>.</span><span class='id identifier rubyid_index_exact'><span class='object_link'><a href="Tags.html#index_exact-class_method" title="E621Crawler::Tags.index_exact (method)">index_exact</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_t'>t</span><span class='lbracket'>[</span><span class='int'>0</span><span class='rbracket'>]</span> <span class='op'>==</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>-</span><span class='tstring_end'>&quot;</span></span> <span class='op'>||</span> <span class='id identifier rubyid_t'>t</span><span class='lbracket'>[</span><span class='int'>0</span><span class='rbracket'>]</span> <span class='op'>==</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>~</span><span class='tstring_end'>&quot;</span></span> <span class='op'>?</span> <span class='id identifier rubyid_t'>t</span><span class='lbracket'>[</span><span class='int'>1</span><span class='op'>..</span><span class='id identifier rubyid_t'>t</span><span class='period'>.</span><span class='id identifier rubyid_length'>length</span><span class='rbracket'>]</span> <span class='op'>:</span> <span class='id identifier rubyid_t'>t</span><span class='rparen'>)</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>id</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span> <span class='kw'>end</span> <span class='kw'>end</span>
 		<span class='comment'># put just the names of the 6 tags w/ highest count into tags[]
-</span>		<span class='id identifier rubyid_temp'>temp</span><span class='period'>.</span><span class='id identifier rubyid_sort_by'>sort_by</span><span class='lparen'>(</span><span class='op'>&amp;</span><span class='symbol'>:last</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_take'>take</span><span class='lparen'>(</span><span class='int'>6</span> <span class='op'>-</span> <span class='id identifier rubyid_tags'>tags</span><span class='period'>.</span><span class='id identifier rubyid_length'>length</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_a'>a</span><span class='op'>|</span> <span class='id identifier rubyid_tags'>tags</span> <span class='op'>&lt;&lt;</span> <span class='id identifier rubyid_a'>a</span><span class='lbracket'>[</span><span class='int'>0</span><span class='rbracket'>]</span> <span class='kw'>end</span>
+</span>		<span class='id identifier rubyid_temp'>temp</span><span class='period'>.</span><span class='id identifier rubyid_sort_by!'>sort_by!</span><span class='lparen'>(</span><span class='op'>&amp;</span><span class='symbol'>:last</span><span class='rparen'>)</span> <span class='kw'>if</span> <span class='id identifier rubyid_options'>options</span><span class='lbracket'>[</span><span class='symbol'>:filter_optim</span><span class='rbracket'>]</span>
+		<span class='id identifier rubyid_temp'>temp</span><span class='period'>.</span><span class='id identifier rubyid_take'>take</span><span class='lparen'>(</span><span class='int'>6</span> <span class='op'>-</span> <span class='id identifier rubyid_tags'>tags</span><span class='period'>.</span><span class='id identifier rubyid_length'>length</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_a'>a</span><span class='op'>|</span> <span class='id identifier rubyid_tags'>tags</span> <span class='op'>&lt;&lt;</span> <span class='id identifier rubyid_a'>a</span><span class='lbracket'>[</span><span class='int'>0</span><span class='rbracket'>]</span> <span class='kw'>end</span>
 		<span class='id identifier rubyid_offline_tags'>offline_tags</span> <span class='op'>-=</span> <span class='id identifier rubyid_tags'>tags</span>
 	<span class='kw'>end</span>
 	<span class='id identifier rubyid_options'>options</span><span class='lbracket'>[</span><span class='symbol'>:tags</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='id identifier rubyid_tags'>tags</span><span class='op'>*</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'> </span><span class='tstring_end'>&quot;</span></span>
+	<span class='id identifier rubyid_options'>options</span><span class='period'>.</span><span class='id identifier rubyid_delete'>delete</span> <span class='symbol'>:filter_optim</span>
 	<span class='id identifier rubyid_options'>options</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_k'>k</span><span class='comma'>,</span> <span class='id identifier rubyid_v'>v</span><span class='op'>|</span> <span class='id identifier rubyid_query'>query</span><span class='lbracket'>[</span><span class='id identifier rubyid_k'>k</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='id identifier rubyid_v'>v</span> <span class='kw'>end</span>
 
-	<span class='id identifier rubyid_posts'>posts</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="PostData.html" title="E621Crawler::PostData (class)">PostData</a></span></span><span class='period'>.</span><span class='id identifier rubyid_mass_init'><span class='object_link'><a href="PostData.html#mass_init-class_method" title="E621Crawler::PostData.mass_init (method)">mass_init</a></span></span> <span class='const'><span class='object_link'><a href="../E621Crawler.html" title="E621Crawler (module)">E621Crawler</a></span></span><span class='period'>.</span><span class='id identifier rubyid_http_get_json'><span class='object_link'><a href="../E621Crawler.html#http_get_json-class_method" title="E621Crawler.http_get_json (method)">http_get_json</a></span></span><span class='lparen'>(</span><span class='lbracket'>[</span><span class='id identifier rubyid_use_e926'>use_e926</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>post</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>index</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='id identifier rubyid_query'>query</span><span class='rparen'>)</span>
-	<span class='kw'>return</span> <span class='id identifier rubyid_posts'>posts</span> <span class='kw'>if</span> <span class='id identifier rubyid_offline_tags'>offline_tags</span><span class='period'>.</span><span class='id identifier rubyid_nil?'>nil?</span>
-	<span class='id identifier rubyid_offline_or'>offline_or</span> <span class='op'>=</span> <span class='id identifier rubyid_offline_tags'>offline_tags</span><span class='period'>.</span><span class='id identifier rubyid_select'>select</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_t'>t</span><span class='op'>|</span> <span class='id identifier rubyid_t'>t</span><span class='lbracket'>[</span><span class='int'>0</span><span class='rbracket'>]</span> <span class='op'>==</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>~</span><span class='tstring_end'>&quot;</span></span> <span class='kw'>end</span>
-	<span class='id identifier rubyid_offline_minus'>offline_minus</span> <span class='op'>=</span> <span class='id identifier rubyid_offline_tags'>offline_tags</span><span class='period'>.</span><span class='id identifier rubyid_select'>select</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_t'>t</span><span class='op'>|</span> <span class='id identifier rubyid_t'>t</span><span class='lbracket'>[</span><span class='int'>0</span><span class='rbracket'>]</span> <span class='op'>==</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>-</span><span class='tstring_end'>&quot;</span></span> <span class='kw'>end</span>
-	<span class='id identifier rubyid_offline_tags'>offline_tags</span> <span class='op'>-=</span> <span class='id identifier rubyid_offline_or'>offline_or</span>
-	<span class='id identifier rubyid_offline_tags'>offline_tags</span> <span class='op'>-=</span> <span class='id identifier rubyid_offline_minus'>offline_minus</span>
-	<span class='id identifier rubyid_posts'>posts</span><span class='period'>.</span><span class='id identifier rubyid_keep_if'>keep_if</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_p'>p</span><span class='op'>|</span> <span class='id identifier rubyid_p'>p</span><span class='period'>.</span><span class='id identifier rubyid_flat_tags'>flat_tags</span><span class='period'>.</span><span class='id identifier rubyid_any?'>any?</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_t'>t</span><span class='op'>|</span> <span class='id identifier rubyid_offline_or'>offline_or</span><span class='period'>.</span><span class='id identifier rubyid_include?'>include?</span><span class='lparen'>(</span><span class='id identifier rubyid_t'>t</span><span class='rparen'>)</span> <span class='kw'>end</span> <span class='kw'>end</span> <span class='kw'>if</span> <span class='id identifier rubyid_offline_or'>offline_or</span><span class='period'>.</span><span class='id identifier rubyid_length'>length</span> <span class='op'>&gt;</span> <span class='int'>0</span> <span class='comment'># are these length checks required?
-</span>	<span class='id identifier rubyid_posts'>posts</span><span class='period'>.</span><span class='id identifier rubyid_keep_if'>keep_if</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_p'>p</span><span class='op'>|</span> <span class='id identifier rubyid_p'>p</span><span class='period'>.</span><span class='id identifier rubyid_flat_tags'>flat_tags</span><span class='period'>.</span><span class='id identifier rubyid_all?'>all?</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_t'>t</span><span class='op'>|</span> <span class='id identifier rubyid_offline_tags'>offline_tags</span><span class='period'>.</span><span class='id identifier rubyid_include?'>include?</span><span class='lparen'>(</span><span class='id identifier rubyid_t'>t</span><span class='rparen'>)</span> <span class='kw'>end</span> <span class='kw'>end</span> <span class='kw'>if</span> <span class='id identifier rubyid_offline_tags'>offline_tags</span><span class='period'>.</span><span class='id identifier rubyid_length'>length</span> <span class='op'>&gt;</span> <span class='int'>0</span>
-	<span class='id identifier rubyid_posts'>posts</span><span class='period'>.</span><span class='id identifier rubyid_keep_if'>keep_if</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_p'>p</span><span class='op'>|</span> <span class='lparen'>(</span><span class='id identifier rubyid_p'>p</span><span class='period'>.</span><span class='id identifier rubyid_flat_tags'>flat_tags</span> <span class='op'>&amp;</span> <span class='id identifier rubyid_offline_minus'>offline_minus</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_length'>length</span> <span class='op'>==</span> <span class='int'>0</span> <span class='kw'>end</span> <span class='kw'>if</span> <span class='id identifier rubyid_offline_minus'>offline_minus</span><span class='period'>.</span><span class='id identifier rubyid_length'>length</span> <span class='op'>&gt;</span> <span class='int'>0</span>
-	<span class='kw'>return</span> <span class='id identifier rubyid_posts'>posts</span>
+	<span class='kw'>return</span> <span class='const'><span class='object_link'><a href="PostData.html" title="E621Crawler::PostData (class)">PostData</a></span></span><span class='period'>.</span><span class='id identifier rubyid_filter_by_tags'><span class='object_link'><a href="PostData.html#filter_by_tags-class_method" title="E621Crawler::PostData.filter_by_tags (method)">filter_by_tags</a></span></span><span class='lparen'>(</span><span class='const'><span class='object_link'><a href="PostData.html" title="E621Crawler::PostData (class)">PostData</a></span></span><span class='period'>.</span><span class='id identifier rubyid_mass_init'><span class='object_link'><a href="PostData.html#mass_init-class_method" title="E621Crawler::PostData.mass_init (method)">mass_init</a></span></span><span class='lparen'>(</span><span class='const'><span class='object_link'><a href="../E621Crawler.html" title="E621Crawler (module)">E621Crawler</a></span></span><span class='period'>.</span><span class='id identifier rubyid_http_get_json'><span class='object_link'><a href="../E621Crawler.html#http_get_json-class_method" title="E621Crawler.http_get_json (method)">http_get_json</a></span></span><span class='lparen'>(</span><span class='lbracket'>[</span><span class='id identifier rubyid_use_e926'>use_e926</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>post</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>index</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='id identifier rubyid_query'>query</span><span class='rparen'>)</span><span class='rparen'>)</span><span class='comma'>,</span> <span class='id identifier rubyid_offline_tags'>offline_tags</span><span class='rparen'>)</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -582,13 +570,13 @@
       <pre class="lines">
 
 
-67
-68
-69
-70</pre>
+61
+62
+63
+64</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/e6crawler/posts.rb', line 67</span>
+      <pre class="code"><span class="info file"># File 'lib/e6crawler/posts.rb', line 61</span>
 
 <span class='kw'>def</span> <span class='const'><span class='object_link'><a href="" title="E621Crawler::Posts (class)">Posts</a></span></span><span class='period'>.</span><span class='id identifier rubyid_intern_show_tags'>intern_show_tags</span><span class='lparen'>(</span><span class='id identifier rubyid_is_show'>is_show</span><span class='comma'>,</span> <span class='id identifier rubyid_use_id'>use_id</span><span class='comma'>,</span> <span class='id identifier rubyid_id'>id</span><span class='comma'>,</span> <span class='id identifier rubyid_md5'>md5</span><span class='comma'>,</span> <span class='id identifier rubyid_safe'>safe</span><span class='rparen'>)</span>
 	<span class='const'><span class='object_link'><a href="../E621Crawler.html" title="E621Crawler (module)">E621Crawler</a></span></span><span class='period'>.</span><span class='id identifier rubyid_http_get_json'><span class='object_link'><a href="../E621Crawler.html#http_get_json-class_method" title="E621Crawler.http_get_json (method)">http_get_json</a></span></span><span class='lparen'>(</span><span class='lbracket'>[</span><span class='id identifier rubyid_safe'>safe</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>post</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_is_show'>is_show</span> <span class='op'>?</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>show</span><span class='tstring_end'>&quot;</span></span> <span class='op'>:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>tags</span><span class='tstring_end'>&quot;</span></span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span><span class='comma'>,</span>
@@ -614,11 +602,11 @@
       <pre class="lines">
 
 
-94
-95</pre>
+88
+89</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/e6crawler/posts.rb', line 94</span>
+      <pre class="code"><span class="info file"># File 'lib/e6crawler/posts.rb', line 88</span>
 
 <span class='kw'>def</span> <span class='const'><span class='object_link'><a href="" title="E621Crawler::Posts (class)">Posts</a></span></span><span class='period'>.</span><span class='id identifier rubyid_intern_update_tags'>intern_update_tags</span><span class='lparen'>(</span><span class='id identifier rubyid_id'>id</span><span class='comma'>,</span> <span class='id identifier rubyid_old_tags'>old_tags</span><span class='comma'>,</span> <span class='id identifier rubyid_tags'>tags</span><span class='comma'>,</span> <span class='id identifier rubyid_reason'>reason</span><span class='rparen'>)</span>
 <span class='kw'>end</span></pre>
@@ -671,10 +659,10 @@
       <pre class="lines">
 
 
-81</pre>
+75</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/e6crawler/posts.rb', line 81</span>
+      <pre class="code"><span class="info file"># File 'lib/e6crawler/posts.rb', line 75</span>
 
 <span class='kw'>def</span> <span class='const'><span class='object_link'><a href="" title="E621Crawler::Posts (class)">Posts</a></span></span><span class='period'>.</span><span class='id identifier rubyid_show'>show</span><span class='lparen'>(</span><span class='id identifier rubyid_id'>id</span><span class='comma'>,</span> <span class='id identifier rubyid_safe'>safe</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../E621Crawler.html#SFW_MODE-constant" title="E621Crawler::SFW_MODE (constant)">SFW_MODE</a></span></span><span class='rparen'>)</span> <span class='const'><span class='object_link'><a href="" title="E621Crawler::Posts (class)">Posts</a></span></span><span class='period'>.</span><span class='id identifier rubyid_show_id'><span class='object_link'><a href="#show_id-class_method" title="E621Crawler::Posts.show_id (method)">show_id</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_id'>id</span><span class='comma'>,</span> <span class='id identifier rubyid_safe'>safe</span><span class='rparen'>)</span> <span class='kw'>end</span></pre>
     </td>
@@ -726,10 +714,10 @@
       <pre class="lines">
 
 
-78</pre>
+72</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/e6crawler/posts.rb', line 78</span>
+      <pre class="code"><span class="info file"># File 'lib/e6crawler/posts.rb', line 72</span>
 
 <span class='kw'>def</span> <span class='const'><span class='object_link'><a href="" title="E621Crawler::Posts (class)">Posts</a></span></span><span class='period'>.</span><span class='id identifier rubyid_show_id'>show_id</span><span class='lparen'>(</span><span class='id identifier rubyid_id'>id</span><span class='comma'>,</span> <span class='id identifier rubyid_safe'>safe</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../E621Crawler.html#SFW_MODE-constant" title="E621Crawler::SFW_MODE (constant)">SFW_MODE</a></span></span><span class='rparen'>)</span> <span class='const'><span class='object_link'><a href="PostData.html" title="E621Crawler::PostData (class)">PostData</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="PostData.html#initialize-instance_method" title="E621Crawler::PostData#initialize (method)">new</a></span></span> <span class='const'><span class='object_link'><a href="" title="E621Crawler::Posts (class)">Posts</a></span></span><span class='period'>.</span><span class='id identifier rubyid_intern_show_tags'><span class='object_link'><a href="#intern_show_tags-class_method" title="E621Crawler::Posts.intern_show_tags (method)">intern_show_tags</a></span></span><span class='lparen'>(</span><span class='kw'>true</span><span class='comma'>,</span> <span class='kw'>true</span><span class='comma'>,</span> <span class='id identifier rubyid_id'>id</span><span class='comma'>,</span> <span class='kw'>nil</span><span class='comma'>,</span> <span class='id identifier rubyid_safe'>safe</span><span class='rparen'>)</span> <span class='kw'>end</span></pre>
     </td>
@@ -781,10 +769,10 @@
       <pre class="lines">
 
 
-74</pre>
+68</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/e6crawler/posts.rb', line 74</span>
+      <pre class="code"><span class="info file"># File 'lib/e6crawler/posts.rb', line 68</span>
 
 <span class='kw'>def</span> <span class='const'><span class='object_link'><a href="" title="E621Crawler::Posts (class)">Posts</a></span></span><span class='period'>.</span><span class='id identifier rubyid_show_md5'>show_md5</span><span class='lparen'>(</span><span class='id identifier rubyid_md5'>md5</span><span class='comma'>,</span> <span class='id identifier rubyid_safe'>safe</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../E621Crawler.html#SFW_MODE-constant" title="E621Crawler::SFW_MODE (constant)">SFW_MODE</a></span></span><span class='rparen'>)</span> <span class='const'><span class='object_link'><a href="PostData.html" title="E621Crawler::PostData (class)">PostData</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="PostData.html#initialize-instance_method" title="E621Crawler::PostData#initialize (method)">new</a></span></span> <span class='const'><span class='object_link'><a href="" title="E621Crawler::Posts (class)">Posts</a></span></span><span class='period'>.</span><span class='id identifier rubyid_intern_show_tags'><span class='object_link'><a href="#intern_show_tags-class_method" title="E621Crawler::Posts.intern_show_tags (method)">intern_show_tags</a></span></span><span class='lparen'>(</span><span class='kw'>true</span><span class='comma'>,</span> <span class='kw'>false</span><span class='comma'>,</span> <span class='kw'>nil</span><span class='comma'>,</span> <span class='id identifier rubyid_md5'>md5</span><span class='comma'>,</span> <span class='id identifier rubyid_safe'>safe</span><span class='rparen'>)</span> <span class='kw'>end</span></pre>
     </td>
@@ -836,10 +824,10 @@
       <pre class="lines">
 
 
-92</pre>
+86</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/e6crawler/posts.rb', line 92</span>
+      <pre class="code"><span class="info file"># File 'lib/e6crawler/posts.rb', line 86</span>
 
 <span class='kw'>def</span> <span class='const'><span class='object_link'><a href="" title="E621Crawler::Posts (class)">Posts</a></span></span><span class='period'>.</span><span class='id identifier rubyid_tags'>tags</span><span class='lparen'>(</span><span class='id identifier rubyid_id'>id</span><span class='comma'>,</span> <span class='id identifier rubyid_safe'>safe</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../E621Crawler.html#SFW_MODE-constant" title="E621Crawler::SFW_MODE (constant)">SFW_MODE</a></span></span><span class='rparen'>)</span> <span class='const'><span class='object_link'><a href="" title="E621Crawler::Posts (class)">Posts</a></span></span><span class='period'>.</span><span class='id identifier rubyid_tags_id'><span class='object_link'><a href="#tags_id-class_method" title="E621Crawler::Posts.tags_id (method)">tags_id</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_id'>id</span><span class='comma'>,</span> <span class='id identifier rubyid_safe'>safe</span><span class='rparen'>)</span> <span class='kw'>end</span></pre>
     </td>
@@ -891,10 +879,10 @@
       <pre class="lines">
 
 
-89</pre>
+83</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/e6crawler/posts.rb', line 89</span>
+      <pre class="code"><span class="info file"># File 'lib/e6crawler/posts.rb', line 83</span>
 
 <span class='kw'>def</span> <span class='const'><span class='object_link'><a href="" title="E621Crawler::Posts (class)">Posts</a></span></span><span class='period'>.</span><span class='id identifier rubyid_tags_id'>tags_id</span><span class='lparen'>(</span><span class='id identifier rubyid_id'>id</span><span class='comma'>,</span> <span class='id identifier rubyid_safe'>safe</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../E621Crawler.html#SFW_MODE-constant" title="E621Crawler::SFW_MODE (constant)">SFW_MODE</a></span></span><span class='rparen'>)</span> <span class='const'><span class='object_link'><a href="" title="E621Crawler::Posts (class)">Posts</a></span></span><span class='period'>.</span><span class='id identifier rubyid_intern_show_tags'><span class='object_link'><a href="#intern_show_tags-class_method" title="E621Crawler::Posts.intern_show_tags (method)">intern_show_tags</a></span></span><span class='lparen'>(</span><span class='kw'>false</span><span class='comma'>,</span> <span class='kw'>true</span><span class='comma'>,</span> <span class='id identifier rubyid_id'>id</span><span class='comma'>,</span> <span class='kw'>nil</span><span class='comma'>,</span> <span class='id identifier rubyid_safe'>safe</span><span class='rparen'>)</span> <span class='kw'>end</span></pre>
     </td>
@@ -946,10 +934,10 @@
       <pre class="lines">
 
 
-85</pre>
+79</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/e6crawler/posts.rb', line 85</span>
+      <pre class="code"><span class="info file"># File 'lib/e6crawler/posts.rb', line 79</span>
 
 <span class='kw'>def</span> <span class='const'><span class='object_link'><a href="" title="E621Crawler::Posts (class)">Posts</a></span></span><span class='period'>.</span><span class='id identifier rubyid_tags_md5'>tags_md5</span><span class='lparen'>(</span><span class='id identifier rubyid_md5'>md5</span><span class='comma'>,</span> <span class='id identifier rubyid_safe'>safe</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../E621Crawler.html#SFW_MODE-constant" title="E621Crawler::SFW_MODE (constant)">SFW_MODE</a></span></span><span class='rparen'>)</span> <span class='const'><span class='object_link'><a href="" title="E621Crawler::Posts (class)">Posts</a></span></span><span class='period'>.</span><span class='id identifier rubyid_intern_show_tags'><span class='object_link'><a href="#intern_show_tags-class_method" title="E621Crawler::Posts.intern_show_tags (method)">intern_show_tags</a></span></span><span class='lparen'>(</span><span class='kw'>false</span><span class='comma'>,</span> <span class='kw'>false</span><span class='comma'>,</span> <span class='kw'>nil</span><span class='comma'>,</span> <span class='id identifier rubyid_md5'>md5</span><span class='comma'>,</span> <span class='id identifier rubyid_safe'>safe</span><span class='rparen'>)</span> <span class='kw'>end</span></pre>
     </td>
@@ -1013,21 +1001,21 @@ confirmation.</p>
       <pre class="lines">
 
 
+93
+94
+95
+96
+97
+98
 99
 100
 101
 102
 103
-104
-105
-106
-107
-108
-109
-110</pre>
+104</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/e6crawler/posts.rb', line 99</span>
+      <pre class="code"><span class="info file"># File 'lib/e6crawler/posts.rb', line 93</span>
 
 <span class='kw'>def</span> <span class='const'><span class='object_link'><a href="" title="E621Crawler::Posts (class)">Posts</a></span></span><span class='period'>.</span><span class='id identifier rubyid_update_tags'>update_tags</span><span class='lparen'>(</span><span class='id identifier rubyid_options'>options</span><span class='rparen'>)</span>
 	<span class='id identifier rubyid_raise'>raise</span> <span class='const'>StandardError</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>OOPS</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span> <span class='kw'>if</span> <span class='id identifier rubyid_options'>options</span><span class='lbracket'>[</span><span class='symbol'>:add</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_nil?'>nil?</span> <span class='op'>&amp;&amp;</span> <span class='id identifier rubyid_options'>options</span><span class='lbracket'>[</span><span class='symbol'>:remove</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_nil?'>nil?</span>
@@ -1051,7 +1039,7 @@ confirmation.</p>
 </div>
 
       <div id="footer">
-  Generated on Tue Dec 26 15:27:11 2017 by
+  Generated on Tue Dec 26 23:08:56 2017 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.12 (ruby-2.4.3).
 </div>
