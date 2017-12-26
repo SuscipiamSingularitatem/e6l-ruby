@@ -35,10 +35,30 @@ module E621Crawler
 			metatags.each do |k, v| tags << "#{k.to_s}:#{v}" end
 
 			# Generate querystring
+			offline_tags = nil
+			max_tags = (use_e926 ? 5 : 6) - metatags.length # check settings when user types are implemented
+			raise StandardError if max_tags < 1
+			if tags.length > max_tags # e926 counts as using the "rating:s" tag
+				offline_tags = tags
+				temp = {} # {tag => count} pairs
+				tags.each do |t| temp[t] = Tags.index_exact(t[0] == "-" || t[0] == "~" ? t[1..t.length] : t)["id"] end
+				tags = []
+				temp.sort_by(&:last).take(6).each do |a| tags << a[0] end # just the names of the 6 tags w/ highest count
+				offline_tags -= tags
+			end
 			options[:tags] = tags*" "
 			options.each do |k, v| query[k.to_s] = v end
 
-			return PostData.mass_init E621Crawler.http_get_json([use_e926, "post", "index"], query)
+			posts = PostData.mass_init E621Crawler.http_get_json([use_e926, "post", "index"], query)
+			return posts if offline_tags.nil?
+			offline_or = offline_tags.select do |t| t[0] == "~" end
+			offline_minus = offline_tags.select do |t| t[0] == "-" end
+			offline_tags -= offline_or
+			offline_tags -= offline_minus
+			posts.keep_if do |p| p.flat_tags.any? do |t| offline_or.include?(t) end end if offline_or.length > 0 # are these length checks required?
+			posts.keep_if do |p| p.flat_tags.all? do |t| offline_tags.include?(t) end end if offline_tags.length > 0
+			posts.keep_if do |p| (p.flat_tags & offline_minus).length == 0 end if offline_minus.length > 0
+			return posts
 		end
 
 		# Overloaded by Posts.show*() and Posts.tags*().
