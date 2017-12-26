@@ -106,7 +106,7 @@
 	<span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>post</span><span class='tstring_end'>&quot;</span></span> <span class='op'>=&gt;</span> <span class='lbrace'>{</span>
 		<span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>tags</span><span class='tstring_end'>&quot;</span></span> <span class='op'>=&gt;</span> <span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>e6l:debug</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span>
 	<span class='rbrace'>}</span><span class='comma'>,</span>
-	<span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>tags</span><span class='tstring_end'>&quot;</span></span> <span class='op'>=&gt;</span> <span class='lbrace'>{</span>
+	<span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>tag</span><span class='tstring_end'>&quot;</span></span> <span class='op'>=&gt;</span> <span class='lbrace'>{</span>
 		<span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>show</span><span class='tstring_end'>&quot;</span></span> <span class='op'>=&gt;</span> <span class='lbrace'>{</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>id</span><span class='tstring_end'>&quot;</span></span> <span class='op'>=&gt;</span> <span class='int'>0</span><span class='rbrace'>}</span>
 	<span class='rbrace'>}</span><span class='comma'>,</span>
 	<span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>wiki</span><span class='tstring_end'>&quot;</span></span> <span class='op'>=&gt;</span> <span class='lbrace'>{</span>
@@ -239,10 +239,10 @@
       <pre class="lines">
 
 
-52</pre>
+51</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/e6crawler.rb', line 52</span>
+      <pre class="code"><span class="info file"># File 'lib/e6crawler.rb', line 51</span>
 
 <span class='kw'>def</span> <span class='const'><span class='object_link'><a href="" title="E621Crawler (module)">E621Crawler</a></span></span><span class='period'>.</span><span class='id identifier rubyid_http_get_json'>http_get_json</span><span class='lparen'>(</span><span class='id identifier rubyid_loc'>loc</span><span class='comma'>,</span> <span class='id identifier rubyid_query'>query</span><span class='rparen'>)</span> <span class='id identifier rubyid_intern_http'><span class='object_link'><a href="#intern_http-class_method" title="E621Crawler.intern_http (method)">intern_http</a></span></span><span class='lparen'>(</span><span class='kw'>true</span><span class='comma'>,</span> <span class='id identifier rubyid_loc'>loc</span><span class='comma'>,</span> <span class='id identifier rubyid_query'>query</span><span class='rparen'>)</span> <span class='kw'>end</span></pre>
     </td>
@@ -265,10 +265,10 @@
       <pre class="lines">
 
 
-53</pre>
+52</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/e6crawler.rb', line 53</span>
+      <pre class="code"><span class="info file"># File 'lib/e6crawler.rb', line 52</span>
 
 <span class='kw'>def</span> <span class='const'><span class='object_link'><a href="" title="E621Crawler (module)">E621Crawler</a></span></span><span class='period'>.</span><span class='id identifier rubyid_http_post_json'>http_post_json</span><span class='lparen'>(</span><span class='id identifier rubyid_loc'>loc</span><span class='comma'>,</span> <span class='id identifier rubyid_post_query'>post_query</span><span class='rparen'>)</span> <span class='id identifier rubyid_intern_http'><span class='object_link'><a href="#intern_http-class_method" title="E621Crawler.intern_http (method)">intern_http</a></span></span><span class='lparen'>(</span><span class='kw'>false</span><span class='comma'>,</span> <span class='id identifier rubyid_loc'>loc</span><span class='comma'>,</span> <span class='id identifier rubyid_post_query'>post_query</span><span class='rparen'>)</span> <span class='kw'>end</span></pre>
     </td>
@@ -302,6 +302,7 @@
       <pre class="lines">
 
 
+34
 35
 36
 37
@@ -317,11 +318,10 @@
 47
 48
 49
-50
-51</pre>
+50</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/e6crawler.rb', line 35</span>
+      <pre class="code"><span class="info file"># File 'lib/e6crawler.rb', line 34</span>
 
 <span class='kw'>def</span> <span class='const'><span class='object_link'><a href="" title="E621Crawler (module)">E621Crawler</a></span></span><span class='period'>.</span><span class='id identifier rubyid_intern_http'>intern_http</span><span class='lparen'>(</span><span class='id identifier rubyid_is_get'>is_get</span><span class='comma'>,</span> <span class='id identifier rubyid_loc'>loc</span><span class='comma'>,</span> <span class='id identifier rubyid_query'>query</span><span class='rparen'>)</span>
 	<span class='id identifier rubyid_uri'>uri</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>e</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_loc'>loc</span><span class='lbracket'>[</span><span class='int'>0</span><span class='rbracket'>]</span> <span class='op'>?</span> <span class='int'>926</span> <span class='op'>:</span> <span class='int'>621</span><span class='embexpr_end'>}</span><span class='tstring_content'>.net/</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_loc'>loc</span><span class='lbracket'>[</span><span class='int'>1</span><span class='rbracket'>]</span><span class='embexpr_end'>}</span><span class='tstring_content'>/</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_loc'>loc</span><span class='lbracket'>[</span><span class='int'>2</span><span class='rbracket'>]</span><span class='embexpr_end'>}</span><span class='tstring_content'>.json</span><span class='tstring_end'>&quot;</span></span>
@@ -350,7 +350,7 @@
 </div>
 
       <div id="footer">
-  Generated on Tue Dec 26 00:04:08 2017 by
+  Generated on Tue Dec 26 15:27:10 2017 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.12 (ruby-2.4.3).
 </div>

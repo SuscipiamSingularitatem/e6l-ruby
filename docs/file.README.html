@@ -80,11 +80,20 @@ rebuild the docs, run <code>yard doc</code> in the repo dir.</p>
 <h2 id="label-Examples">Examples</h2>
 
 <p>Download and display the “sample” version (size-limited) of a particular
-post: <code> E6lQtGUI.single_sample Posts.show_id 546281 </code></p>
+post: <code>ruby E6lQtGUI.single_sample Posts.show_id 546281 </code></p>
+
+<p>From one of Genjar&#39;s tag projects - download and display posts from a
+search of &gt;6 tags (works without privileged!) and record which need to
+be edited: <code>ruby posts = Posts.index(tags: %w{feral -solo
+-masturbation -human -humanoid -anthro -feral_on_feral}, metatags: {rating:
+&quot;e&quot;}) explicit = [] posts.each do |post| 	E6lQtGUI.single_sample
+post 	puts &quot;Was that post feral on feral [Y/N]?&quot; 	explicit
+&lt;&lt; &quot;#{post.raw_hash["id"]}: #{gets.chomp.upcase}&quot; end puts
+explicit*&quot;, &quot; </code></p>
 </div></div>
 
       <div id="footer">
-  Generated on Tue Dec 26 00:04:07 2017 by
+  Generated on Tue Dec 26 15:27:10 2017 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.12 (ruby-2.4.3).
 </div>

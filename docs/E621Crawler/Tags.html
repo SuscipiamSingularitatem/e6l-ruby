@@ -128,6 +128,30 @@
         <li class="public ">
   <span class="summary_signature">
     
+      <a href="#index_exact-class_method" title="index_exact (class method)">.<strong>index_exact</strong>(name)  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Interfaces with <a href="https://e621.net/tag/index.json" target="_parent" title="https://e621.net/tag/index.json">https://e621.net/tag/index.json</a>.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
       <a href="#show-class_method" title="show (class method)">.<strong>show</strong>(id)  &#x21d2; Object </a>
     
 
@@ -183,7 +207,84 @@
 
     
       <div class="method_details first">
-  <h3 class="signature first" id="show-class_method">
+  <h3 class="signature first" id="index_exact-class_method">
+  
+    .<strong>index_exact</strong>(name)  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Interfaces with <a href="https://e621.net/tag/index.json" target="_parent" title="https://e621.net/tag/index.json">https://e621.net/tag/index.json</a>.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'></span>
+      
+      
+      
+        
+        <div class='inline'>
+<p>Hash the tag&#39;s data</p>
+</div>
+      
+    </li>
+  
+</ul>
+<p class="tag_title">NSFW in Safe Warning:</p>
+<ul class="e926_nsfw">
+  
+    <li>
+      
+      
+      
+      
+        
+        <div class='inline'>
+<p>May request NSFW material from e926.net, even with safe_only.</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+7
+8
+9
+10</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/e6crawler/tags.rb', line 7</span>
+
+<span class='kw'>def</span> <span class='const'><span class='object_link'><a href="" title="E621Crawler::Tags (class)">Tags</a></span></span><span class='period'>.</span><span class='id identifier rubyid_index_exact'>index_exact</span><span class='lparen'>(</span><span class='id identifier rubyid_name'>name</span><span class='rparen'>)</span>
+	<span class='const'><span class='object_link'><a href="../E621Crawler.html" title="E621Crawler (module)">E621Crawler</a></span></span><span class='period'>.</span><span class='id identifier rubyid_http_get_json'><span class='object_link'><a href="../E621Crawler.html#http_get_json-class_method" title="E621Crawler.http_get_json (method)">http_get_json</a></span></span><span class='lparen'>(</span><span class='lbracket'>[</span><span class='const'><span class='object_link'><a href="../E621Crawler.html#SFW_MODE-constant" title="E621Crawler::SFW_MODE (constant)">SFW_MODE</a></span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>tag</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>index</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span><span class='comma'>,</span>
+		<span class='const'><span class='object_link'><a href="../E6lSettings.html" title="E6lSettings (module)">E6lSettings</a></span></span><span class='period'>.</span><span class='id identifier rubyid_auth_query'><span class='object_link'><a href="../E6lSettings.html#auth_query-class_method" title="E6lSettings.auth_query (method)">auth_query</a></span></span><span class='lparen'>(</span><span class='lbrace'>{</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>name</span><span class='tstring_end'>&quot;</span></span> <span class='op'>=&gt;</span> <span class='id identifier rubyid_name'>name</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>show_empty_tags</span><span class='tstring_end'>&quot;</span></span> <span class='op'>=&gt;</span> <span class='kw'>true</span><span class='rbrace'>}</span><span class='rparen'>)</span><span class='rparen'>)</span><span class='lbracket'>[</span><span class='int'>0</span><span class='rbracket'>]</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="show-class_method">
   
     .<strong>show</strong>(id)  &#x21d2; <tt>Object</tt> 
   
@@ -242,10 +343,10 @@
       <pre class="lines">
 
 
-13</pre>
+21</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/e6crawler/tags.rb', line 13</span>
+      <pre class="code"><span class="info file"># File 'lib/e6crawler/tags.rb', line 21</span>
 
 <span class='kw'>def</span> <span class='const'><span class='object_link'><a href="" title="E621Crawler::Tags (class)">Tags</a></span></span><span class='period'>.</span><span class='id identifier rubyid_show'>show</span><span class='lparen'>(</span><span class='id identifier rubyid_id'>id</span><span class='rparen'>)</span> <span class='const'><span class='object_link'><a href="" title="E621Crawler::Tags (class)">Tags</a></span></span><span class='period'>.</span><span class='id identifier rubyid_show_id'><span class='object_link'><a href="#show_id-class_method" title="E621Crawler::Tags.show_id (method)">show_id</a></span></span> <span class='id identifier rubyid_id'>id</span> <span class='kw'>end</span></pre>
     </td>
@@ -313,13 +414,13 @@
       <pre class="lines">
 
 
-7
-8
-9
-10</pre>
+15
+16
+17
+18</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/e6crawler/tags.rb', line 7</span>
+      <pre class="code"><span class="info file"># File 'lib/e6crawler/tags.rb', line 15</span>
 
 <span class='kw'>def</span> <span class='const'><span class='object_link'><a href="" title="E621Crawler::Tags (class)">Tags</a></span></span><span class='period'>.</span><span class='id identifier rubyid_show_id'>show_id</span><span class='lparen'>(</span><span class='id identifier rubyid_id'>id</span><span class='rparen'>)</span>
 	<span class='const'><span class='object_link'><a href="../E621Crawler.html" title="E621Crawler (module)">E621Crawler</a></span></span><span class='period'>.</span><span class='id identifier rubyid_http_get_json'><span class='object_link'><a href="../E621Crawler.html#http_get_json-class_method" title="E621Crawler.http_get_json (method)">http_get_json</a></span></span><span class='lparen'>(</span><span class='lbracket'>[</span><span class='const'><span class='object_link'><a href="../E621Crawler.html#SFW_MODE-constant" title="E621Crawler::SFW_MODE (constant)">SFW_MODE</a></span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>tag</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>show</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span><span class='comma'>,</span>
@@ -335,7 +436,7 @@
 </div>
 
       <div id="footer">
-  Generated on Tue Dec 26 00:04:08 2017 by
+  Generated on Tue Dec 26 15:27:11 2017 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.12 (ruby-2.4.3).
 </div>
