@@ -32,7 +32,7 @@ module E621Crawler
 				use_e926 = true
 				metatags.delete :rating
 			end
-			metatags.each do |k, v| tags << "#{k.to_s}:#{v}" end
+			metatags.each do |k, v| tags << "#{k.to_s}:#{v.gsub(" ", "")}" end
 
 			# Generate querystring
 			offline_tags = nil
