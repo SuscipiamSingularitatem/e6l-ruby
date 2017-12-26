@@ -73,6 +73,17 @@ module E621Crawler
 			return r
 		end
 
+		def PostData.filter_by_tags(posts, tags)
+			return posts if tags.nil? || tags.length == 0
+			or_tags = tags.select do |t| t[0] == "~" end
+			minus_tags = tags.select do |t| t[0] == "-" end
+			plus_tags = tags - or_tags - minus_tags
+			posts.keep_if do |p| p.flat_tags.any? do |t| or_tags.include?(t) end end if or_tags.length > 0 # are these length checks required?
+			posts.keep_if do |p| p.flat_tags.all? do |t| plus_tags.include?(t) end end if plus_tags.length > 0
+			posts.keep_if do |p| (p.flat_tags & minus_tags).length == 0 end if minus_tags.length > 0
+			return posts
+		end
+
 		# @return [Boolean] true if "rating:s"
 		def is_sfw?
 			@sfw = @raw_hash["rating"] == "s" if @sfw.nil?

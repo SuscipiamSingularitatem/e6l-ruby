@@ -51,16 +51,7 @@ module E621Crawler
 			options[:tags] = tags*" "
 			options.each do |k, v| query[k.to_s] = v end
 
-			posts = PostData.mass_init E621Crawler.http_get_json([use_e926, "post", "index"], query)
-			return posts if offline_tags.nil?
-			offline_or = offline_tags.select do |t| t[0] == "~" end
-			offline_minus = offline_tags.select do |t| t[0] == "-" end
-			offline_tags -= offline_or
-			offline_tags -= offline_minus
-			posts.keep_if do |p| p.flat_tags.any? do |t| offline_or.include?(t) end end if offline_or.length > 0 # are these length checks required?
-			posts.keep_if do |p| p.flat_tags.all? do |t| offline_tags.include?(t) end end if offline_tags.length > 0
-			posts.keep_if do |p| (p.flat_tags & offline_minus).length == 0 end if offline_minus.length > 0
-			return posts
+			return PostData.filter_by_tags(PostData.mass_init(E621Crawler.http_get_json([use_e926, "post", "index"], query)), offline_tags)
 		end
 
 		# Overloaded by Posts.show*() and Posts.tags*().
