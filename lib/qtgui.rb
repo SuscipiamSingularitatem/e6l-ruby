@@ -19,11 +19,8 @@ module E6lQtGUI
 	# Creates and runs a Qt App which displays a post's "preview" (thumbnail).
 	def E6lQtGUI.single_preview(post)
 		path = case post.ext
-		when "gif", "jpg", "png"
-			post.dl_preview
-			post.preview_tempfile.path
-		when "swf", "webm"
-			"img#{File::SEPARATOR}#{post.ext == "swf" ? "download" : "webm"}-preview.png"
+		when "gif", "jpg", "png"; post.preview_tempfile.path
+		when "swf", "webm"; "img#{File::SEPARATOR}#{post.ext == "swf" ? "download" : "webm"}-preview.png"
 		end
 		qt_app = Qt::Application.new(ARGV)
 		ImageDisplayWindow.new(path, "e6##{post.raw_hash["id"]} (.#{post.ext})", THUMB_SIZE).show
@@ -34,7 +31,6 @@ module E6lQtGUI
 	def E6lQtGUI.single_sample(post)
 		case post.ext
 		when "gif", "jpg", "png"
-			post.dl_sample
 			path = post.sample_tempfile.path
 			window_dims = [post.raw_hash["sample_width"], post.raw_hash["sample_height"]]
 		when "swf", "webm"

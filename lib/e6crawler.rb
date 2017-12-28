@@ -53,7 +53,7 @@ module E621Crawler
 
 	class PostData
 		attr_reader :flat_tags, :raw_hash, :tags
-		attr_reader :ext, :preview_tempfile, :sample_tempfile
+		attr_reader :ext
 
 		def initialize(h)
 			@raw_hash = h
@@ -90,36 +90,24 @@ module E621Crawler
 			return @sfw
 		end
 
-		def dl_preview
-			if @preview_tempfile.nil?
-				@preview_tempfile = Tempfile.new(["e6l-", "." + @raw_hash["file_ext"]])
-				if E6lSettings.get.dry_run
-					FileUtils.touch @preview_tempfile.path
-				else
-					url = @raw_hash["preview_url"]
-					domain = "static1.e#{url.include?("e926.net/") ? "926" : "621"}.net"
-					Net::HTTP.start(domain) do |http|
-						open(@preview_tempfile.path, "wb") do |file|
-							file.write http.get(url.split(domain)[1]).body
-						end
-					end
-				end
+		def preview_tempfile
+			return @preview_tempfile unless @preview_tempfile.nil?
+			@preview_tempfile = Tempfile.new(["e6l-", "." + @raw_hash["file_ext"]])
+			FileUtils.touch @preview_tempfile.path
+			unless E6lSettings.get.dry_run
+				url = @raw_hash["preview_url"]
+				domain = "static1.e#{url.include?("e926.net/") ? "926" : "621"}.net"
+				Net::HTTP.start(domain) do |http| open(@preview_tempfile.path, "wb") do |file| file.write http.get(url.split(domain)[1]).body end end
 			end
 		end
-		def dl_sample
-			if @sample_tempfile.nil?
-				@sample_tempfile = Tempfile.new(["e6l-", "." + @raw_hash["file_ext"]])
-				if E6lSettings.get.dry_run
-					FileUtils.touch @preview_tempfile.path
-				else
-					url = @raw_hash["sample_url"]
-					domain = "static1.e#{url.include?("e926.net/") ? "926" : "621"}.net"
-					Net::HTTP.start(domain) do |http|
-						open(@sample_tempfile.path, "wb") do |file|
-							file.write http.get(url.split(domain)[1]).body
-						end
-					end
-				end
+		def sample_tempfile
+			return @sample_tempfile unless @sample_tempfile.nil?
+			@sample_tempfile = Tempfile.new(["e6l-", "." + @raw_hash["file_ext"]])
+			FileUtils.touch @sample_tempfile.path
+			unless E6lSettings.get.dry_run
+				url = @raw_hash["sample_url"]
+				domain = "static1.e#{url.include?("e926.net/") ? "926" : "621"}.net"
+				Net::HTTP.start(domain) do |http| open(@sample_tempfile.path, "wb") do |file| file.write http.get(url.split(domain)[1]).body end end
 			end
 		end
 
